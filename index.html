@@ -531,7 +531,7 @@
     let hours = (endDate - startDate) / (1000 * 3600);
     if(hours < 0) hours = 0;
     
-    const salary = (hours * 8.4 - 8.4).toFixed(2);
+    const salary = (hours * 10.4 - 10.4).toFixed(2);
     salaryInfo.textContent = `Зарплата: ${salary} руб.`;
     return parseFloat(salary);
   }
@@ -872,6 +872,10 @@
       { id: 7, name: "Зима в Санте", file: "zima.mp3" },
       { id: 8, name: "GIANT", file: "giant.mp3" },
       { id: 9, name: "А папе что?..", file: "pekar.mp3" },
+      { id: 10, name: "Эй санта проверка связи", file: "sv.mp3" },
+      { id: 11, name: "Новая власть", file: "vl.mp3" },
+      { id: 12, name: "Новая власть", file: "vl.mp3" },
+      { id: 13, name: "Сроки сроки сроки", file: "sr.mp3" },
     ];
 
     tracks.forEach(track => {
