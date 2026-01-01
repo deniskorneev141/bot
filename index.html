@@ -531,7 +531,7 @@
     let hours = (endDate - startDate) / (1000 * 3600);
     if(hours < 0) hours = 0;
     
-    const salary = (hours * 10.4 - 10.4).toFixed(2);
+    const salary = (hours * 9 - 9).toFixed(2);
     salaryInfo.textContent = `Зарплата: ${salary} руб.`;
     return parseFloat(salary);
   }
@@ -1040,3 +1040,4 @@
 
 </body>
 </html>
+
