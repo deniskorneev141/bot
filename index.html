@@ -285,12 +285,123 @@
       margin-bottom: 15px;
     }
     
+    /* Стили для калькулятора сроков годности */
+    .expiry_calculator {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .expiry_result {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      background-color: #f8f9fa;
+      border: 2px solid #e9ecef;
+    }
+    .result_green {
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+      color: #155724;
+    }
+    .result_yellow {
+      background-color: #fff3cd;
+      border-color: #ffeaa7;
+      color: #856404;
+    }
+    .result_red {
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+    }
+    .quick_buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+    .quick_btn {
+      flex: 1;
+      min-width: 70px;
+      background-color: #f0f0f0;
+      color: #333;
+      border: 2px solid #ddd;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .quick_btn:hover {
+      background-color: #e0e0e0;
+      border-color: #00a7e0;
+    }
+    .quick_btn.active {
+      background-color: #00a7e0;
+      color: white;
+      border-color: #00a7e0;
+    }
+    .date_input_group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .date_input_group select,
+    .date_input_group input {
+      flex: 1;
+    }
+    .expiry_period {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .expiry_period select,
+    .expiry_period input {
+      flex: 1;
+    }
+    .expiry_info {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+    .info_item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    
     @media (max-width: 480px) {
       body {
         padding: 15px;
       }
       .header h1 {
         font-size: 28px;
+      }
+      .quick_buttons {
+        gap: 8px;
+      }
+      .quick_btn {
+        min-width: 60px;
+        padding: 8px;
+        font-size: 13px;
+      }
+      .date_input_group {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .expiry_period {
+        flex-direction: column;
+        gap: 10px;
       }
     }
   </style>
@@ -304,6 +415,7 @@
   <div class="nav_buttons">
     <a href="#" class="nav_btn" id="allDaysBtn">Все дни</a>
     <a href="#" class="nav_btn active" id="newDayBtn">Новый день</a>
+    <a href="#" class="nav_btn" id="shelfLifeBtn">Сроки годности</a>
     <a href="#" class="nav_btn" id="settingsBtn">Треки</a>
   </div>
   
@@ -343,6 +455,16 @@
       <div class="salary_info" id="salaryInfo">Твои копейки: 0.00 руб.</div>
       <button type="submit" class="submit_btn">Сохранить</button>
     </form>
+
+    <!-- Статичная фотка -->
+<div class="static_photo_container" style="margin: 25px 0;">
+  <div style="text-align: center;">
+    <h3 style="color: #555; margin-bottom: 10px; font-size: 16px;">📸 График на Январь</h3>
+    <img src="sh.jpg" alt="Статичное фото" 
+         style="max-width: 100%; max-height: 200px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+
+  </div>
+</div>
   </div>
   
   <!-- Список всех дней -->
@@ -381,6 +503,74 @@
     
     <div id="daysContainer">
       <!-- Дни будут добавляться сюда -->
+    </div>
+  </div>
+  
+  <!-- Калькулятор сроков годности -->
+  <div class="expiry_calculator" id="shelfLifeForm" style="display: none;">
+    <h2 style="text-align: center; margin-bottom: 20px; color: #00a7e0;">Калькулятор сроков годности</h2>
+    
+    <div class="input_group">
+      <label for="manufactureYear">Год производства</label>
+      <select id="manufactureYear" class="year-select">
+        <!-- Годы будут добавлены через JS -->
+      </select>
+    </div>
+    
+    <div class="input_group">
+      <label for="manufactureDate">Дата производства</label>
+      <div class="date_input_group">
+        <select id="manufactureDay" class="day-select">
+          <!-- Дни будут добавлены через JS -->
+        </select>
+        <select id="manufactureMonth" class="month-select">
+          <option value="0">Январь</option>
+          <option value="1">Февраль</option>
+          <option value="2">Март</option>
+          <option value="3">Апрель</option>
+          <option value="4">Май</option>
+          <option value="5">Июнь</option>
+          <option value="6">Июль</option>
+          <option value="7">Август</option>
+          <option value="8">Сентябрь</option>
+          <option value="9">Октябрь</option>
+          <option value="10">Ноябрь</option>
+          <option value="11">Декабрь</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="input_group">
+      <label>Срок годности</label>
+      <div class="expiry_period">
+        <select id="periodType">
+          <option value="days">Дни</option>
+          <option value="months">Месяцы</option>
+          <option value="years">Годы</option>
+        </select>
+        <input type="number" id="periodValue" min="1" value="30" placeholder="Количество">
+      </div>
+    </div>
+    
+    <div class="input_group">
+      <label>Быстрый выбор срока (в днях)</label>
+      <div class="quick_buttons">
+        <button type="button" class="quick_btn" data-days="10">10 дней</button>
+        <button type="button" class="quick_btn" data-days="15">15 дней</button>
+        <button type="button" class="quick_btn active" data-days="30">30 дней</button>
+        <button type="button" class="quick_btn" data-days="35">35 дней</button>
+        <button type="button" class="quick_btn" data-days="40">40 дней</button>
+        <button type="button" class="quick_btn" data-days="60">60 дней</button>
+        <button type="button" class="quick_btn" data-days="90">90 дней</button>
+      </div>
+    </div>
+    
+    <div class="expiry_result" id="expiryResult">
+      <!-- Результат будет отображаться здесь -->
+    </div>
+    
+    <div class="expiry_info" id="expiryInfo">
+      <!-- Дополнительная информация -->
     </div>
   </div>
 </div>
@@ -424,6 +614,8 @@
   const pageTitle = document.getElementById('pageTitle');
   const allDaysBtn = document.getElementById('allDaysBtn');
   const newDayBtn = document.getElementById('newDayBtn');
+  const shelfLifeBtn = document.getElementById('shelfLifeBtn');
+  const shelfLifeForm = document.getElementById('shelfLifeForm');
   const userFilterBtns = document.querySelectorAll('.user_filter_btn');
   const monthSelect = document.getElementById('monthSelect');
   const currentMonthYear = document.getElementById('currentMonthYear');
@@ -432,6 +624,16 @@
   const totalSalaryEl = document.getElementById('totalSalary');
   const contractSalaryEl = document.getElementById('contractSalary');
   const dateInput = document.getElementById('date');
+
+  // Элементы калькулятора сроков годности
+  const manufactureYear = document.getElementById('manufactureYear');
+  const manufactureDay = document.getElementById('manufactureDay');
+  const manufactureMonth = document.getElementById('manufactureMonth');
+  const periodType = document.getElementById('periodType');
+  const periodValue = document.getElementById('periodValue');
+  const quickButtons = document.querySelectorAll('.quick_btn');
+  const expiryResult = document.getElementById('expiryResult');
+  const expiryInfo = document.getElementById('expiryInfo');
 
   // Стили для медиа-контента
   const style = document.createElement('style');
@@ -485,6 +687,207 @@
   function formatDisplayDate(s) {
     const d = new Date(s);
     return d.toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric'});
+  }
+
+  // Инициализация калькулятора сроков годности
+  function initShelfLifeCalculator() {
+    // Заполняем года (от 2020 до 2030)
+    const currentYear = new Date().getFullYear();
+    manufactureYear.innerHTML = '';
+    for (let year = 2020; year <= 2030; year++) {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      if (year === 2025) {
+        option.selected = true;
+      }
+      manufactureYear.appendChild(option);
+    }
+    
+    // Заполняем дни (1-31)
+    manufactureDay.innerHTML = '';
+    const today = new Date();
+    const currentDay = today.getDate();
+    for (let day = 1; day <= 31; day++) {
+      const option = document.createElement('option');
+      option.value = day;
+      option.textContent = day;
+      if (day === 1) {
+        option.selected = true;
+      }
+      manufactureDay.appendChild(option);
+    }
+    
+    // Устанавливаем текущий месяц
+    manufactureMonth.value = 11;
+    
+    // Рассчитываем сразу при инициализации
+    calculateExpiryDate();
+  }
+
+  // Функция для расчета срока годности
+  function calculateExpiryDate() {
+    try {
+      const year = parseInt(manufactureYear.value);
+      const month = parseInt(manufactureMonth.value);
+      const day = parseInt(manufactureDay.value);
+      
+      // Проверка корректности даты
+      const manufactureDate = new Date(year, month, day);
+      if (manufactureDate.getFullYear() !== year || 
+          manufactureDate.getMonth() !== month || 
+          manufactureDate.getDate() !== day) {
+        expiryResult.innerHTML = '<div style="color: #721c24;">Неверная дата производства</div>';
+        expiryInfo.innerHTML = '';
+        return;
+      }
+      
+      const period = parseInt(periodValue.value) || 30;
+      const type = periodType.value;
+      
+      // Рассчитываем дату окончания срока годности
+      let expiryDate = new Date(manufactureDate);
+      
+      switch(type) {
+        case 'days':
+          expiryDate.setDate(expiryDate.getDate() + period);
+          break;
+        case 'months':
+          expiryDate.setMonth(expiryDate.getMonth() + period);
+          break;
+        case 'years':
+          expiryDate.setFullYear(expiryDate.getFullYear() + period);
+          break;
+      }
+      
+      const today = new Date();
+      const timeDiff = expiryDate.getTime() - today.getTime();
+      const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      
+      // Форматируем даты
+      const formatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+      const manufactureFormatted = manufactureDate.toLocaleDateString('ru-RU', formatOptions);
+      const expiryFormatted = expiryDate.toLocaleDateString('ru-RU', formatOptions);
+      
+      // Определяем статус срока годности
+      let statusClass = '';
+      let statusText = '';
+      let statusEmoji = '';
+      
+      if (daysDiff > 30) {
+        statusClass = 'result_green';
+        statusText = '✅ Срок годности в норме';
+        statusEmoji = '✅';
+      } else if (daysDiff > 0) {
+        statusClass = 'result_yellow';
+        statusText = '⚠️ Срок годности заканчивается';
+        statusEmoji = '⚠️';
+      } else {
+        statusClass = 'result_red';
+        statusText = '❌ Срок годности истёк';
+        statusEmoji = '❌';
+      }
+      
+      // Обновляем результат
+      expiryResult.className = `expiry_result ${statusClass}`;
+      expiryResult.innerHTML = `
+        <div style="font-size: 20px; margin-bottom: 10px;">${statusEmoji} ${statusText}</div>
+        <div style="font-size: 16px; margin-bottom: 5px;">Произведено: ${manufactureFormatted}</div>
+        <div style="font-size: 16px; margin-bottom: 5px;">Годен до: ${expiryFormatted}</div>
+        <div style="font-size: 14px; margin-top: 10px; color: inherit;">
+          Осталось дней: <strong>${daysDiff > 0 ? daysDiff : 0}</strong>
+        </div>
+      `;
+      
+      // Обновляем дополнительную информацию
+      const shelfLifeText = `${period} ${getPeriodText(period, type)}`;
+      expiryInfo.innerHTML = `
+        <div class="info_item">
+          <span>Срок годности:</span>
+          <strong>${shelfLifeText}</strong>
+        </div>
+        <div class="info_item">
+          <span>Прошло с производства:</span>
+          <strong>${getDaysPassed(manufactureDate)} дней</strong>
+        </div>
+        <div class="info_item">
+          <span>Сегодня:</span>
+          <strong>${today.toLocaleDateString('ru-RU', formatOptions)}</strong>
+        </div>
+      `;
+      
+    } catch (error) {
+      console.error('Ошибка расчета:', error);
+      expiryResult.innerHTML = '<div style="color: #721c24;">Ошибка расчета. Проверьте данные.</div>';
+    }
+  }
+
+  // Вспомогательные функции для калькулятора
+  function getPeriodText(period, type) {
+    const lastDigit = period % 10;
+    const lastTwoDigits = period % 100;
+    
+    if (type === 'days') {
+      if (lastDigit === 1 && lastTwoDigits !== 11) return 'день';
+      if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits > 20)) return 'дня';
+      return 'дней';
+    } else if (type === 'months') {
+      if (lastDigit === 1 && lastTwoDigits !== 11) return 'месяц';
+      if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits > 20)) return 'месяца';
+      return 'месяцев';
+    } else if (type === 'years') {
+      if (lastDigit === 1 && lastTwoDigits !== 11) return 'год';
+      if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits > 20)) return 'года';
+      return 'лет';
+    }
+    return '';
+  }
+
+  function getDaysPassed(date) {
+    const today = new Date();
+    const timeDiff = today.getTime() - date.getTime();
+    return Math.floor(timeDiff / (1000 * 3600 * 24));
+  }
+
+  // Навигация по вкладкам
+  function showTab(tabName) {
+    // Скрываем все вкладки
+    newDayForm.style.display = 'none';
+    daysList.style.display = 'none';
+    shelfLifeForm.style.display = 'none';
+    tracksContainer.style.display = 'none';
+    
+    // Обновляем активную кнопку навигации
+    document.querySelectorAll('.nav_btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    
+    // Показываем нужную вкладку
+    switch(tabName) {
+      case 'newDay':
+        newDayForm.style.display = 'block';
+        pageTitle.textContent = 'Добавить рабочий день';
+        newDayBtn.classList.add('active');
+        break;
+      case 'allDays':
+        daysList.style.display = 'block';
+        pageTitle.textContent = 'Все рабочие дни';
+        allDaysBtn.classList.add('active');
+        loadDays();
+        break;
+      case 'shelfLife':
+        shelfLifeForm.style.display = 'block';
+        pageTitle.textContent = 'Калькулятор сроков годности';
+        shelfLifeBtn.classList.add('active');
+        calculateExpiryDate(); // Пересчитываем при открытии
+        break;
+      case 'tracks':
+        tracksContainer.style.display = 'block';
+        pageTitle.textContent = 'Треки и гадания';
+        settingsBtn.classList.add('active');
+        renderTracksContent();
+        break;
+    }
   }
 
   function initMonthSelect() {
@@ -771,32 +1174,46 @@
   let currentYear = new Date().getFullYear();
   let currentMonth = new Date().getMonth();
 
-  // Обработчики событий
+  // Обработчики событий для навигации
   allDaysBtn.addEventListener('click', e => {
     e.preventDefault();
-    newDayForm.style.display = 'none';
-    daysList.style.display = 'block';
-    pageTitle.textContent = 'Все рабочие дни';
-    updateActiveNavBtn(allDaysBtn);
-    loadDays();
+    showTab('allDays');
   });
 
   newDayBtn.addEventListener('click', e => {
     e.preventDefault();
-    newDayForm.style.display = 'block';
-    daysList.style.display = 'none';
-    pageTitle.textContent = 'Добавить рабочий день';
-    updateActiveNavBtn(newDayBtn);
+    showTab('newDay');
   });
 
-  function updateActiveNavBtn(activeBtn) {
-    document.querySelectorAll('.nav_btn').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    activeBtn.classList.add('active');
-  }
+  shelfLifeBtn.addEventListener('click', e => {
+    e.preventDefault();
+    showTab('shelfLife');
+  });
 
-  
+  // Обработчики для калькулятора сроков годности
+  manufactureYear.addEventListener('change', calculateExpiryDate);
+  manufactureMonth.addEventListener('change', calculateExpiryDate);
+  manufactureDay.addEventListener('change', calculateExpiryDate);
+  periodType.addEventListener('change', calculateExpiryDate);
+  periodValue.addEventListener('input', calculateExpiryDate);
+
+  // Быстрые кнопки для сроков годности
+  quickButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Убираем активный класс со всех кнопок
+      quickButtons.forEach(btn => btn.classList.remove('active'));
+      // Добавляем активный класс нажатой кнопке
+      button.classList.add('active');
+      
+      // Устанавливаем дни и переключаем на дни
+      const days = parseInt(button.dataset.days);
+      periodValue.value = days;
+      periodType.value = 'days';
+      
+      // Пересчитываем
+      calculateExpiryDate();
+    });
+  });
 
   userFilterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -812,10 +1229,6 @@
     loadDays();
   });
 
-  // Инициализация
-  initMonthSelect();
-  loadDays();
-
   // Добавляем обработчик для кнопки "Треки"
   const settingsBtn = document.getElementById('settingsBtn');
   const tracksContainer = document.createElement('div');
@@ -826,12 +1239,7 @@
 
   settingsBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    newDayForm.style.display = 'none';
-    daysList.style.display = 'none';
-    tracksContainer.style.display = 'block';
-    pageTitle.textContent = 'Треки и гадания';
-    updateActiveNavBtn(settingsBtn);
-    renderTracksContent();
+    showTab('tracks');
   });
 
   function renderTracksContent() {
@@ -862,7 +1270,7 @@
 
     // Добавляем треки
     const tracksGrid = document.getElementById('tracksGrid');
-    const tracks = [
+   const tracks = [
       { id: 1, name: "27 мы шагнули в зал весны", file: "27.mp3" },
       { id: 2, name: "нет слов", file: "net.mp3" },
       { id: 3, name: "после этого трека хочется лечь на бананке и забыть обо всём", file: "gud.mp3" },
@@ -874,8 +1282,19 @@
       { id: 9, name: "А папе что?..", file: "pekar.mp3" },
       { id: 10, name: "Эй санта проверка связи", file: "sv.mp3" },
       { id: 11, name: "Новая власть", file: "vl.mp3" },
-      { id: 12, name: "Новая власть", file: "vl.mp3" },
-      { id: 13, name: "Сроки сроки сроки", file: "sr.mp3" },
+      { id: 12, name: "Сроки сроки сроки", file: "sr.mp3" },
+      { id: 13, name: "Промокод ЯндексМузыка", file: "promo.mp3" },
+      { id: 14, name: "Бедолага Сергей", file: "bedolaga.mp3" },
+      { id: 15, name: "Травма", file: "travma.mp3" },
+      { id: 16, name: "Ремейк новая поза вертолет", file: "remake.mp3" },
+      { id: 17, name: "SVETIK", file: "SVETIK.mp3" },
+      { id: 18, name: "Запись в дневнике №69", file: "69.mp3" },
+      { id: 19, name: "Письмо", file: "pismo.mp3" },
+      { id: 20, name: "Скачет Зоя на плотве сквозь поля, леса", file: "plotva.mp3" },
+      { id: 21, name: "Лето в санте с членососовой", file: "0627.mp3" },
+      { id: 1, name: "Я  директор но теряю контроль", file: "director.mp3" },
+      { id: 1, name: "", file: " " },
+      { id: 1, name: "", file: " " },
     ];
 
     tracks.forEach(track => {
@@ -1034,10 +1453,11 @@
     }
   `;
   document.head.appendChild(tracksStyles);
-  
+
+  // Инициализация
+  initMonthSelect();
+  initShelfLifeCalculator();
+  loadDays();
 </script>
-
-
 </body>
 </html>
-
