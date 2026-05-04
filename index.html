@@ -1,1581 +1,2389 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Санта | Рабочие дни</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-color: #00a7e0;
-      font-family: 'Roboto', Tahoma, sans-serif;
-      color: white;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    .header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 30px;
-    }
-    .nav_buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 25px;
-      gap: 10px;
-    }
-    .nav_btn {
-      flex: 1;
-      background-color: rgba(255,255,255,0.2);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-      text-decoration: none;
-    }
-    .nav_btn:hover {
-      background-color: rgba(255,255,255,0.3);
-    }
-    .nav_btn.active {
-      background-color: white;
-      color: #00a7e0;
-    }
-    .form_card {
-      background-color: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      color: #333;
-    }
-    .input_group {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      color: #555;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 16px;
-      color: #333;
-    }
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-    .time_inputs {
-      display: flex;
-      gap: 10px;
-    }
-    .time_inputs input {
-      flex: 1;
-    }
-    .radio_group {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      color: #333;
-    }
-    .radio_option {
-      display: flex;
-      align-items: center;
-    }
-    .radio_option input {
-      width: auto;
-      margin-right: 8px;
-    }
-    .file_upload {
-      margin: 25px 0;
-      position: relative;
-    }
-    .upload_btn {
-      display: block;
-      background-color: #f0f0f0;
-      color: #555;
-      padding: 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      text-align: center;
-      font-size: 16px;
-      transition: all 0.3s;
-      border: 2px dashed #ccc;
-    }
-    .upload_btn:hover {
-      background-color: #e0e0e0;
-      border-color: #aaa;
-    }
-    .file_input {
-      position: absolute;
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      cursor: pointer;
-    }
-    .file_preview {
-      margin-top: 15px;
-      display: none;
-    }
-    .file_preview.active {
-      display: block;
-    }
-    .file_item {
-      display: flex;
-      align-items: center;
-      background-color: #f8f8f8;
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      color: #333;
-    }
-    .file_icon {
-      margin-right: 10px;
-      color: #00a7e0;
-      font-size: 20px;
-      line-height: 1;
-    }
-    .file_name {
-      flex: 1;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .salary_info {
-      margin-bottom: 20px;
-      font-weight: 600;
-      color: #333;
-      font-size: 16px;
-      text-align: right;
-    }
-    .submit_btn {
-      background-color: #00a7e0;
-      color: white;
-      border: none;
-      padding: 16px;
-      border-radius: 8px;
-      font-size: 18px;
-      font-weight: 500;
-      width: 100%;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .submit_btn:hover {
-      background-color: #0088c0;
-    }
-    
-    /* Стили для списка дней */
-    .days_list {
-      display: none;
-    }
-    .day_card {
-      background-color: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 15px;
-      color: #333;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .day_header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-    .day_time {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-    .day_comment {
-      margin-bottom: 15px;
-      white-space: pre-wrap;
-    }
-    .day_media {
-      margin-top: 15px;
-    }
-    .media_item {
-      display: inline-block;
-      margin-right: 10px;
-      margin-bottom: 10px;
-    }
-    .delete_btn {
-      background-color: #ff4444;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      font-size: 14px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 15px;
-    }
-    .user_filter {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-    .user_filter_btn {
-      background-color: rgba(255,255,255,0.2);
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .user_filter_btn.active {
-      background-color: white;
-      color: #00a7e0;
-    }
-    
-    /* Статистика */
-    .stats_container {
-      background-color: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      color: #333;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .stats_header {
-      font-weight: 700;
-      margin-bottom: 15px;
-      text-align: center;
-      font-size: 18px;
-    }
-    .stats_item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .stats_label {
-      font-weight: 500;
-    }
-    .stats_value {
-      font-weight: 600;
-    }
-    .month_selector {
-      margin-bottom: 15px;
-    }
-    
-    /* Стили для калькулятора сроков годности */
-    .expiry_calculator {
-      background-color: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 15px;
-      color: #333;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .expiry_result {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: 600;
-      background-color: #f8f9fa;
-      border: 2px solid #e9ecef;
-    }
-    .result_green {
-      background-color: #d4edda;
-      border-color: #c3e6cb;
-      color: #155724;
-    }
-    .result_yellow {
-      background-color: #fff3cd;
-      border-color: #ffeaa7;
-      color: #856404;
-    }
-    .result_red {
-      background-color: #f8d7da;
-      border-color: #f5c6cb;
-      color: #721c24;
-    }
-    .quick_buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-    }
-    .quick_btn {
-      flex: 1;
-      min-width: 70px;
-      background-color: #f0f0f0;
-      color: #333;
-      border: 2px solid #ddd;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
-    }
-    .quick_btn:hover {
-      background-color: #e0e0e0;
-      border-color: #00a7e0;
-    }
-    .quick_btn.active {
-      background-color: #00a7e0;
-      color: white;
-      border-color: #00a7e0;
-    }
-    .date_input_group {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    .date_input_group select,
-    .date_input_group input {
-      flex: 1;
-    }
-    .expiry_period {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    .expiry_period select,
-    .expiry_period input {
-      flex: 1;
-    }
-    .expiry_info {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      font-size: 14px;
-      color: #666;
-    }
-    .info_item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 5px;
-    }
+    <meta charset="UTF-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Санта | Рабочие дни</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --blue: #00a7e0;
+            --blue-dark: #0088c0;
+            --blue-light: #e6f7fd;
+            --blue-glow: rgba(0, 167, 224, 0.25);
+            --bg: #f0f5f9;
+            --surface: #ffffff;
+            --text: #1a1d23;
+            --text-secondary: #5a5f6b;
+            --text-muted: #8b9099;
+            --border: #e2e7ed;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --radius-sm: 8px;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Roboto', 'Tahoma', 'Geneva', sans-serif;
+            --safe-bottom: env(safe-area-inset-bottom, 12px);
+        }
 
-    .calendar_day {
-      padding: 5px 2px;
-      border-radius: 4px;
-      background: #f8f9fa;
-      display: flex;
-      flex-direction: column;
-      min-height: 35px;
-    }
-    .calendar_day.today {
-      border: 2px solid #00a7e0;
-    }
-    .shift_v { color: #e91e63; font-weight: bold; font-size: 10px; } /* Валя - розовый */
-    .shift_z { color: #4caf50; font-weight: bold; font-size: 10px; } /* Зоя - зеленый */
-    .day_num { font-weight: 500; }
-    .weekday_header { font-weight: 700; color: #00a7e0; padding-bottom: 5px; }
-    
-    
-    @media (max-width: 480px) {
-      body {
-        padding: 15px;
-      }
-      .header h1 {
-        font-size: 28px;
-      }
-      .quick_buttons {
-        gap: 8px;
-      }
-      .quick_btn {
-        min-width: 60px;
-        padding: 8px;
-        font-size: 13px;
-      }
-      .date_input_group {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .expiry_period {
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
-  </style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            min-height: 100dvh;
+            line-height: 1.5;
+            padding-bottom: calc(80px + var(--safe-bottom));
+            user-select: none;
+            -webkit-user-select: none;
+            overflow-x: hidden;
+        }
+
+        /* ── Header ─────────────────────── */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            padding: 14px 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--border);
+        }
+        .app-header .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.3px;
+            color: var(--text);
+        }
+        .app-header .logo .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--blue);
+            display: inline-block;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 var(--blue-glow);
+            }
+            50% {
+                box-shadow: 0 0 0 12px transparent;
+            }
+        }
+        .app-header .page-title {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 2px;
+            letter-spacing: 0.2px;
+        }
+
+        /* ── Main Container ─────────────── */
+        .main-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 12px 16px 0;
+        }
+
+        /* ── Tab Panels ────────────────── */
+        .tab-panel {
+            display: none;
+            animation: fadeSlideIn 0.3s ease;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Bottom Navigation ─────────── */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            background: var(--surface);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 8px calc(8px + var(--safe-bottom));
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 200;
+            border-top: 1px solid var(--border);
+            border-radius: 20px 20px 0 0;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 14px;
+            transition: var(--transition);
+            min-width: 56px;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+        }
+        .nav-item .nav-icon {
+            font-size: 22px;
+            line-height: 1;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+        .nav-item .nav-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+            transition: var(--transition);
+        }
+        .nav-item.active {
+            background: var(--blue-light);
+        }
+        .nav-item.active .nav-label {
+            color: var(--blue);
+        }
+        .nav-item.active .nav-icon {
+            transform: scale(1.15);
+        }
+        .nav-item:active {
+            transform: scale(0.94);
+        }
+
+        /* ── Cards ─────────────────────── */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 14px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .card-header {
+            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 16px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-header .card-icon {
+            font-size: 20px;
+        }
+
+        /* ── Form Elements ─────────────── */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+            text-transform: uppercase;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-family: var(--font);
+            font-size: 15px;
+            color: var(--text);
+            background: #fafbfc;
+            transition: var(--transition);
+            -webkit-appearance: none;
+            appearance: none;
+            resize: vertical;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--blue);
+            background: #fff;
+            box-shadow: 0 0 0 4px var(--blue-glow);
+        }
+        .form-group textarea {
+            min-height: 90px;
+        }
+        .time-row {
+            display: flex;
+            gap: 10px;
+        }
+        .time-row input {
+            flex: 1;
+        }
+
+        /* ── User Toggle ──────────────── */
+        .user-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .user-toggle-btn {
+            flex: 1;
+            padding: 13px 12px;
+            border-radius: var(--radius);
+            border: 2px solid var(--border);
+            background: #fafbfc;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            font-family: var(--font);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .user-toggle-btn.active {
+            background: var(--blue);
+            color: #fff;
+            border-color: var(--blue);
+            box-shadow: 0 4px 14px var(--blue-glow);
+        }
+        .user-toggle-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* ── File Upload ──────────────── */
+        .file-upload-area {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: #fafbfc;
+            position: relative;
+        }
+        .file-upload-area:hover {
+            border-color: var(--blue);
+            background: var(--blue-light);
+        }
+        .file-upload-area input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .file-upload-area .upload-text {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+        .file-preview-list {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .file-preview-item {
+            background: var(--blue-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--blue-dark);
+            font-weight: 500;
+            white-space: nowrap;
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── Salary Badge ─────────────── */
+        .salary-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #e8fdf5, #d4f7e8);
+            color: #0d7d4a;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 10px 18px;
+            border-radius: 30px;
+            margin-bottom: 14px;
+            border: 1px solid #b8e8d0;
+        }
+
+        /* ── Submit Button ────────────── */
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: var(--blue);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+            transition: var(--transition);
+            font-family: var(--font);
+            box-shadow: 0 4px 16px var(--blue-glow);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+            background: var(--blue-dark);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* ── Day Card ─────────────────── */
+        .day-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .day-card .day-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .day-card .day-user {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--blue);
+        }
+        .day-card .day-date {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .day-card .day-time {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        .day-card .day-comment {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 8px;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        .day-card .day-salary {
+            font-weight: 600;
+            color: #0d7d4a;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .day-card .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .day-card .media-grid img,
+        .day-card .media-grid video {
+            width: 100%;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            aspect-ratio: 1;
+            background: #f0f0f0;
+        }
+        .btn-delete {
+            width: 100%;
+            padding: 10px;
+            background: #fff;
+            color: #e04040;
+            border: 2px solid #fcc;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-delete:active {
+            background: #fff5f5;
+            border-color: #e04040;
+        }
+
+        /* ── Stats Card ──────────────── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .stat-item {
+            background: #f8fafb;
+            border-radius: var(--radius);
+            padding: 14px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .stat-value {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--blue);
+            letter-spacing: -0.5px;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .stat-item.full {
+            grid-column: 1 / -1;
+        }
+
+        /* ── Filter Buttons ──────────── */
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .filter-chip {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            background: #fff;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font);
+            -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
+        }
+        .filter-chip.active {
+            background: var(--blue);
+            color: #fff;
+            border-color: var(--blue);
+        }
+        .filter-chip:active {
+            transform: scale(0.95);
+        }
+
+        /* ── Shelf Life Calculator ───── */
+        .quick-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .quick-btn {
+            padding: 9px 14px;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            background: #fff;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font);
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .quick-btn.active {
+            background: var(--blue);
+            color: #fff;
+            border-color: var(--blue);
+        }
+        .quick-btn:active {
+            transform: scale(0.94);
+        }
+        .expiry-result {
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            transition: var(--transition);
+            border: 2px solid var(--border);
+            line-height: 1.6;
+        }
+        .expiry-result.green {
+            background: #d4edda;
+            border-color: #a8dbb5;
+            color: #155724;
+        }
+        .expiry-result.yellow {
+            background: #fff3cd;
+            border-color: #ffe082;
+            color: #856404;
+        }
+        .expiry-result.red {
+            background: #f8d7da;
+            border-color: #f5a3a8;
+            color: #721c24;
+        }
+
+        /* ── Shift Calendar ──────────── */
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .calendar-nav button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            background: var(--blue);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: 14px;
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .calendar-nav button:active {
+            transform: scale(0.94);
+            background: var(--blue-dark);
+        }
+        .calendar-nav .month-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text);
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+            text-align: center;
+            font-size: 11px;
+        }
+        .calendar-grid .weekday-header {
+            font-weight: 700;
+            color: var(--blue);
+            padding: 4px 0;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .calendar-grid .cal-day {
+            padding: 6px 2px;
+            border-radius: 6px;
+            background: #f8fafb;
+            min-height: 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+        .calendar-grid .cal-day.today {
+            border: 2px solid var(--blue);
+            background: var(--blue-light);
+            font-weight: 700;
+        }
+        .calendar-grid .cal-day .shift-v {
+            color: #e91e63;
+            font-weight: 700;
+            font-size: 9px;
+            letter-spacing: 0.3px;
+        }
+        .calendar-grid .cal-day .shift-z {
+            color: #4caf50;
+            font-weight: 700;
+            font-size: 9px;
+            letter-spacing: 0.3px;
+        }
+        .calendar-legend {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+        .calendar-legend strong {
+            font-weight: 700;
+        }
+
+        /* ── Music Player ────────────── */
+        .player-now-playing {
+            text-align: center;
+            padding: 10px 0 16px;
+        }
+        .player-disc {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            background: linear-gradient(135deg, #1a1d23 0%, #2a3040 40%, #3a4050 70%, #1a1d23 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            position: relative;
+            transition: var(--transition);
+        }
+        .player-disc.spinning {
+            animation: spinDisc 3s linear infinite;
+        }
+        @keyframes spinDisc {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .player-disc .disc-hole {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg);
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .player-track-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 4px;
+            line-height: 1.3;
+            padding: 0 10px;
+        }
+        .player-track-artist {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .player-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 12px;
+            margin-bottom: 6px;
+        }
+        .player-progress .time {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+            min-width: 32px;
+            text-align: center;
+        }
+        .progress-bar-wrap {
+            flex: 1;
+            height: 6px;
+            background: #e2e7ed;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--blue);
+            border-radius: 3px;
+            transition: width 0.15s linear;
+            width: 0%;
+        }
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 8px 0 16px;
+        }
+        .player-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: #f0f4f8;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+            color: var(--text);
+        }
+        .player-btn.play-btn {
+            width: 60px;
+            height: 60px;
+            background: var(--blue);
+            color: #fff;
+            font-size: 24px;
+            box-shadow: 0 6px 20px var(--blue-glow);
+        }
+        .player-btn.play-btn:active {
+            transform: scale(0.9);
+            background: var(--blue-dark);
+        }
+        .player-btn:active {
+            transform: scale(0.9);
+            background: #e2e7ed;
+        }
+        .playlist {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            max-height: 420px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 2px;
+        }
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+            border: 2px solid transparent;
+        }
+        .playlist-item:active {
+            background: #f0f4f8;
+        }
+        .playlist-item.playing {
+            background: var(--blue-light);
+            border-color: var(--blue);
+        }
+        .playlist-item .pl-num {
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-muted);
+            min-width: 24px;
+            text-align: center;
+        }
+        .playlist-item.playing .pl-num {
+            color: var(--blue);
+        }
+        .playlist-item .pl-name {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.3;
+        }
+        .playlist-item.playing .pl-name {
+            font-weight: 700;
+            color: var(--blue-dark);
+        }
+        .playlist-item .pl-icon {
+            font-size: 16px;
+            color: var(--blue);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .playlist-item.playing .pl-icon {
+            opacity: 1;
+        }
+        .player-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* ── Scrollbar ────────────────── */
+        .playlist::-webkit-scrollbar {
+            width: 3px;
+        }
+        .playlist::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .playlist::-webkit-scrollbar-thumb {
+            background: #d0d5db;
+            border-radius: 3px;
+        }
+
+        /* ── Toast ────────────────────── */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1d23;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            max-width: 90vw;
+            text-align: center;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* ── Responsive ──────────────── */
+        @media (max-width: 380px) {
+            .player-disc {
+                width: 100px;
+                height: 100px;
+            }
+            .player-btn.play-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            .player-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+            }
+            .player-controls {
+                gap: 14px;
+            }
+            .calendar-grid {
+                font-size: 10px;
+                gap: 1px;
+            }
+            .calendar-grid .cal-day {
+                padding: 4px 1px;
+                min-height: 30px;
+            }
+        }
+        @media (min-width: 500px) {
+            .main-container {
+                padding: 16px 0 0;
+            }
+            .bottom-nav {
+                border-radius: 20px 20px 0 0;
+            }
+        }
+
+        .cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  margin: 8px 0;
+}
+.cal-grid .cal-day-header {
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--blue);
+  padding: 6px 0;
+  text-transform: uppercase;
+}
+.cal-grid .cal-day {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  cursor: pointer;
+  transition: 0.15s;
+  user-select: none;
+}
+.cal-grid .cal-day.today {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px var(--blue-glow);
+}
+.cal-grid .cal-day.polina {
+  background: #d7bde2;
+  border-color: #9b59b6;
+  color: #4a235a;
+}
+.cal-grid .cal-day.denis {
+  background: #a9dfbf;
+  border-color: #2ecc71;
+  color: #1a4d2e;
+}
+.cal-grid .cal-day.both {
+  background: #f5b041;
+  border-color: #e67e22;
+  color: #5c3409;
+}
+    </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1 id="pageTitle">Добавить рабочий день</h1>
+
+    <!-- ── Header ────────────────────────── -->
+    <header class="app-header">
+        <div class="logo">САНТА<span class="dot"></span></div>
+        <div class="page-title" id="pageTitle">Добавить рабочий день</div>
+    </header>
+
+    <!-- ── Main Content ──────────────────── -->
+    <div class="main-container">
+
+        <!-- Tab 1: New Day -->
+        <div class="tab-panel active" id="panelNewDay">
+          <!-- Рандомный день из прошлого -->
+<div class="card" id="randomDayCard" style="margin-top: 12px;">
+  <div class="card-header"><span class="card-icon">🎲</span> Случайный день из прошлого</div>
+  <div id="randomDayContent" style="text-align: center; color: var(--text-muted); padding: 10px;">
+    Загрузка...
   </div>
-  
-  <div class="nav_buttons">
-    <a href="#" class="nav_btn" id="allDaysBtn">Все дни</a>
-    <a href="#" class="nav_btn active" id="newDayBtn">Новый день</a>
-    <a href="#" class="nav_btn" id="shelfLifeBtn">Сроки годности</a>
-    <a href="#" class="nav_btn" id="settingsBtn">Треки</a>
-  </div>
-  
-  <!-- Форма добавления нового дня -->
-  <div class="form_card" id="newDayForm">
-    <form id="dayForm">
-      <div class="radio_group">
-        <div class="radio_option">
-          <input type="radio" id="denis" name="user" value="Денис" checked />
-          <label for="denis">Денис лучший</label>
-        </div>
-        <div class="radio_option">
-          <input type="radio" id="polina" name="user" value="Полина" />
-          <label for="polina">Полина пикми</label>
-        </div>
-      </div>
-      <div class="input_group">
-        <label for="date">Дата</label>
-        <input type="date" id="date" required />
-      </div>
-      <div class="input_group">
-        <label>Время работы</label>
-        <div class="time_inputs">
-          <input type="time" id="start_time" value="08:00" required />
-          <input type="time" id="end_time" value="20:00" required />
-        </div>
-      </div>
-      <div class="input_group">
-        <label for="comment">Комментарий ко дню</label>
-        <textarea id="comment" placeholder="писать тут если чо..."></textarea>
-      </div>
-      <div class="file_upload">
-        <label class="upload_btn" for="media">+ Прикрепить фото</label>
-        <input type="file" id="media" class="file_input" accept="image/*,video/*" multiple />
-        <div class="file_preview" id="filePreview"></div>
-      </div>
-      <div class="salary_info" id="salaryInfo">Твои копейки: 0.00 руб.</div>
-      <button type="submit" class="submit_btn">Сохранить</button>
-    </form>
-    <br><br><br>
-    <div class="shift_calendar_container" style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-    <button type="button" id="prevMonth" class="nav_btn" style="flex: 0; padding: 5px 15px; background: #00a7e0;"><</button>
-    <h3 id="calendarMonthTitle" style="color: #333; font-size: 16px; margin: 0;">Месяц 2026</h3>
-    <button type="button" id="nextMonth" class="nav_btn" style="flex: 0; padding: 5px 15px; background: #00a7e0;">></button>
-  </div>
-  <div id="shiftCalendarGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; color: #333; font-size: 12px;">
-    </div>
-  <div style="margin-top: 10px; font-size: 11px; color: #666; display: flex; gap: 10px; justify-content: center;">
-    <span><strong>В</strong> — Валя</span>
-    <span><strong>З</strong> — Зоя</span>
-  </div>
+  <button class="btn-primary" id="refreshRandomDay" style="margin-top: 10px; font-size: 14px; padding: 10px;">
+    🔄 Показать другой
+  </button>
 </div>
+            <div class="card">
+                <div class="card-header"><span class="card-icon">📝</span> Новая запись</div>
+                <form id="dayForm">
+                    <div class="user-toggle" id="userToggle">
+                        <button type="button" class="user-toggle-btn active" data-user="Денис">👑 Денис легенда</button>
+                        <button type="button" class="user-toggle-btn" data-user="Полина">💪 Полина пикми</button>
+                    </div>
+                    <input type="hidden" name="user" id="userHidden" value="Денис" />
+
+                    <div class="form-group">
+                        <label for="date">📅 Дата</label>
+                        <input type="date" id="date" required />
+                    </div>
+                    <div class="form-group">
+                        <label>⏰ Время работы</label>
+                        <div class="time-row">
+                            <input type="time" id="start_time" value="08:00" required />
+                            <input type="time" id="end_time" value="20:00" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">💬 Комментарий</label>
+                        <textarea id="comment" placeholder="писать тут если чо..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>📎 Фото / Видео</label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <span class="upload-text">+ Прикрепить файлы</span>
+                            <input type="file" id="media" accept="image/*,video/*" multiple />
+                        </div>
+                        <div class="file-preview-list" id="filePreviewList"></div>
+                    </div>
+                    <div class="salary-badge" id="salaryBadge">💰 Копейки: 0.00 руб.</div>
+                    <button type="submit" class="btn-primary">💾 Сохранить</button>
+                </form>
+            </div>
+
+            <!-- Shift Calendar -->
+            <div class="card">
+                <div class="card-header"><span class="card-icon">📋</span> График смен (Валя / Зоя)</div>
+                <div class="calendar-nav">
+                    <button type="button" id="prevMonth">◀</button>
+                    <span class="month-title" id="calendarMonthTitle">Месяц</span>
+                    <button type="button" id="nextMonth">▶</button>
+                </div>
+                <div class="calendar-grid" id="shiftCalendarGrid"></div>
+                <div class="calendar-legend">
+                    <span><strong style="color:#e91e63;">В</strong> — Валя</span>
+                    <span><strong style="color:#4caf50;">З</strong> — Зоя</span>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Tab 2: All Days -->
+        <div class="tab-panel" id="panelAllDays">
+       
+             <!-- Общая статистика за всё время -->
+        <div class="card" id="totalStatsCard" style="margin-bottom: 12px;">
+          <div class="card-header"><span class="card-icon">🏆</span> За всё время</div>
+          <div class="filter-row" id="totalUserFilter" style="margin-bottom:8px;">
+            <button class="filter-chip active" data-total-user="all">👥 Все</button>
+            <button class="filter-chip" data-total-user="Денис">👑 Денис</button>
+            <button class="filter-chip" data-total-user="Полина">💪 Полина</button>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item"><div class="stat-value" id="totalDaysAll">0</div><div class="stat-label">Дней всего</div></div>
+            <div class="stat-item"><div class="stat-value" id="totalHoursAll">0</div><div class="stat-label">Часов всего</div></div>
+            <div class="stat-item full"><div class="stat-value" id="totalMoneyAll">0.00 руб.</div><div class="stat-label">Заработано всего</div></div>
+          </div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:6px; text-align:center;">
+    *для меня и тебя считает верно, общее неверно
   </div>
-  
-  <!-- Список всех дней -->
-  <div class="days_list" id="daysList">
-    <div class="user_filter">
-      <button class="user_filter_btn active" data-user="all">Все</button>
-      <button class="user_filter_btn" data-user="Денис">Денис легенда</button>
-      <button class="user_filter_btn" data-user="Полина">Полина найк про</button>
-    </div>
+        </div>
+            <div class="card">
+                <div class="card-header"><span class="card-icon">📊</span> Статистика</div>
+                <div class="form-group">
+                    <select id="monthSelect" style="width:100%;"></select>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item"><div class="stat-value" id="daysWorked">0</div><div class="stat-label">Дней</div></div>
+                    <div class="stat-item"><div class="stat-value" id="hoursWorked">0</div><div class="stat-label">Часов</div></div>
+                    <div class="stat-item"><div class="stat-value" id="totalSalary">0.00</div><div class="stat-label">Копейки</div></div>
+                    <div class="stat-item"><div class="stat-value" id="contractSalary">0.00</div><div class="stat-label">В договоре</div></div>
+                </div>
+            </div>
+
+         
+
+            <div class="filter-row" id="userFilterRow">
+                <button class="filter-chip active" data-user="all">👥 Все</button>
+                <button class="filter-chip" data-user="Денис">👑 Денис</button>
+                <button class="filter-chip" data-user="Полина">💪 Полина</button>
+            </div>
+            <div id="daysContainer"></div>
+        </div>
+
+        <!-- Tab 3: Shelf Life -->
+        <div class="tab-panel" id="panelShelfLife">
+            <div class="card">
+                <div class="card-header"><span class="card-icon">⏳</span> Калькулятор сроков годности</div>
+                <div class="form-group">
+                    <label for="manufactureYear">📅 Год производства</label>
+                    <select id="manufactureYear"></select>
+                </div>
+                <div class="form-group">
+                    <label>📆 Дата производства</label>
+                    <div class="time-row">
+                        <select id="manufactureDay"></select>
+                        <select id="manufactureMonth">
+                            <option value="0">Январь</option><option value="1">Февраль</option><option value="2">Март</option>
+                            <option value="3">Апрель</option><option value="4">Май</option><option value="5">Июнь</option>
+                            <option value="6">Июль</option><option value="7">Август</option><option value="8">Сентябрь</option>
+                            <option value="9">Октябрь</option><option value="10">Ноябрь</option><option value="11" selected>Декабрь</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>⏱ Срок годности</label>
+                    <div class="time-row">
+                        <select id="periodType">
+                            <option value="days" selected>Дни</option>
+                            <option value="months">Месяцы</option>
+                            <option value="years">Годы</option>
+                        </select>
+                        <input type="number" id="periodValue" min="1" value="30" placeholder="Кол-во" />
+                    </div>
+                </div>
+                <div class="quick-btns" id="quickBtns">
+                    <button class="quick-btn" data-days="10">10 дн</button>
+                    <button class="quick-btn" data-days="15">15 дн</button>
+                    <button class="quick-btn active" data-days="30">30 дн</button>
+                    <button class="quick-btn" data-days="35">35 дн</button>
+                    <button class="quick-btn" data-days="40">40 дн</button>
+                    <button class="quick-btn" data-days="60">60 дн</button>
+                    <button class="quick-btn" data-days="90">90 дн</button>
+                </div>
+                <div class="expiry-result" id="expiryResult"></div>
+                <div style="margin-top:12px;font-size:12px;color:var(--text-muted);" id="expiryInfo"></div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Tracks (Music Player) -->
+        <div class="tab-panel" id="panelTracks">
+            <div class="card">
+                <div class="card-header"><span class="card-icon">🎵</span> Плеер</div>
+                <div class="player-now-playing" id="playerNowPlaying">
+                    <div class="player-disc" id="playerDisc">
+                        <div class="disc-hole">🎧</div>
+                    </div>
+                    <div class="player-track-name" id="playerTrackName">Выберите трек</div>
+                    <div class="player-track-artist" id="playerTrackArtist">Санта</div>
+                    <div class="player-progress">
+                        <span class="time" id="playerCurrentTime">0:00</span>
+                        <div class="progress-bar-wrap" id="progressBarWrap">
+                            <div class="progress-bar-fill" id="progressBarFill"></div>
+                        </div>
+                        <span class="time" id="playerDuration">0:00</span>
+                    </div>
+                    <div class="player-controls">
+                        <button class="player-btn" id="btnPrev" title="Назад">⏮</button>
+                        <button class="player-btn play-btn" id="btnPlayPause" title="Играть">▶</button>
+                        <button class="player-btn" id="btnNext" title="Вперёд">⏭</button>
+                    </div>
+                </div>
+                <div class="playlist" id="playlist"></div>
+                <div class="player-empty" id="playerEmpty">🎶 Выберите трек из плейлиста ниже</div>
+            </div>
+        </div>
+      <!-- Tab 5: Calendar Selection -->
+     <!-- Tab 5: Calendar Selection -->
+<div class="tab-panel" id="panelCalendar">
+  <div class="card">
+    <div class="card-header"><span class="card-icon">📆</span> Календарь доступных дней</div>
     
-    <!-- Блок статистики -->
-    <div class="stats_container" id="statsContainer">
-      <div class="stats_header">Статистика за <span id="currentMonthYear"></span></div>
-      <div class="month_selector">
-        <select id="monthSelect">
-          <!-- Месяцы будут добавлены через JS -->
-        </select>
-      </div>
-      <div class="stats_item">
-        <span class="stats_label">Отработано дней:</span>
-        <span class="stats_value" id="daysWorked">0</span>
-      </div>
-      <div class="stats_item">
-        <span class="stats_label">Отработано часов:</span>
-        <span class="stats_value" id="hoursWorked">0</span>
-      </div>
-      <div class="stats_item">
-        <span class="stats_label">Копейки:</span>
-        <span class="stats_value" id="totalSalary">0.00 руб.</span>
-      </div>
-      <div class="stats_item">
-        <span class="stats_label">Копейки в договоре:</span>
-        <span class="stats_value" id="contractSalary">0.00 руб.</span>
-      </div>
-    </div>
-    
-    <div id="daysContainer">
-      <!-- Дни будут добавляться сюда -->
-    </div>
-  </div>
-  
-  <!-- Калькулятор сроков годности -->
-  <div class="expiry_calculator" id="shelfLifeForm" style="display: none;">
-    <h2 style="text-align: center; margin-bottom: 20px; color: #00a7e0;">Калькулятор сроков годности</h2>
-    
-    <div class="input_group">
-      <label for="manufactureYear">Год производства</label>
-      <select id="manufactureYear" class="year-select">
-        <!-- Годы будут добавлены через JS -->
+    <!-- Выбор месяца и года -->
+    <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+      <select id="calMonth" style="flex:1;">
+        <option value="0">Январь</option><option value="1">Февраль</option><option value="2">Март</option>
+        <option value="3">Апрель</option><option value="4">Май</option><option value="5">Июнь</option>
+        <option value="6">Июль</option><option value="7">Август</option><option value="8">Сентябрь</option>
+        <option value="9">Октябрь</option><option value="10">Ноябрь</option><option value="11">Декабрь</option>
       </select>
+      <input type="number" id="calYear" min="2020" max="2030" style="flex:1;" placeholder="Год" />
     </div>
     
-    <div class="input_group">
-      <label for="manufactureDate">Дата производства</label>
-      <div class="date_input_group">
-        <select id="manufactureDay" class="day-select">
-          <!-- Дни будут добавлены через JS -->
-        </select>
-        <select id="manufactureMonth" class="month-select">
-          <option value="0">Январь</option>
-          <option value="1">Февраль</option>
-          <option value="2">Март</option>
-          <option value="3">Апрель</option>
-          <option value="4">Май</option>
-          <option value="5">Июнь</option>
-          <option value="6">Июль</option>
-          <option value="7">Август</option>
-          <option value="8">Сентябрь</option>
-          <option value="9">Октябрь</option>
-          <option value="10">Ноябрь</option>
-          <option value="11">Декабрь</option>
-        </select>
+    <!-- Кто сейчас редактирует -->
+    <div class="user-toggle" id="calUserToggle" style="margin-bottom: 12px;">
+      <button type="button" class="user-toggle-btn active" data-cal-user="Денис">👑 Денис</button>
+      <button type="button" class="user-toggle-btn" data-cal-user="Полина">💪 Полина</button>
+    </div>
+
+    <!-- Время для Дениса -->
+    <div class="form-group">
+      <label>🕐 Денис работает</label>
+      <div class="time-row">
+        <input type="time" id="calDenisStart" value="08:00" />
+        <span style="align-self:center;">–</span>
+        <input type="time" id="calDenisEnd" value="20:00" />
+      </div>
+    </div>
+
+    <!-- Время для Полины -->
+    <div class="form-group">
+      <label>🕐 Полина работает</label>
+      <div class="time-row">
+        <input type="time" id="calPolinaStart" value="08:00" />
+        <span style="align-self:center;">–</span>
+        <input type="time" id="calPolinaEnd" value="20:00" />
       </div>
     </div>
     
-    <div class="input_group">
-      <label>Срок годности</label>
-      <div class="expiry_period">
-        <select id="periodType">
-          <option value="days">Дни</option>
-          <option value="months">Месяцы</option>
-          <option value="years">Годы</option>
-        </select>
-        <input type="number" id="periodValue" min="1" value="30" placeholder="Количество">
-      </div>
+    <!-- Легенда (цветные квадратики) -->
+    <div style="display: flex; gap: 14px; margin: 12px 0; font-size: 12px; align-items: center; flex-wrap: wrap;">
+      <span style="display:flex; align-items:center; gap:5px;">
+        <span style="width:14px;height:14px;border-radius:3px;background:#fff;border:1px solid #ccc;"></span> Никто
+      </span>
+      <span style="display:flex; align-items:center; gap:5px;">
+        <span style="width:14px;height:14px;border-radius:3px;background:#9b59b6;"></span> Полина
+      </span>
+      <span style="display:flex; align-items:center; gap:5px;">
+        <span style="width:14px;height:14px;border-radius:3px;background:#2ecc71;"></span> Денис
+      </span>
+      <span style="display:flex; align-items:center; gap:5px;">
+        <span style="width:14px;height:14px;border-radius:3px;background:#e67e22;"></span> Оба
+      </span>
     </div>
     
-    <div class="input_group">
-      <label>Быстрый выбор срока (в днях)</label>
-      <div class="quick_buttons">
-        <button type="button" class="quick_btn" data-days="10">10 дней</button>
-        <button type="button" class="quick_btn" data-days="15">15 дней</button>
-        <button type="button" class="quick_btn active" data-days="30">30 дней</button>
-        <button type="button" class="quick_btn" data-days="35">35 дней</button>
-        <button type="button" class="quick_btn" data-days="40">40 дней</button>
-        <button type="button" class="quick_btn" data-days="60">60 дней</button>
-        <button type="button" class="quick_btn" data-days="90">90 дней</button>
-      </div>
-    </div>
+    <!-- Сетка календаря -->
+    <div id="calGridContainer" style="margin-bottom: 16px;"></div>
     
-    <div class="expiry_result" id="expiryResult">
-      <!-- Результат будет отображаться здесь -->
-    </div>
-    
-    <div class="expiry_info" id="expiryInfo">
-      <!-- Дополнительная информация -->
-    </div>
+    <!-- Кнопка скачать -->
+    <button class="btn-primary" id="downloadCalendarBtn">
+      📸 Скачать как изображение
+    </button>
   </div>
 </div>
+    </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    deleteDoc,
-    doc,
-    query,
-    where,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCd2Y3GhHKtibLrqipERwf5vMrCSNLFl60",
-    authDomain: "santa-diary.firebaseapp.com",
-    projectId: "santa-diary",
-    storageBucket: "santa-diary.appspot.com",
-    messagingSenderId: "193506574944",
-    appId: "1:193506574944:web:23e0282d5129f2f793c7a7",
-    measurementId: "G-GTPJ66CWH0"
-  };
-  const app = initializeApp(firebaseConfig);
-  getAnalytics(app);
-  const db = getFirestore(app);
-
-  // DOM элементы
-  const form = document.getElementById('dayForm');
-  const salaryInfo = document.getElementById('salaryInfo');
-  const mediaInput = document.getElementById('media');
-  const filePreview = document.getElementById('filePreview');
-  const newDayForm = document.getElementById('newDayForm');
-  const daysList = document.getElementById('daysList');
-  const daysContainer = document.getElementById('daysContainer');
-  const pageTitle = document.getElementById('pageTitle');
-  const allDaysBtn = document.getElementById('allDaysBtn');
-  const newDayBtn = document.getElementById('newDayBtn');
-  const shelfLifeBtn = document.getElementById('shelfLifeBtn');
-  const shelfLifeForm = document.getElementById('shelfLifeForm');
-  const userFilterBtns = document.querySelectorAll('.user_filter_btn');
-  const monthSelect = document.getElementById('monthSelect');
-  const currentMonthYear = document.getElementById('currentMonthYear');
-  const daysWorkedEl = document.getElementById('daysWorked');
-  const hoursWorkedEl = document.getElementById('hoursWorked');
-  const totalSalaryEl = document.getElementById('totalSalary');
-  const contractSalaryEl = document.getElementById('contractSalary');
-  const dateInput = document.getElementById('date');
-
-  // Элементы калькулятора сроков годности
-  const manufactureYear = document.getElementById('manufactureYear');
-  const manufactureDay = document.getElementById('manufactureDay');
-  const manufactureMonth = document.getElementById('manufactureMonth');
-  const periodType = document.getElementById('periodType');
-  const periodValue = document.getElementById('periodValue');
-  const quickButtons = document.querySelectorAll('.quick_btn');
-  const expiryResult = document.getElementById('expiryResult');
-  const expiryInfo = document.getElementById('expiryInfo');
-
-  // Стили для медиа-контента
-  const style = document.createElement('style');
-  style.textContent = `
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .media-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      background: #f5f5f5;
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .media-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s;
-    }
-    .media-image:hover {
-      transform: scale(1.05);
-    }
-    .media-link {
-      padding: 10px;
-      color: #00a7e0;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .media-video {
-      width: 100%;
-      max-height: 200px;
-      border-radius: 8px;
-    }
-  `;
-  document.head.appendChild(style);
-
-  // Утилиты
-  function pad(n) { return String(n).padStart(2, '0'); }
-  
-  function fmtDateInput(d) {
-    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-  }
-  
-  function formatDisplayDate(s) {
-    const d = new Date(s);
-    return d.toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric'});
-  }
-
-  // Инициализация калькулятора сроков годности
-  function initShelfLifeCalculator() {
-    // Заполняем года (от 2020 до 2030)
-    const currentYear = new Date().getFullYear();
-    manufactureYear.innerHTML = '';
-    for (let year = 2020; year <= 2030; year++) {
-      const option = document.createElement('option');
-      option.value = year;
-      option.textContent = year;
-      if (year === 2025) {
-        option.selected = true;
-      }
-      manufactureYear.appendChild(option);
-    }
-    
-    // Заполняем дни (1-31)
-    manufactureDay.innerHTML = '';
-    const today = new Date();
-    const currentDay = today.getDate();
-    for (let day = 1; day <= 31; day++) {
-      const option = document.createElement('option');
-      option.value = day;
-      option.textContent = day;
-      if (day === 1) {
-        option.selected = true;
-      }
-      manufactureDay.appendChild(option);
-    }
-    
-    // Устанавливаем текущий месяц
-    manufactureMonth.value = 11;
-    
-    // Рассчитываем сразу при инициализации
-    calculateExpiryDate();
-  }
-
-  // Функция для расчета срока годности
-  function calculateExpiryDate() {
-    try {
-      const year = parseInt(manufactureYear.value);
-      const month = parseInt(manufactureMonth.value);
-      const day = parseInt(manufactureDay.value);
-      
-      // Проверка корректности даты
-      const manufactureDate = new Date(year, month, day);
-      if (manufactureDate.getFullYear() !== year || 
-          manufactureDate.getMonth() !== month || 
-          manufactureDate.getDate() !== day) {
-        expiryResult.innerHTML = '<div style="color: #721c24;">Неверная дата производства</div>';
-        expiryInfo.innerHTML = '';
-        return;
-      }
-      
-      const period = parseInt(periodValue.value) || 30;
-      const type = periodType.value;
-      
-      // Рассчитываем дату окончания срока годности
-      let expiryDate = new Date(manufactureDate);
-      
-      switch(type) {
-        case 'days':
-          expiryDate.setDate(expiryDate.getDate() + period);
-          break;
-        case 'months':
-          expiryDate.setMonth(expiryDate.getMonth() + period);
-          break;
-        case 'years':
-          expiryDate.setFullYear(expiryDate.getFullYear() + period);
-          break;
-      }
-      
-      const today = new Date();
-      const timeDiff = expiryDate.getTime() - today.getTime();
-      const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      
-      // Форматируем даты
-      const formatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
-      const manufactureFormatted = manufactureDate.toLocaleDateString('ru-RU', formatOptions);
-      const expiryFormatted = expiryDate.toLocaleDateString('ru-RU', formatOptions);
-      
-      // Определяем статус срока годности
-      let statusClass = '';
-      let statusText = '';
-      let statusEmoji = '';
-      
-      if (daysDiff > 30) {
-        statusClass = 'result_green';
-        statusText = '✅ Срок годности в норме';
-        statusEmoji = '✅';
-      } else if (daysDiff > 0) {
-        statusClass = 'result_yellow';
-        statusText = '⚠️ Срок годности заканчивается';
-        statusEmoji = '⚠️';
-      } else {
-        statusClass = 'result_red';
-        statusText = '❌ Срок годности истёк';
-        statusEmoji = '❌';
-      }
-      
-      // Обновляем результат
-      expiryResult.className = `expiry_result ${statusClass}`;
-      expiryResult.innerHTML = `
-        <div style="font-size: 20px; margin-bottom: 10px;">${statusEmoji} ${statusText}</div>
-        <div style="font-size: 16px; margin-bottom: 5px;">Произведено: ${manufactureFormatted}</div>
-        <div style="font-size: 16px; margin-bottom: 5px;">Годен до: ${expiryFormatted}</div>
-        <div style="font-size: 14px; margin-top: 10px; color: inherit;">
-          Осталось дней: <strong>${daysDiff > 0 ? daysDiff : 0}</strong>
+    <!-- ── Bottom Navigation ─────────────── -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="nav-item active" data-tab="panelNewDay">
+            <span class="nav-icon">📝</span>
+            <span class="nav-label">Новый день</span>
         </div>
-      `;
-      
-      // Обновляем дополнительную информацию
-      const shelfLifeText = `${period} ${getPeriodText(period, type)}`;
-      expiryInfo.innerHTML = `
-        <div class="info_item">
-          <span>Срок годности:</span>
-          <strong>${shelfLifeText}</strong>
+        <div class="nav-item" data-tab="panelAllDays">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">Все дни</span>
         </div>
-        <div class="info_item">
-          <span>Прошло с производства:</span>
-          <strong>${getDaysPassed(manufactureDate)} дней</strong>
+        <div class="nav-item" data-tab="panelShelfLife">
+            <span class="nav-icon">⏳</span>
+            <span class="nav-label">Сроки</span>
         </div>
-        <div class="info_item">
-          <span>Сегодня:</span>
-          <strong>${today.toLocaleDateString('ru-RU', formatOptions)}</strong>
+        <div class="nav-item" data-tab="panelTracks">
+            <span class="nav-icon">🎵</span>
+            <span class="nav-label">Треки</span>
         </div>
-      `;
-      
-    } catch (error) {
-      console.error('Ошибка расчета:', error);
-      expiryResult.innerHTML = '<div style="color: #721c24;">Ошибка расчета. Проверьте данные.</div>';
-    }
-  }
+        <div class="nav-item" data-tab="panelCalendar">
+  <span class="nav-icon">📆</span>
+  <span class="nav-label">Календарь</span>
+</div>
+    </nav>
 
-  // Вспомогательные функции для калькулятора
-  function getPeriodText(period, type) {
-    const lastDigit = period % 10;
-    const lastTwoDigits = period % 100;
-    
-    if (type === 'days') {
-      if (lastDigit === 1 && lastTwoDigits !== 11) return 'день';
-      if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits > 20)) return 'дня';
-      return 'дней';
-    } else if (type === 'months') {
-      if (lastDigit === 1 && lastTwoDigits !== 11) return 'месяц';
-      if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits > 20)) return 'месяца';
-      return 'месяцев';
-    } else if (type === 'years') {
-      if (lastDigit === 1 && lastTwoDigits !== 11) return 'год';
-      if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits > 20)) return 'года';
-      return 'лет';
-    }
-    return '';
-  }
+    <!-- ── Toast ─────────────────────────── -->
+    <div class="toast" id="toast"></div>
 
-  function getDaysPassed(date) {
-    const today = new Date();
-    const timeDiff = today.getTime() - date.getTime();
-    return Math.floor(timeDiff / (1000 * 3600 * 24));
-  }
+    <!-- ── Firebase + App Script ─────────── -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            getDocs,
+            deleteDoc,
+            doc,
+            query,
+            where,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-  // Навигация по вкладкам
-  function showTab(tabName) {
-    // Скрываем все вкладки
-    newDayForm.style.display = 'none';
-    daysList.style.display = 'none';
-    shelfLifeForm.style.display = 'none';
-    tracksContainer.style.display = 'none';
-    
-    // Обновляем активную кнопку навигации
-    document.querySelectorAll('.nav_btn').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    
-    // Показываем нужную вкладку
-    switch(tabName) {
-      case 'newDay':
-        newDayForm.style.display = 'block';
-        pageTitle.textContent = 'Добавить рабочий день';
-        newDayBtn.classList.add('active');
-        break;
-      case 'allDays':
-        daysList.style.display = 'block';
-        pageTitle.textContent = 'Все рабочие дни';
-        allDaysBtn.classList.add('active');
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd2Y3GhHKtibLrqipERwf5vMrCSNLFl60",
+            authDomain: "santa-diary.firebaseapp.com",
+            projectId: "santa-diary",
+            storageBucket: "santa-diary.appspot.com",
+            messagingSenderId: "193506574944",
+            appId: "1:193506574944:web:23e0282d5129f2f793c7a7",
+            measurementId: "G-GTPJ66CWH0"
+        };
+        const app = initializeApp(firebaseConfig);
+        getAnalytics(app);
+        const db = getFirestore(app);
+
+        // ── DOM refs ──────────────────────
+        const dayForm = document.getElementById('dayForm');
+        const salaryBadge = document.getElementById('salaryBadge');
+        const mediaInput = document.getElementById('media');
+        const filePreviewList = document.getElementById('filePreviewList');
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const dateInput = document.getElementById('date');
+        const startTimeInput = document.getElementById('start_time');
+        const endTimeInput = document.getElementById('end_time');
+        const commentInput = document.getElementById('comment');
+        const userHidden = document.getElementById('userHidden');
+        const userToggle = document.getElementById('userToggle');
+        const daysContainer = document.getElementById('daysContainer');
+        const monthSelect = document.getElementById('monthSelect');
+        const daysWorkedEl = document.getElementById('daysWorked');
+        const hoursWorkedEl = document.getElementById('hoursWorked');
+        const totalSalaryEl = document.getElementById('totalSalary');
+        const contractSalaryEl = document.getElementById('contractSalary');
+        const pageTitle = document.getElementById('pageTitle');
+        const toast = document.getElementById('toast');
+        const userFilterRow = document.getElementById('userFilterRow');
+
+        // Shelf life refs
+        const manufactureYear = document.getElementById('manufactureYear');
+        const manufactureDay = document.getElementById('manufactureDay');
+        const manufactureMonth = document.getElementById('manufactureMonth');
+        const periodType = document.getElementById('periodType');
+        const periodValue = document.getElementById('periodValue');
+        const quickBtns = document.getElementById('quickBtns');
+        const expiryResult = document.getElementById('expiryResult');
+        const expiryInfo = document.getElementById('expiryInfo');
+
+        // Player refs
+        const playerDisc = document.getElementById('playerDisc');
+        const playerTrackName = document.getElementById('playerTrackName');
+        const playerTrackArtist = document.getElementById('playerTrackArtist');
+        const playerCurrentTime = document.getElementById('playerCurrentTime');
+        const playerDuration = document.getElementById('playerDuration');
+        const progressBarFill = document.getElementById('progressBarFill');
+        const progressBarWrap = document.getElementById('progressBarWrap');
+        const btnPlayPause = document.getElementById('btnPlayPause');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        const playlistEl = document.getElementById('playlist');
+        const playerEmpty = document.getElementById('playerEmpty');
+        const playerNowPlaying = document.getElementById('playerNowPlaying');
+
+        // ── Utils ─────────────────────────
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function fmtDateInput(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+
+        function formatDisplayDate(s) {
+            const d = new Date(s);
+            return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        function showToast(msg, duration = 2200) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), duration);
+        }
+
+        function fmtTime(sec) {
+            if (isNaN(sec) || sec < 0) return '0:00';
+            const m = Math.floor(sec / 60);
+            const s = Math.floor(sec % 60);
+            return `${m}:${pad(s)}`;
+        }
+
+        // ── Tab Navigation ────────────────
+        const tabPanels = {
+    panelNewDay: document.getElementById('panelNewDay'),
+    panelAllDays: document.getElementById('panelAllDays'),
+    panelShelfLife: document.getElementById('panelShelfLife'),
+    panelTracks: document.getElementById('panelTracks'),
+    panelCalendar: document.getElementById('panelCalendar'),
+};
+        const tabTitles = {
+            panelNewDay: 'Добавить рабочий день',
+            panelAllDays: 'Все рабочие дни',
+            panelShelfLife: 'Калькулятор сроков годности',
+            panelTracks: 'Треки',
+            panelCalendar: 'Календарь',
+        };
+        let currentTab = 'panelNewDay';
+
+        function switchTab(tabId) {
+            if (currentTab === tabId) return;
+            Object.values(tabPanels).forEach(p => p.classList.remove('active'));
+            tabPanels[tabId].classList.add('active');
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(n => n.classList.remove('active'));
+            const navItem = document.querySelector(`.nav-item[data-tab="${tabId}"]`);
+            if (navItem) navItem.classList.add('active');
+            pageTitle.textContent = tabTitles[tabId] || '';
+            currentTab = tabId;
+            if (tabId === 'panelAllDays') loadDays();
+            if (tabId === 'panelShelfLife') calculateExpiryDate();
+            if (tabId === 'panelTracks') renderPlaylist();
+        }
+
+        document.getElementById('bottomNav').addEventListener('click', (e) => {
+            const navItem = e.target.closest('.nav-item');
+            if (!navItem) return;
+            switchTab(navItem.dataset.tab);
+        });
+
+        // ── User Toggle ──────────────────
+        userToggle.addEventListener('click', (e) => {
+            const btn = e.target.closest('.user-toggle-btn');
+            if (!btn) return;
+            userToggle.querySelectorAll('.user-toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            userHidden.value = btn.dataset.user;
+        });
+
+        // ── Salary ────────────────────────
+        function calcSalary() {
+            const start = startTimeInput.value;
+            const end = endTimeInput.value;
+            if (!start || !end) { salaryBadge.textContent = '💰 Копейки: 0.00 руб.'; return 0; }
+            const s = new Date(`1970-01-01T${start}:00`);
+            const e = new Date(`1970-01-01T${end}:00`);
+            let h = (e - s) / (1000 * 3600);
+            if (h < 0) h = 0;
+            const sal = (h * 9 - 9).toFixed(2);
+            salaryBadge.textContent = `💰 Копейки: ${sal} руб.`;
+            return parseFloat(sal);
+        }
+        startTimeInput.addEventListener('input', calcSalary);
+        endTimeInput.addEventListener('input', calcSalary);
+
+        // ── File Preview ──────────────────
+        mediaInput.addEventListener('change', () => {
+            filePreviewList.innerHTML = '';
+            if (mediaInput.files.length) {
+                Array.from(mediaInput.files).forEach(f => {
+                    const span = document.createElement('span');
+                    span.className = 'file-preview-item';
+                    span.textContent = '📎 ' + f.name;
+                    filePreviewList.appendChild(span);
+                });
+            }
+        });
+        fileUploadArea.querySelector('.upload-text').addEventListener('click', (e) => {
+            e.stopPropagation();
+            mediaInput.click();
+        });
+
+        // ── ImgBB Upload ─────────────────
+        async function uploadFileToImgBB(file) {
+            const fd = new FormData();
+            fd.append('image', file);
+            const resp = await fetch('https://api.imgbb.com/1/upload?key=f615d978ca8fd405d2e746aefcba1637', {
+                method: 'POST',
+                body: fd
+            });
+            const data = await resp.json();
+            if (data.status !== 200) throw new Error(data.error?.message || 'Ошибка загрузки');
+            return data.data.url;
+        }
+
+        // ── Submit Form ──────────────────
+        dayForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = userHidden.value;
+            const date = dateInput.value;
+            const startTime = startTimeInput.value;
+            const endTime = endTimeInput.value;
+            const comment = commentInput.value;
+            const salary = calcSalary();
+            try {
+                let mediaLinks = [];
+                if (mediaInput.files.length > 0) {
+                    for (const file of mediaInput.files) {
+                        const link = await uploadFileToImgBB(file);
+                        mediaLinks.push(link);
+                    }
+                }
+                await addDoc(collection(db, 'workingDays'), {
+                    user,
+                    date,
+                    startTime,
+                    endTime,
+                    comment,
+                    salary,
+                    mediaFiles: mediaLinks,
+                    timestamp: serverTimestamp()
+                });
+                showToast('✅ Светлана тобой гордится!!!');
+                dayForm.reset();
+                filePreviewList.innerHTML = '';
+                salaryBadge.textContent = '💰 Копейки: 0.00 руб.';
+                dateInput.value = fmtDateInput(new Date());
+                startTimeInput.value = '08:00';
+                endTimeInput.value = '20:00';
+                userToggle.querySelectorAll('.user-toggle-btn').forEach(b => b.classList.remove('active'));
+                const denisBtn = userToggle.querySelector('[data-user="Денис"]');
+                if (denisBtn) denisBtn.classList.add('active');
+                userHidden.value = 'Денис';
+                calcSalary();
+            } catch (err) {
+                showToast('❌ Ошибка: ' + err.message, 3500);
+            }
+        });
+
+        // ── Load Days ────────────────────
+        let currentUserFilter = 'all';
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+
+        function getMediaType(url) {
+            if (/\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(url)) return 'image';
+            if (/\.(mp4|webm|ogg|mov)$/i.test(url)) return 'video';
+            return 'other';
+        }
+
+        async function loadDays() {
+            daysContainer.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Загрузка...</p>';
+            const startDate = fmtDateInput(new Date(currentYear, currentMonth, 1));
+            const endDate = fmtDateInput(new Date(currentYear, currentMonth + 1, 0));
+            const q = query(collection(db, 'workingDays'),
+                where('date', '>=', startDate),
+                where('date', '<=', endDate));
+            const snapshot = await getDocs(q);
+            const days = [];
+            snapshot.forEach(doc => days.push({ id: doc.id, ...doc.data() }));
+            const filtered = currentUserFilter === 'all' ? days : days.filter(d => d.user === currentUserFilter);
+            if (filtered.length === 0) {
+                daysContainer.innerHTML =
+                    '<p style="text-align:center;color:var(--text-muted);padding:20px;">Нет данных за этот период</p>';
+                updateStats([]);
+                return;
+            }
+            filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+            daysContainer.innerHTML = '';
+            filtered.forEach(day => {
+                let mediaHTML = '';
+                if (day.mediaFiles?.length > 0) {
+                    mediaHTML = `
+                <div class="media-grid">
+                  ${day.mediaFiles.map(url => {
+                    const t = getMediaType(url);
+                    if (t === 'image') return `<img src="${url}" alt="Фото" loading="lazy" />`;
+                    if (t === 'video') return `<video controls src="${url}"></video>`;
+                    return `<a href="${url}" target="_blank" style="font-size:12px;">📁 Файл</a>`;
+                  }).join('')}
+                </div>`;
+                }
+                const card = document.createElement('div');
+                card.className = 'day-card';
+                card.innerHTML = `
+              <div class="day-card-header">
+                <span class="day-user">${day.user}</span>
+                <span class="day-date">${formatDisplayDate(day.date)}</span>
+              </div>
+              <div class="day-time">🕐 ${day.startTime} – ${day.endTime}</div>
+              <div class="day-comment">${day.comment || '—'}</div>
+              ${mediaHTML}
+              <div class="day-salary">💰 ${day.salary || '0.00'} руб.</div>
+              <button class="btn-delete" data-id="${day.id}">🗑 Удалить</button>`;
+                daysContainer.appendChild(card);
+            });
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    if (!confirm('Точно удаляем?')) return;
+                    try {
+                        await deleteDoc(doc(db, 'workingDays', btn.dataset.id));
+                        btn.closest('.day-card')?.remove();
+                        loadDays();
+                        showToast('🗑 Запись удалена');
+                    } catch (err) {
+                        showToast('❌ Ошибка удаления: ' + err.message, 3500);
+                    }
+                });
+            });
+            updateStats(filtered);
+        }
+
+        function updateStats(days = []) {
+            let totalH = 0,
+                totalS = 0;
+            days.forEach(day => {
+                const s = new Date(`1970-01-01T${day.startTime}:00`);
+                const e = new Date(`1970-01-01T${day.endTime}:00`);
+                let h = (e - s) / (1000 * 3600);
+                if (h < 0) h = 0;
+                totalH += h;
+                totalS += parseFloat(day.salary || 0);
+            });
+            daysWorkedEl.textContent = days.length;
+            hoursWorkedEl.textContent = totalH.toFixed(1);
+            totalSalaryEl.textContent = totalS.toFixed(2) + ' руб.';
+            contractSalaryEl.textContent = (totalS / 0.87).toFixed(2) + ' руб.';
+        }
+
+        // ── Month Select ──────────────────
+        function initMonthSelect() {
+            const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+            ];
+            const now = new Date();
+            monthSelect.innerHTML = '';
+            for (let y = now.getFullYear() - 1; y <= now.getFullYear() + 1; y++) {
+                for (let m = 0; m < 12; m++) {
+                    const opt = document.createElement('option');
+                    opt.value = `${y}-${m}`;
+                    opt.text = `${months[m]} ${y}`;
+                    if (y === now.getFullYear() && m === now.getMonth()) opt.selected = true;
+                    monthSelect.appendChild(opt);
+                }
+            }
+            updateCurrentMonth();
+        }
+
+        function updateCurrentMonth() {
+            const [y, m] = monthSelect.value.split('-').map(Number);
+            currentYear = y;
+            currentMonth = m;
+        }
+        monthSelect.addEventListener('change', () => { updateCurrentMonth();
+            loadDays(); });
+
+        // ── User Filter ──────────────────
+        userFilterRow.addEventListener('click', (e) => {
+            const chip = e.target.closest('.filter-chip');
+            if (!chip) return;
+            userFilterRow.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            currentUserFilter = chip.dataset.user;
+            loadDays();
+        });
+
+        // ── Shelf Life Calculator ────────
+        function initShelfLife() {
+            manufactureYear.innerHTML = '';
+            for (let y = 2020; y <= 2030; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y;
+                if (y === 2025) opt.selected = true;
+                manufactureYear.appendChild(opt);
+            }
+            manufactureDay.innerHTML = '';
+            for (let d = 1; d <= 31; d++) {
+                const opt = document.createElement('option');
+                opt.value = d;
+                opt.textContent = d;
+                if (d === 1) opt.selected = true;
+                manufactureDay.appendChild(opt);
+            }
+            manufactureMonth.value = 11;
+            calculateExpiryDate();
+        }
+
+        function getPeriodText(period, type) {
+            const ld = period % 10;
+            const l2 = period % 100;
+            if (type === 'days') {
+                if (ld === 1 && l2 !== 11) return 'день';
+                if (ld >= 2 && ld <= 4 && (l2 < 10 || l2 > 20)) return 'дня';
+                return 'дней';
+            } else if (type === 'months') {
+                if (ld === 1 && l2 !== 11) return 'месяц';
+                if (ld >= 2 && ld <= 4 && (l2 < 10 || l2 > 20)) return 'месяца';
+                return 'месяцев';
+            } else {
+                if (ld === 1 && l2 !== 11) return 'год';
+                if (ld >= 2 && ld <= 4 && (l2 < 10 || l2 > 20)) return 'года';
+                return 'лет';
+            }
+        }
+
+        function calculateExpiryDate() {
+            try {
+                const y = parseInt(manufactureYear.value);
+                const m = parseInt(manufactureMonth.value);
+                const d = parseInt(manufactureDay.value);
+                const mfgDate = new Date(y, m, d);
+                if (mfgDate.getFullYear() !== y || mfgDate.getMonth() !== m || mfgDate.getDate() !== d) {
+                    expiryResult.className = 'expiry-result red';
+                    expiryResult.innerHTML = '❌ Неверная дата производства';
+                    expiryInfo.innerHTML = '';
+                    return;
+                }
+                const period = parseInt(periodValue.value) || 30;
+                const type = periodType.value;
+                let expDate = new Date(mfgDate);
+                if (type === 'days') expDate.setDate(expDate.getDate() + period);
+                else if (type === 'months') expDate.setMonth(expDate.getMonth() + period);
+                else expDate.setFullYear(expDate.getFullYear() + period);
+                const today = new Date();
+                const diff = Math.ceil((expDate.getTime() - today.getTime()) / (1000 * 3600 * 24));
+                const opts = { day: 'numeric', month: 'long', year: 'numeric' };
+                const mfgF = mfgDate.toLocaleDateString('ru-RU', opts);
+                const expF = expDate.toLocaleDateString('ru-RU', opts);
+                let cls, emoji, status;
+                if (diff > 30) { cls = 'green';
+                    emoji = '✅';
+                    status = 'Срок годности в норме'; } else if (diff > 0) { cls = 'yellow';
+                    emoji = '⚠️';
+                    status = 'Срок годности заканчивается'; } else { cls = 'red';
+                    emoji = '❌';
+                    status = 'Срок годности истёк'; }
+                expiryResult.className = 'expiry-result ' + cls;
+                expiryResult.innerHTML = `
+              <div style="font-size:20px;margin-bottom:8px;">${emoji} ${status}</div>
+              <div>Произведено: <strong>${mfgF}</strong></div>
+              <div>Годен до: <strong>${expF}</strong></div>
+              <div style="margin-top:8px;">Осталось дней: <strong>${diff > 0 ? diff : 0}</strong></div>`;
+                expiryInfo.innerHTML = `
+              <div>Срок годности: <strong>${period} ${getPeriodText(period, type)}</strong></div>
+              <div>Прошло с производства: <strong>${Math.floor((today.getTime()-mfgDate.getTime())/(1000*3600*24))} дн.</strong></div>`;
+            } catch (err) {
+                expiryResult.className = 'expiry-result red';
+                expiryResult.innerHTML = '❌ Ошибка расчета';
+                expiryInfo.innerHTML = '';
+            }
+        }
+        manufactureYear.addEventListener('change', calculateExpiryDate);
+        manufactureMonth.addEventListener('change', calculateExpiryDate);
+        manufactureDay.addEventListener('change', calculateExpiryDate);
+        periodType.addEventListener('change', calculateExpiryDate);
+        periodValue.addEventListener('input', calculateExpiryDate);
+        quickBtns.addEventListener('click', (e) => {
+            const btn = e.target.closest('.quick-btn');
+            if (!btn) return;
+            quickBtns.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            periodValue.value = btn.dataset.days;
+            periodType.value = 'days';
+            calculateExpiryDate();
+        });
+
+        // ── Shift Calendar ────────────────
+        const REFERENCE_DATE = new Date(2026, 1, 18);
+        let calendarViewDate = new Date();
+
+        function renderShiftCalendar() {
+            const grid = document.getElementById('shiftCalendarGrid');
+            const title = document.getElementById('calendarMonthTitle');
+            if (!grid || !title) return;
+            grid.innerHTML = '';
+            const y = calendarViewDate.getFullYear();
+            const m = calendarViewDate.getMonth();
+            const monthsRu = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+            ];
+            title.textContent = `${monthsRu[m]} ${y}`;
+            const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+            weekdays.forEach(dw => {
+                const el = document.createElement('div');
+                el.className = 'weekday-header';
+                el.textContent = dw;
+                grid.appendChild(el);
+            });
+            const firstDay = new Date(y, m, 1).getDay();
+            const daysInMonth = new Date(y, m + 1, 0).getDate();
+            const offset = firstDay === 0 ? 6 : firstDay - 1;
+            for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('div'));
+            const today = new Date();
+            for (let d = 1; d <= daysInMonth; d++) {
+                const cur = new Date(y, m, d);
+                const dayEl = document.createElement('div');
+                dayEl.className = 'cal-day';
+                if (cur.toDateString() === today.toDateString()) dayEl.classList.add('today');
+                const diffDays = Math.floor((cur.getTime() - REFERENCE_DATE.getTime()) / (1000 * 3600 * 24));
+                const cyclePos = ((diffDays % 4) + 4) % 4;
+                let shift = '',
+                    shiftClass = '';
+                if (cyclePos === 0 || cyclePos === 1) { shift = 'В';
+                    shiftClass = 'shift-v'; } else { shift = 'З';
+                    shiftClass = 'shift-z'; }
+                dayEl.innerHTML = `<span>${d}</span><span class="${shiftClass}">${shift}</span>`;
+                grid.appendChild(dayEl);
+            }
+        }
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            calendarViewDate.setMonth(calendarViewDate.getMonth() - 1);
+            renderShiftCalendar();
+        });
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            calendarViewDate.setMonth(calendarViewDate.getMonth() + 1);
+            renderShiftCalendar();
+        });
+
+        // ── Music Player ──────────────────
+        const tracks = [
+            { id: 1, name: "27 мы шагнули в зал весны", file: "27.mp3" },
+            { id: 2, name: "нет слов", file: "net.mp3" },
+            { id: 3, name: "после этого трека хочется лечь на бананке и забыть обо всём", file: "gud.mp3" },
+            { id: 4, name: "Так устроен этот мир", file: "mir.mp3" },
+            { id: 5, name: "MILKSHAKE", file: "milk.mp3" },
+            { id: 6, name: "Лето в Санте", file: "leto.mp3" },
+            { id: 7, name: "Зима в Санте", file: "zima.mp3" },
+            { id: 8, name: "GIANT", file: "giant.mp3" },
+            { id: 9, name: "А папе что?..", file: "pekar.mp3" },
+            { id: 10, name: "Эй санта проверка связи", file: "sv.mp3" },
+            { id: 11, name: "Новая власть", file: "vl.mp3" },
+            { id: 12, name: "Сроки сроки сроки", file: "sr.mp3" },
+            { id: 13, name: "Промокод ЯндексМузыка", file: "promo.mp3" },
+            { id: 14, name: "Бедолага Сергей", file: "bedolaga.mp3" },
+            { id: 15, name: "Травма", file: "travma.mp3" },
+            { id: 16, name: "Ремейк новая поза вертолет", file: "remake.mp3" },
+            { id: 17, name: "SVETIK", file: "SVETIK.mp3" },
+            { id: 18, name: "Запись в дневнике №69", file: "69.mp3" },
+            { id: 19, name: "Письмо", file: "pismo.mp3" },
+            { id: 20, name: "Скачет Зоя на плотве сквозь поля, леса", file: "plotva.mp3" },
+            { id: 21, name: "Лето в санте с членососовой", file: "0627.mp3" },
+            { id: 22, name: "Я директор но теряю контроль", file: "director.mp3" },
+            { id: 23, name: "Твои руки рвут мой отчет", file: "otchet.mp3" },
+            { id: 24, name: "Зима в Санте х Эй Санта проверка связи - SVETIK", file: "mashup1.mp3" },
+            { id: 25, name: "Эй Санта проверка связи х Лето в Санте - SVETIK", file: "mashup2.mp3" },
+            { id: 26, name: "Мой папа был сантой", file: "papa.mp3" },
+            { id: 27, name: "А папе что? (Неизданное 2025 года)", file: "pape.mp3" },
+            { id: 28, name: "[Альбом] INTRO - Чек-лист", file: "check.mp3" },
+            { id: 29, name: "[Альбом] НЕЛИКВИД", file: "ne.mp3" },
+            { id: 30, name: "[Альбом] Симён Серджей", file: "semenser.mp3" },
+            { id: 31, name: "[Альбом] Skit", file: "skit.mp3" },
+            { id: 32, name: "[Альбом] Докладная записка - SVETIK", file: "zapis.mp3" },
+        ];
+        
+
+        const audio = new Audio();
+        let currentTrackIndex = -1;
+        let isPlaying = false;
+        let playerVisible = false;
+
+        function updatePlayerUI() {
+            if (currentTrackIndex >= 0 && currentTrackIndex < tracks.length) {
+                const track = tracks[currentTrackIndex];
+                playerTrackName.textContent = track.name;
+                playerTrackArtist.textContent = 'Санта';
+                playerDisc.classList.add('spinning');
+                btnPlayPause.textContent = '⏸';
+                playerNowPlaying.style.opacity = '1';
+                playerEmpty.style.display = 'none';
+                playlistEl.style.display = 'flex';
+            } else {
+                playerTrackName.textContent = 'Выберите трек';
+                playerTrackArtist.textContent = 'Санта';
+                playerDisc.classList.remove('spinning');
+                btnPlayPause.textContent = '▶';
+                playerCurrentTime.textContent = '0:00';
+                playerDuration.textContent = '0:00';
+                progressBarFill.style.width = '0%';
+                playerEmpty.style.display = 'block';
+            }
+            renderPlaylist();
+        }
+
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            if (currentTrackIndex === index && isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                playerDisc.classList.remove('spinning');
+                btnPlayPause.textContent = '▶';
+                renderPlaylist();
+                return;
+            }
+            if (currentTrackIndex === index && !isPlaying) {
+                audio.play().catch(() => {});
+                isPlaying = true;
+                playerDisc.classList.add('spinning');
+                btnPlayPause.textContent = '⏸';
+                renderPlaylist();
+                return;
+            }
+            currentTrackIndex = index;
+            audio.src = tracks[index].file;
+            audio.play().catch(() => {
+                showToast('⚠️ Не удалось загрузить трек', 2500);
+            });
+            isPlaying = true;
+            playerDisc.classList.add('spinning');
+            btnPlayPause.textContent = '⏸';
+            playerEmpty.style.display = 'none';
+            playerNowPlaying.style.opacity = '1';
+            playlistEl.style.display = 'flex';
+            updatePlayerUI();
+        }
+
+        function playNext() {
+            if (currentTrackIndex < tracks.length - 1) playTrack(currentTrackIndex + 1);
+            else if (currentTrackIndex === tracks.length - 1) { playTrack(0); }
+        }
+
+        function playPrev() {
+            if (currentTrackIndex > 0) playTrack(currentTrackIndex - 1);
+            else if (currentTrackIndex === 0) { playTrack(tracks.length - 1); }
+        }
+
+        audio.addEventListener('ended', () => { playNext(); });
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration && !isNaN(audio.duration)) {
+                const pct = (audio.currentTime / audio.duration) * 100;
+                progressBarFill.style.width = pct + '%';
+                playerCurrentTime.textContent = fmtTime(audio.currentTime);
+                playerDuration.textContent = fmtTime(audio.duration);
+            }
+        });
+        audio.addEventListener('loadedmetadata', () => {
+            playerDuration.textContent = fmtTime(audio.duration);
+        });
+        audio.addEventListener('error', () => {
+            showToast('⚠️ Ошибка загрузки трека', 2500);
+            isPlaying = false;
+            playerDisc.classList.remove('spinning');
+            btnPlayPause.textContent = '▶';
+            renderPlaylist();
+        });
+
+        btnPlayPause.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentTrackIndex < 0 && tracks.length > 0) { playTrack(0); return; }
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                playerDisc.classList.remove('spinning');
+                btnPlayPause.textContent = '▶';
+            } else {
+                audio.play().catch(() => {});
+                isPlaying = true;
+                playerDisc.classList.add('spinning');
+                btnPlayPause.textContent = '⏸';
+            }
+            renderPlaylist();
+        });
+        btnNext.addEventListener('click', (e) => { e.stopPropagation();
+            playNext(); });
+        btnPrev.addEventListener('click', (e) => { e.stopPropagation();
+            playPrev(); });
+        progressBarWrap.addEventListener('click', (e) => {
+            if (currentTrackIndex < 0 || !audio.duration || isNaN(audio.duration)) return;
+            const rect = progressBarWrap.getBoundingClientRect();
+            const pct = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pct * audio.duration;
+        });
+
+        function renderPlaylist() {
+            playlistEl.innerHTML = '';
+            tracks.forEach((track, i) => {
+                const item = document.createElement('div');
+                item.className = 'playlist-item' + (i === currentTrackIndex ? ' playing' : '');
+                item.innerHTML = `
+              <span class="pl-num">${pad(i+1)}</span>
+              <span class="pl-name">${track.name}</span>
+              <span class="pl-icon">${i === currentTrackIndex && isPlaying ? '🔊' : i === currentTrackIndex ? '⏸' : '▶'}</span>`;
+                item.addEventListener('click', () => playTrack(i));
+                playlistEl.appendChild(item);
+            });
+            if (currentTrackIndex >= 0) {
+                const playingItem = playlistEl.querySelector('.playlist-item.playing');
+                if (playingItem) {
+                    playingItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        }
+
+        // ── Init ──────────────────────────
+        dateInput.value = fmtDateInput(new Date());
+        calcSalary();
+        initMonthSelect();
+        initShelfLife();
+        renderShiftCalendar();
+        renderPlaylist();
         loadDays();
-        break;
-      case 'shelfLife':
-        shelfLifeForm.style.display = 'block';
-        pageTitle.textContent = 'Калькулятор сроков годности';
-        shelfLifeBtn.classList.add('active');
-        calculateExpiryDate(); // Пересчитываем при открытии
-        break;
-      case 'tracks':
-        tracksContainer.style.display = 'block';
-        pageTitle.textContent = 'Треки и гадания';
-        settingsBtn.classList.add('active');
-        renderTracksContent();
-        break;
-    }
-  }
 
-  // Константы для расчета смен
-const REFERENCE_DATE = new Date(2026, 1, 18); // 18 февраля 2026
-let calendarViewDate = new Date(); // Текущий просматриваемый месяц в календаре
+        // Initial tab setup
+        switchTab('panelNewDay');
 
-function renderShiftCalendar() {
-  const grid = document.getElementById('shiftCalendarGrid');
-  const title = document.getElementById('calendarMonthTitle');
-  grid.innerHTML = '';
+        console.log('🎅 Санта | Рабочие дни — готово!');
+          // ⬇⬇⬇ ВСТАВИТЬ ВНУТРИ <script> ПЕРЕД ⬇⬇⬇
 
-  const year = calendarViewDate.getFullYear();
-  const month = calendarViewDate.getMonth();
-  
-  const monthsRu = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-  title.textContent = `${monthsRu[month]} ${year}`;
+// --- ОБЩАЯ СТАТИСТИКА ЗА ВСЁ ВРЕМЯ ---
+let totalCurrentUser = 'all'; // 'all', 'Денис', 'Полина'
 
-  // Заголовки дней недели
-  const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-  weekdays.forEach(dw => {
-    const el = document.createElement('div');
-    el.className = 'weekday_header';
-    el.textContent = dw;
-    grid.appendChild(el);
+async function loadTotalStats() {
+  // Загружаем все записи из Firestore (без фильтра по месяцу)
+  const snapshot = await getDocs(collection(db, 'workingDays'));
+  const allDays = [];
+  snapshot.forEach(doc => allDays.push({ id: doc.id, ...doc.data() }));
+
+  // Фильтруем по выбранному пользователю
+  const filtered = totalCurrentUser === 'all' 
+    ? allDays 
+    : allDays.filter(d => d.user === totalCurrentUser);
+
+  // Считаем часы и деньги из учтённых дней
+  let totalHours = 0, totalMoney = 0;
+  filtered.forEach(day => {
+    const s = new Date(`1970-01-01T${day.startTime}:00`);
+    const e = new Date(`1970-01-01T${day.endTime}:00`);
+    let h = (e - s) / (1000 * 3600);
+    if (h < 0) h = 0;
+    totalHours += h;
+    totalMoney += parseFloat(day.salary || 0);
   });
+  const countedDays = filtered.length;
 
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  
-  // Пустые ячейки для начала месяца (коррекция для Пн как первого дня)
-  const offset = firstDay === 0 ? 6 : firstDay - 1;
-  for (let i = 0; i < offset; i++) {
-    grid.appendChild(document.createElement('div'));
+  // Добавляем 40 дней по 12 часов (только для выбранного пользователя,
+  // если фильтр "all", то прибавляем 40 дней к итогу)
+  let bonusDays = 0, bonusHours = 0, bonusMoney = 0;
+  if (totalCurrentUser === 'all') {
+    // При "Все" прибавляем 40 дней (разделить между Денисом и Полиной нельзя,
+    // просто плюсуем к общему)
+    bonusDays = 40;
+    bonusHours = 40 * 12;
+    bonusMoney = (40 * 12 * 9 - 40 * 9); // формула: (часы*9 - дни*9) как у тебя
+    // Но у нас 12 часов: вычитаем 9 за смену? Логика: зарплата = часы*9 - 9.
+    // Значит для одного 12-часового дня: 12*9 - 9 = 99 руб.
+    // За 40 дней: 40 * 99 = 3960 руб.
+    bonusMoney = 40 * (12 * 9 - 9);
+  } else {
+    // Если выбран конкретный пользователь, считаем, что эти 40 дней – его.
+    bonusDays = 40;
+    bonusHours = 40 * 12;
+    bonusMoney = 40 * (12 * 9 - 9);
   }
 
-  const today = new Date();
-
-  for (let d = 1; d <= daysInMonth; d++) {
-    const currentDate = new Date(year, month, d);
-    const dayEl = document.createElement('div');
-    dayEl.className = 'calendar_day';
-    
-    if (currentDate.toDateString() === today.toDateString()) {
-      dayEl.classList.add('today');
-    }
-
-    // Логика расчета смены 2/2
-    // Разница в днях от опорной даты
-    const diffTime = currentDate.getTime() - REFERENCE_DATE.getTime();
-    const diffDays = Math.floor(diffTime / (1000 * 3600 * 24));
-    
-    // Цикл 4 дня: 0,1 - Валя, 2,3 - Зоя
-    // Используем остаток от деления на 4. 
-    // Поскольку 18.02 (день 0) — Валя, то 0 и 1 это Валя.
-    let shift = "";
-    let shiftClass = "";
-    
-    // Корректируем отрицательные значения для дат до 18.02
-    const cyclePos = ((diffDays % 4) + 4) % 4; 
-    
-    if (cyclePos === 0 || cyclePos === 1) {
-      shift = "В";
-      shiftClass = "shift_v";
-    } else {
-      shift = "З";
-      shiftClass = "shift_z";
-    }
-
-    dayEl.innerHTML = `
-      <span class="day_num">${d}</span>
-      <span class="${shiftClass}">${shift}</span>
-    `;
-    grid.appendChild(dayEl);
-  }
+  // Обновляем DOM
+  document.getElementById('totalDaysAll').textContent = countedDays + bonusDays;
+  document.getElementById('totalHoursAll').textContent = (totalHours + bonusHours).toFixed(1);
+  document.getElementById('totalMoneyAll').textContent = (totalMoney + bonusMoney).toFixed(2) + ' руб.';
 }
 
-// Слушатели для кнопок календаря
-document.getElementById('prevMonth').addEventListener('click', () => {
-  calendarViewDate.setMonth(calendarViewDate.getMonth() - 1);
-  renderShiftCalendar();
+// Обработчики кнопок фильтра "за всё время"
+document.getElementById('totalUserFilter').addEventListener('click', (e) => {
+  const chip = e.target.closest('.filter-chip');
+  if (!chip) return;
+  document.querySelectorAll('#totalUserFilter .filter-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  totalCurrentUser = chip.dataset.totalUser;
+  loadTotalStats();
 });
 
-document.getElementById('nextMonth').addEventListener('click', () => {
-  calendarViewDate.setMonth(calendarViewDate.getMonth() + 1);
-  renderShiftCalendar();
-});
+// Вызываем при открытии вкладки "Все дни", чтобы обновить сразу
+const originalLoadDays = loadDays;
+loadDays = async function() {
+  await originalLoadDays();
+  loadTotalStats();
+};
+// Также при первом старте (если вкладка открыта) вызываем
+loadTotalStats();
 
-// Вызовите эту функцию в конце скрипта или в блоке инициализации
-renderShiftCalendar();
+// ⬆⬆⬆ КОНЕЦ ВСТАВКИ ⬆⬆⬆
+      // ⬇⬇⬇ ВСТАВИТЬ ПЕРЕД  ⬇⬇⬇
 
 
-  function initMonthSelect() {
-    const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 
-                   'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-    const now = new Date();
-    
-    for(let y = now.getFullYear()-1; y <= now.getFullYear()+1; y++) {
-      for(let m = 0; m < 12; m++) {
-        const opt = document.createElement('option');
-        opt.value = `${y}-${m}`;
-        opt.text = `${months[m]} ${y}`;
-        if(y === now.getFullYear() && m === now.getMonth()) opt.selected = true;
-        monthSelect.append(opt);
-      }
-    }
-    updateCurrentMonthDisplay();
-  }
+
+// --- РАНДОМНЫЙ ДЕНЬ ---
+async function loadRandomDay() {
+  const randomContent = document.getElementById('randomDayContent');
+  if (!randomContent) return;
   
-  function updateCurrentMonthDisplay() {
-    const [y, m] = monthSelect.value.split('-').map(Number);
-    currentYear = y;
-    currentMonth = m;
-    const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 
-                   'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-    currentMonthYear.textContent = `${months[m]} ${y}`;
-  }
-
-  // Установка сегодняшней даты по умолчанию
-  dateInput.value = fmtDateInput(new Date());
-
-  // Расчет зарплаты
-  function updateFormSalary() {
-    const start = form.start_time.value;
-    const end = form.end_time.value;
-    
-    if(!start || !end) {
-      salaryInfo.textContent = 'Копейки: 0.00 руб.';
-      return 0;
-    }
-    
-    const startDate = new Date(`1970-01-01T${start}:00`);
-    const endDate = new Date(`1970-01-01T${end}:00`);
-    let hours = (endDate - startDate) / (1000 * 3600);
-    if(hours < 0) hours = 0;
-    
-    const salary = (hours * 9 - 9).toFixed(2);
-    salaryInfo.textContent = `Зарплата: ${salary} руб.`;
-    return parseFloat(salary);
-  }
-
-  form.start_time.addEventListener('change', updateFormSalary);
-  form.end_time.addEventListener('change', updateFormSalary);
-
-  // Превью загружаемых файлов
-  mediaInput.addEventListener('change', () => {
-    filePreview.innerHTML = '';
-    if(mediaInput.files.length) {
-      filePreview.classList.add('active');
-      Array.from(mediaInput.files).forEach(file => {
-        const fileItem = document.createElement('div');
-        fileItem.className = 'file_item';
-        fileItem.innerHTML = `
-          <span class="file_icon">📎</span>
-          <span class="file_name">${file.name}</span>
-        `;
-        filePreview.append(fileItem);
-      });
-    } else {
-      filePreview.classList.remove('active');
-    }
-  });
-
-  // Загрузка файлов на ImgBB
-  async function uploadFileToImgBB(file) {
-    const formData = new FormData();
-    formData.append('image', file);
-    
-    try {
-      const response = await fetch('https://api.imgbb.com/1/upload?key=f615d978ca8fd405d2e746aefcba1637', {
-        method: 'POST',
-        body: formData
-      });
-      
-      const data = await response.json();
-      
-      if(data.status !== 200) {
-        throw new Error(data.error?.message || 'Ошибка загрузки файла');
-      }
-      
-      return data.data.url;
-    } catch (error) {
-      console.error('Ошибка загрузки файла:', error);
-      throw error;
-    }
-  }
-
-  // Обработка отправки формы
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-
-    const user = form.querySelector('input[name="user"]:checked').value;
-    const date = form.date.value;
-    const startTime = form.start_time.value;
-    const endTime = form.end_time.value;
-    const comment = form.comment.value;
-    const salary = updateFormSalary();
-
-    try {
-      // Загрузка файлов
-      let mediaLinks = [];
-      if(mediaInput.files.length > 0) {
-        for(const file of mediaInput.files) {
-          const link = await uploadFileToImgBB(file);
-          mediaLinks.push(link);
-        }
-      }
-
-      // Сохранение данных в Firestore
-      await addDoc(collection(db, 'workingDays'), {
-        user,
-        date,
-        startTime,
-        endTime,
-        comment,
-        salary,
-        mediaFiles: mediaLinks,
-        timestamp: serverTimestamp()
-      });
-
-      alert('Светлана тобой гордится!!!');
-      form.reset();
-      filePreview.innerHTML = '';
-      filePreview.classList.remove('active');
-      salaryInfo.textContent = 'Зарплата: 0.00 руб.';
-      dateInput.value = fmtDateInput(new Date());
-    } catch (error) {
-      alert('Ошибка при сохранении: ' + error.message);
-    }
-  });
-
-  // Определение типа медиа по URL
-  function getMediaType(url) {
-    if(/\.(jpg|jpeg|png|gif|webp|bmp)$/i.test(url)) return 'image';
-    if(/\.(mp4|webm|ogg|mov)$/i.test(url)) return 'video';
-    return 'other';
-  }
-
-  // Загрузка и отображение дней
-  async function loadDays() {
-    daysContainer.innerHTML = '<p>Загрузка...</p>';
-    
-    const startDate = fmtDateInput(new Date(currentYear, currentMonth, 1));
-    const endDate = fmtDateInput(new Date(currentYear, currentMonth + 1, 0));
-    
-    const q = query(
-      collection(db, 'workingDays'),
-      where('date', '>=', startDate),
-      where('date', '<=', endDate)
-    );
-    
-    const snapshot = await getDocs(q);
-    const days = [];
-    snapshot.forEach(doc => days.push({ id: doc.id, ...doc.data() }));
-    
-    // Фильтрация по пользователю
-    const filteredDays = currentUser === 'all' 
-      ? days 
-      : days.filter(day => day.user === currentUser);
-    
-    if(filteredDays.length === 0) {
-      daysContainer.innerHTML = '<p>Нет данных за этот период</p>';
-      updateStats([]);
+  randomContent.innerHTML = '<span style="color: var(--text-muted);">🎰 Крутим барабан...</span>';
+  
+  try {
+    const snapshot = await getDocs(collection(db, 'workingDays'));
+    if (snapshot.empty) {
+      randomContent.innerHTML = '😴 Нет ни одной записи. Добавь первый день!';
       return;
     }
     
-    // Сортировка по дате (новые сверху)
-    filteredDays.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const allDays = [];
+    snapshot.forEach(doc => allDays.push({ id: doc.id, ...doc.data() }));
     
-    daysContainer.innerHTML = '';
+    // Выбираем случайный день
+    const randomDay = allDays[Math.floor(Math.random() * allDays.length)];
     
-    filteredDays.forEach(day => {
-      let mediaHTML = '';
-      if(day.mediaFiles?.length > 0) {
-        mediaHTML = `
-          <div class="day_media">
-            <p>Прикрепленные файлы:</p>
-            <div class="media-grid">
-              ${day.mediaFiles.map(url => {
-                const type = getMediaType(url);
-                
-                if(type === 'image') {
-                  return `
-                    <div class="media-item">
-                      <img src="${url}" alt="Фото рабочего дня" class="media-image" loading="lazy">
-                    </div>
-                  `;
-                } else if(type === 'video') {
-                  return `
-                    <div class="media-item">
-                      <video controls class="media-video">
-                        <source src="${url}" type="video/mp4">
-                        Ваш браузер не поддерживает видео.
-                      </video>
-                    </div>
-                  `;
-                } else {
-                  return `
-                    <div class="media-item">
-                      <a href="${url}" target="_blank" class="media-link">📁 Скачать файл</a>
-                    </div>
-                  `;
-                }
-              }).join('')}
-            </div>
-          </div>
-        `;
+    // Форматируем дату
+    const dateFormatted = formatDisplayDate(randomDay.date);
+    
+    // Определяем эмодзи по настроению (шутка)
+    const vibes = ['', '', '', '', '', '', '', ''];
+    const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
+    
+    randomContent.innerHTML = `
+      <div style="font-size: 40px; margin-bottom: 10px;">${randomVibe}</div>
+      <div style="font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px;">
+        ${dateFormatted}
+      </div>
+      <div style="font-size: 14px; color: var(--blue); font-weight: 600; margin-bottom: 4px;">
+        👤 ${randomDay.user}
+      </div>
+      <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
+        🕐 ${randomDay.startTime} – ${randomDay.endTime}
+      </div>
+      <div style="font-size: 14px; color: var(--text); font-style: italic; margin-top: 8px; padding: 10px; background: #f8fafb; border-radius: 10px; line-height: 1.5;">
+        💬 ${randomDay.comment || 'Без комментария'}
+      </div>
+      <div style="font-size: 13px; color: #0d7d4a; font-weight: 600; margin-top: 6px;">
+        💰 ${randomDay.salary || '0.00'} руб.
+      </div>
+      ${randomDay.mediaFiles && randomDay.mediaFiles.length > 0 ? 
+        `<div style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">📎 ${randomDay.mediaFiles.length} файл(а)</div>` : ''}
+    `;
+    
+  } catch (err) {
+    console.error('Ошибка загрузки случайного дня:', err);
+    randomContent.innerHTML = '❌ Не удалось загрузить. Попробуй ещё раз.';
+  }
+}
+
+// Обработчик кнопки обновления
+document.getElementById('refreshRandomDay').addEventListener('click', loadRandomDay);
+
+// Загружаем при открытии вкладки
+const originalSwitchTab = switchTab;
+switchTab = function(tabId) {
+  originalSwitchTab(tabId);
+  if (tabId === 'panelNewDay') {
+    loadRandomDay();
+  }
+};
+
+// Первая загрузка (если вкладка активна)
+if (currentTab === 'panelNewDay') {
+  loadRandomDay();
+}
+
+// ⬇⬇⬇ ВСТАВИТЬ ПЕРЕД  ⬇⬇⬇
+
+// ⬇⬇⬇ ВСТАВИТЬ ПЕРЕД (замени старый код календаря) ⬇⬇⬇
+
+// ⬇⬇⬇ ПОЛНАЯ ЗАМЕНА КОДА КАЛЕНДАРЯ (вставь перед ) ⬇⬇⬇
+
+// --- КАЛЕНДАРЬ ВЫБОРА ДНЕЙ (ПОЛНОСТЬЮ ИСПРАВЛЕННЫЙ) ---
+const calMonthEl = document.getElementById('calMonth');
+const calYearEl = document.getElementById('calYear');
+const calGridContainer = document.getElementById('calGridContainer');
+const calUserToggle = document.getElementById('calUserToggle');
+const calDenisStart = document.getElementById('calDenisStart');
+const calDenisEnd = document.getElementById('calDenisEnd');
+const calPolinaStart = document.getElementById('calPolinaStart');
+const calPolinaEnd = document.getElementById('calPolinaEnd');
+const downloadCalendarBtn = document.getElementById('downloadCalendarBtn');
+
+let calendarSelections = {};
+let calEditUser = 'Денис';
+
+// Установка текущего года и месяца
+calYearEl.value = new Date().getFullYear();
+calMonthEl.value = new Date().getMonth();
+
+// Переключение пользователя
+calUserToggle.addEventListener('click', (e) => {
+  const btn = e.target.closest('.user-toggle-btn');
+  if (!btn) return;
+  calUserToggle.querySelectorAll('.user-toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  calEditUser = btn.dataset.calUser;
+  renderCalendar();
+});
+
+// Обработчики изменения месяца/года
+calMonthEl.addEventListener('change', renderCalendar);
+calYearEl.addEventListener('input', renderCalendar);
+calYearEl.addEventListener('change', renderCalendar);
+
+// Функция получения ключа даты YYYY-MM-DD
+function getDateKey(year, month, day) {
+  return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+// Отрисовка календаря
+function renderCalendar() {
+  const month = parseInt(calMonthEl.value);
+  const year = parseInt(calYearEl.value);
+  
+  if (isNaN(year) || year < 2020 || year > 2030) {
+    calGridContainer.innerHTML = '<p style="text-align:center;color:var(--text-muted);">Введите корректный год (2020-2030)</p>';
+    return;
+  }
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  
+  // Получаем день недели первого числа (0 = воскресенье, 1 = понедельник, ..., 6 = суббота)
+  const firstDayOfWeek = new Date(year, month, 1).getDay();
+  
+  // Вычисляем отступ для понедельника (если понедельник — первый день)
+  // Если воскресенье (0), то отступ 6, иначе отступ = день - 1
+  const offset = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+
+  const today = new Date();
+  const todayKey = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+
+  // Строим HTML-сетку
+  let html = '<div class="cal-grid">';
+  
+  // Заголовки дней недели
+  const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  weekdays.forEach(w => {
+    html += `<div class="cal-day-header">${w}</div>`;
+  });
+  
+  // Пустые ячейки до первого дня
+  for (let i = 0; i < offset; i++) {
+    html += '<div></div>';
+  }
+  
+  // Дни месяца
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateKey = getDateKey(year, month, day);
+    const isPolina = calendarSelections[dateKey]?.polina || false;
+    const isDenis = calendarSelections[dateKey]?.denis || false;
+    
+    let cls = 'cal-day';
+    if (isPolina && isDenis) {
+      cls += ' both';
+    } else if (isPolina) {
+      cls += ' polina';
+    } else if (isDenis) {
+      cls += ' denis';
+    }
+    
+    if (dateKey === todayKey) {
+      cls += ' today';
+    }
+    
+    html += `<div class="${cls}" data-date="${dateKey}">${day}</div>`;
+  }
+  
+  html += '</div>';
+  
+  calGridContainer.innerHTML = html;
+  
+  // Навешиваем обработчики клика
+  const dayElements = calGridContainer.querySelectorAll('.cal-day');
+  dayElements.forEach(dayEl => {
+    dayEl.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const dateKey = this.dataset.date;
+      
+      if (!dateKey) return;
+      
+      // Инициализируем запись, если её нет
+      if (!calendarSelections[dateKey]) {
+        calendarSelections[dateKey] = { polina: false, denis: false };
       }
       
-      const dayCard = document.createElement('div');
-      dayCard.className = 'day_card';
-      dayCard.innerHTML = `
-        <div class="day_header">
-          <span>${day.user}</span>
-          <span>${formatDisplayDate(day.date)}</span>
-        </div>
-        <div class="day_time">
-          Время работы: ${day.startTime} - ${day.endTime}
-        </div>
-        <div class="day_comment">
-          ${day.comment || 'Нет комментария'}
-        </div>
-        ${mediaHTML}
-        <div class="salary_info">
-          Зарплата: ${day.salary || '0.00'} руб.
-        </div>
-        <button class="delete_btn" data-id="${day.id}">Удалить</button>
-      `;
+      // Переключаем флаг для выбранного пользователя
+      if (calEditUser === 'Денис') {
+        calendarSelections[dateKey].denis = !calendarSelections[dateKey].denis;
+      } else if (calEditUser === 'Полина') {
+        calendarSelections[dateKey].polina = !calendarSelections[dateKey].polina;
+      }
       
-      daysContainer.appendChild(dayCard);
-    });
-    
-    // Обработчики для кнопок удаления
-    document.querySelectorAll('.delete_btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        if(confirm('Точно удаляем?')) {
-          try {
-            await deleteDoc(doc(db, 'workingDays', btn.dataset.id));
-            btn.parentElement.remove();
-            updateStats();
-          } catch (error) {
-            alert('Ошибка при удалении: ' + error.message);
-          }
-        }
-      });
-    });
-    
-    updateStats(filteredDays);
-  }
-
-  // Обновление статистики
-  function updateStats(days = []) {
-    let totalHours = 0;
-    let totalSalary = 0;
-    
-    days.forEach(day => {
-      const start = new Date(`1970-01-01T${day.startTime}:00`);
-      const end = new Date(`1970-01-01T${day.endTime}:00`);
-      let hours = (end - start) / (1000 * 3600);
-      if(hours < 0) hours = 0;
-      
-      totalHours += hours;
-      totalSalary += parseFloat(day.salary || 0);
-    });
-    
-    daysWorkedEl.textContent = days.length;
-    hoursWorkedEl.textContent = totalHours.toFixed(1);
-    totalSalaryEl.textContent = `${totalSalary.toFixed(2)} руб.`;
-    contractSalaryEl.textContent = `${(totalSalary / 0.87).toFixed(2)} руб.`;
-  }
-
-  // Текущий пользователь и месяц
-  let currentUser = 'all';
-  let currentYear = new Date().getFullYear();
-  let currentMonth = new Date().getMonth();
-
-  // Обработчики событий для навигации
-  allDaysBtn.addEventListener('click', e => {
-    e.preventDefault();
-    showTab('allDays');
-  });
-
-  newDayBtn.addEventListener('click', e => {
-    e.preventDefault();
-    showTab('newDay');
-  });
-
-  shelfLifeBtn.addEventListener('click', e => {
-    e.preventDefault();
-    showTab('shelfLife');
-  });
-
-  // Обработчики для калькулятора сроков годности
-  manufactureYear.addEventListener('change', calculateExpiryDate);
-  manufactureMonth.addEventListener('change', calculateExpiryDate);
-  manufactureDay.addEventListener('change', calculateExpiryDate);
-  periodType.addEventListener('change', calculateExpiryDate);
-  periodValue.addEventListener('input', calculateExpiryDate);
-
-  // Быстрые кнопки для сроков годности
-  quickButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Убираем активный класс со всех кнопок
-      quickButtons.forEach(btn => btn.classList.remove('active'));
-      // Добавляем активный класс нажатой кнопке
-      button.classList.add('active');
-      
-      // Устанавливаем дни и переключаем на дни
-      const days = parseInt(button.dataset.days);
-      periodValue.value = days;
-      periodType.value = 'days';
-      
-      // Пересчитываем
-      calculateExpiryDate();
+      renderCalendar();
     });
   });
+}
 
-  userFilterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      userFilterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentUser = btn.dataset.user;
-      loadDays();
-    });
-  });
-
-  monthSelect.addEventListener('change', () => {
-    updateCurrentMonthDisplay();
-    loadDays();
-  });
-
-  // Добавляем обработчик для кнопки "Треки"
-  const settingsBtn = document.getElementById('settingsBtn');
-  const tracksContainer = document.createElement('div');
-  tracksContainer.id = 'tracksContainer';
-  tracksContainer.className = 'form_card';
-  tracksContainer.style.display = 'none';
-  document.querySelector('.container').appendChild(tracksContainer);
-
-  settingsBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    showTab('tracks');
-  });
-
-  function renderTracksContent() {
-    tracksContainer.innerHTML = `
-      <div class="tracks-section">
-        <h2>Треки</h2>
-        <div class="tracks-grid" id="tracksGrid">
-          <!-- Треки будут добавлены здесь -->
-        </div>
-      </div>
-      
-      <div class="divination-section">
-        <h2>ГАДАНИЯ</h2>
-        
-        <div class="divination-block">
-          <h3>Вайб Светланы сегодня</h3>
-          <button id="vibeBtn" class="divination-btn">Узнать вайб</button>
-          <div id="vibeResult" class="divination-result"></div>
-        </div>
-        
-        <div class="divination-block">
-          <h3>Прогноз на день</h3>
-          <button id="forecastBtn" class="divination-btn">Получить прогноз</button>
-          <div id="forecastResult" class="divination-result"></div>
-        </div>
-      </div>
-    `;
-
-    // Добавляем треки
-    const tracksGrid = document.getElementById('tracksGrid');
-   const tracks = [
-      { id: 1, name: "27 мы шагнули в зал весны", file: "27.mp3" },
-      { id: 2, name: "нет слов", file: "net.mp3" },
-      { id: 3, name: "после этого трека хочется лечь на бананке и забыть обо всём", file: "gud.mp3" },
-      { id: 4, name: "Так устроен этот мир", file: "mir.mp3" },
-      { id: 5, name: "MILKSHAKE", file: "milk.mp3" },
-      { id: 6, name: "Лето в Санте", file: "leto.mp3" },
-      { id: 7, name: "Зима в Санте", file: "zima.mp3" },
-      { id: 8, name: "GIANT", file: "giant.mp3" },
-      { id: 9, name: "А папе что?..", file: "pekar.mp3" },
-      { id: 10, name: "Эй санта проверка связи", file: "sv.mp3" },
-      { id: 11, name: "Новая власть", file: "vl.mp3" },
-      { id: 12, name: "Сроки сроки сроки", file: "sr.mp3" },
-      { id: 13, name: "Промокод ЯндексМузыка", file: "promo.mp3" },
-      { id: 14, name: "Бедолага Сергей", file: "bedolaga.mp3" },
-      { id: 15, name: "Травма", file: "travma.mp3" },
-      { id: 16, name: "Ремейк новая поза вертолет", file: "remake.mp3" },
-      { id: 17, name: "SVETIK", file: "SVETIK.mp3" },
-      { id: 18, name: "Запись в дневнике №69", file: "69.mp3" },
-      { id: 19, name: "Письмо", file: "pismo.mp3" },
-      { id: 20, name: "Скачет Зоя на плотве сквозь поля, леса", file: "plotva.mp3" },
-      { id: 21, name: "Лето в санте с членососовой", file: "0627.mp3" },
-      { id: 22, name: "Я  директор но теряю контроль", file: "director.mp3" },
-      { id: 23, name: "Твои руки рвут мой отчет", file: "otchet.mp3" },
-      { id: 24, name: "Зима в Санте х Эй Санта проверка связи - SVETIK", file: "mashup1.mp3" },
-      { id: 25, name: "Эй Санта проверка связи х Лето в Санте - SVETIK", file: "mashup2.mp3" },
-      { id: 26, name: "Мой папа был сантой", file: "papa.mp3" },
-      { id: 27, name: "А папе что? (Неизданное 2025 года)", file: "pape.mp3" },
-      { id: 28, name: "[Альбом] INTRO - Чек-лист", file: "check.mp3" },
-      { id: 29, name: "[Альбом] НЕЛИКВИД", file: "ne.mp3" },
-      { id: 30, name: "[Альбом] Симён Серджей", file: "semenser.mp3" },
-      { id: 31, name: "[Альбом] Skit", file: "skit.mp3" },
-      { id: 32, name: "[Альбом] Докладная записка - SVETIK", file: "zapis.mp3" },
-    ];
-
-    tracks.forEach(track => {
-      const trackElement = document.createElement('div');
-      trackElement.className = 'track-item';
-      trackElement.innerHTML = `
-        <div class="track-name">${track.name}</div>
-        <audio controls class="track-player">
-          <source src="${track.file}" type="audio/mp3">
-          Ваш браузер не поддерживает аудио элемент.
-        </audio>
-      `;
-      tracksGrid.appendChild(trackElement);
-    });
-
-    // Варианты для гаданий
-    const vibes = [
-      "Сегодня Светлана в отличном настроении!",
-      "Светлана слегка раздражена, лучше не беспокоить",
-      "Вайб Светланы сегодня - загадка. Никто не знает, что у нее на уме",
-      "Светлана cегодня излучает позитив и креатив",
-      "Сегодня Светлана готова раскромсать на куски любого",
-      "Вайб Светланы сегодня - продуктивный и сосредоточенный, на зал выйдет буквально пару раз",
-      "Светлана сегодня немного ностальгирует о прошлом",
-      "Сегодня у Светланы праздничное настроение!",
-      "НЕ ПОПАДАЙСЯ НА ГЛАЗА СВЕТЛАНЕ СЕГОДНЯ ВООБЩЕ НИКАК И ЭТО НЕ ШУТКА. Её взбесит кто-то другой но перепадет тебе, возможно странным заданием",
-      "Сегодня ты будешь встречать светлану чаще чем обычно",
-      "Сегодня в Светлане что то изменится, то ли одежда, то ли парфюм, то ли что-то ещё",
-      "Ждите от Светланы неожиданных действий сегодня",
-      "Девочка загадка",
-      "Сегодня она тиран",
-      "Её настроение скажется на вас сегодня",
-      "Будет на кого-то кричать, но не на Вас",
-      "Придёт на работу буквально на пару часов"
-    ];
-
-    const forecasts = [
-      "Сегодня вас ждет неожиданная встреча",
-      "День идеально подходит для ничегонеделания",
-      "Вероятны небольшие трудности",
-      "Сегодняшний день принесет финансовые убытки",
-      "Лучший день чтобы попробовать что-то новое",
-      "Ожидайте приятного сюрприза к концу дня",
-      "Ожидайте УЖАСНОГО сюрприза к концу дня",
-      "Сегодня стоит сосредоточиться на рутинных задачах",
-      "День обещает быть эмоционально насыщенным",
-      "Сегодня вас ждет очень важное решение",
-      "Ожидайте плохих новостей",
-      "Ровно в 09:52 нужно быть в одиночном туалете. Там вы всё и узнаете",
-      "День будет просто отвратным",
-      "Ожидайте сюрприз в середине рабочего дня",
-      "Что-то не так будет с вечерним трамваем",
-      "Остерегайтесь человека с именем Лена",
-      "Остерегайтесь сотрудников мужского пола, в особенности грузчиков"
-    ];
-
-    // Обработчики для кнопок гаданий
-    document.getElementById('vibeBtn').addEventListener('click', () => {
-      const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
-      document.getElementById('vibeResult').innerHTML = `
-        <div class="result-text">${randomVibe}</div>
-        <div class="result-emoji">${getRandomEmoji()}</div>
-      `;
-    });
-
-    document.getElementById('forecastBtn').addEventListener('click', () => {
-      const randomForecast = forecasts[Math.floor(Math.random() * forecasts.length)];
-      document.getElementById('forecastResult').innerHTML = `
-        <div class="result-text">${randomForecast}</div>
-        <div class="result-emoji">🔮</div>
-      `;
-    });
-  }
-
-  function getRandomEmoji() {
-    const emojis = ["✨", "🌟", "💫", "⚡", "🌈", "🎯", "🧿", "🔮", "🎲", "💎"];
-    return emojis[Math.floor(Math.random() * emojis.length)];
-  }
-
-  // Добавляем стили для новой вкладки
-  const tracksStyles = document.createElement('style');
-  tracksStyles.textContent = `
-    .tracks-section, .divination-section {
-      margin-bottom: 30px;
-    }
-    
-    .tracks-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 15px;
-      margin-top: 15px;
-    }
-    
-    .track-item {
-      background: #f8f8f8;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    .track-name {
-      font-weight: 500;
-      margin-bottom: 10px;
-      color: #333;
-    }
-    
-    .track-player {
-      width: 100%;
-    }
-    
-    .divination-block {
-      background: #f8f8f8;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    .divination-btn {
-      background-color: #00a7e0;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background-color 0.3s;
-    }
-    
-    .divination-btn:hover {
-      background-color: #0088c0;
-    }
-    
-    .divination-result {
-      margin-top: 15px;
-      padding: 15px;
-      background: white;
-      border-radius: 8px;
-      text-align: center;
-      min-height: 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .result-text {
-      font-size: 16px;
-      margin-bottom: 10px;
-      color: #333;
-    }
-    
-    .result-emoji {
-      font-size: 24px;
-    }
+// СКАЧИВАНИЕ (исправленная версия с таблицей)
+downloadCalendarBtn.addEventListener('click', async () => {
+  const month = parseInt(calMonthEl.value);
+  const year = parseInt(calYearEl.value);
+  const months = ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                  'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  const monthName = months[month];
+  
+  // Создаём временный div для рендеринга
+  const captureDiv = document.createElement('div');
+  captureDiv.style.position = 'absolute';
+  captureDiv.style.left = '-9999px';
+  captureDiv.style.top = '0';
+  captureDiv.style.width = '640px';
+  captureDiv.style.padding = '30px';
+  captureDiv.style.background = '#ffffff';
+  captureDiv.style.fontFamily = 'Roboto, Tahoma, sans-serif';
+  captureDiv.style.color = '#1a1d23';
+  captureDiv.style.boxSizing = 'border-box';
+  
+  // Заголовок
+  let calHTML = `<h2 style="text-align:center;margin:0 0 20px;font-size:26px;font-weight:700;">${monthName} ${year}</h2>`;
+  
+  // Легенда (цветные квадратики)
+  calHTML += `
+    <div style="display:flex;gap:24px;margin-bottom:20px;font-size:16px;align-items:center;justify-content:center;">
+      <span style="display:flex;align-items:center;gap:8px;">
+        <span style="width:20px;height:20px;border-radius:4px;background:#9b59b6;display:inline-block;"></span> Полина
+      </span>
+      <span style="display:flex;align-items:center;gap:8px;">
+        <span style="width:20px;height:20px;border-radius:4px;background:#2ecc71;display:inline-block;"></span> Денис
+      </span>
+      <span style="display:flex;align-items:center;gap:8px;">
+        <span style="width:20px;height:20px;border-radius:4px;background:#e67e22;display:inline-block;"></span> Оба
+      </span>
+    </div>
   `;
-  document.head.appendChild(tracksStyles);
+  
+  // ТАБЛИЦА КАЛЕНДАРЯ
+  calHTML += '<table style="width:100%;border-collapse:collapse;text-align:center;font-size:16px;table-layout:fixed;">';
+  
+  // Заголовки дней недели
+  calHTML += '<tr>';
+  ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(w => {
+    calHTML += `<th style="padding:10px 0;color:#00a7e0;font-weight:700;width:14.28%;">${w}</th>`;
+  });
+  calHTML += '</tr>';
+  
+  // Дни месяца
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDayOfWeek = new Date(year, month, 1).getDay();
+  const offset = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+  
+  let dayCounter = 0;
+  const totalCells = offset + daysInMonth;
+  const rows = Math.ceil(totalCells / 7);
+  
+  for (let r = 0; r < rows; r++) {
+    calHTML += '<tr>';
+    for (let c = 0; c < 7; c++) {
+      const cellIndex = r * 7 + c;
+      
+      if (cellIndex < offset || cellIndex >= totalCells) {
+        // Пустая ячейка
+        calHTML += '<td style="padding:4px;"></td>';
+      } else {
+        const day = cellIndex - offset + 1;
+        const dateKey = getDateKey(year, month, day);
+        const p = calendarSelections[dateKey]?.polina || false;
+        const den = calendarSelections[dateKey]?.denis || false;
+        
+        let bg = '#ffffff';
+        let textColor = '#1a1d23';
+        
+        if (p && den) {
+          bg = '#e67e22';
+          textColor = '#5c3409';
+        } else if (p) {
+          bg = '#9b59b6';
+          textColor = '#ffffff';
+        } else if (den) {
+          bg = '#2ecc71';
+          textColor = '#1a4d2e';
+        }
+        
+        calHTML += `
+          <td style="padding:4px;">
+            <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;background:${bg};font-weight:600;font-size:17px;border:2px solid #e0e0e0;color:${textColor};">
+              ${day}
+            </div>
+          </td>`;
+      }
+    }
+    calHTML += '</tr>';
+  }
+  
+  calHTML += '</table>';
+  
+  // Время работы
+  const denisStart = calDenisStart.value || '08:00';
+  const denisEnd = calDenisEnd.value || '20:00';
+  const polinaStart = calPolinaStart.value || '08:00';
+  const polinaEnd = calPolinaEnd.value || '20:00';
+  
+  calHTML += `
+    <div style="margin-top:24px;font-size:16px;line-height:2;">
+      <p style="margin:4px 0;"><strong>Денис:</strong> ${denisStart} – ${denisEnd}</p>
+      <p style="margin:4px 0;"><strong>Полина:</strong> ${polinaStart} – ${polinaEnd}</p>
+    </div>
+  `;
+  
+  captureDiv.innerHTML = calHTML;
+  document.body.appendChild(captureDiv);
+  
+  try {
+    const canvas = await html2canvas(captureDiv, { 
+      scale: 2,
+      backgroundColor: '#ffffff',
+      logging: false
+    });
+    document.body.removeChild(captureDiv);
+    
+    const link = document.createElement('a');
+    link.download = `calendar_${monthName}_${year}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('📸 Календарь сохранён!');
+  } catch (err) {
+    document.body.removeChild(captureDiv);
+    showToast('❌ Ошибка создания изображения');
+    console.error(err);
+  }
+});
 
-  // Инициализация
-  initMonthSelect();
-  initShelfLifeCalculator();
-  loadDays();
-</script>
+// Инициализация календаря
+renderCalendar();
+
+// Обновление switchTab
+if (!window._calendarPatched) {
+  const originalSwitchTab = switchTab;
+  switchTab = function(tabId) {
+    originalSwitchTab(tabId);
+    if (tabId === 'panelCalendar') {
+      pageTitle.textContent = 'Календарь доступных дней';
+      renderCalendar();
+    }
+  };
+  window._calendarPatched = true;
+}
+
+// ⬆⬆⬆ КОНЕЦ ВСТАВКИ ⬆⬆⬆
+    </script>
 </body>
 </html>
