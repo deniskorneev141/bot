@@ -513,144 +513,128 @@
             transform: scale(0.95);
         }
 
-        /* ── Shelf Life Calculator ───── */
-        .quick-btns {
+        /* ── Shelf Life Calculator (NEW DESIGN) ───── */
+        .shelf-life-container {
+            text-align: left;
+            padding: 10px 0;
+        }
+        .shelf-life-title {
+            font-size: 28px;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .shelf-life-row {
             display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 12px;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
         }
-        .quick-btn {
-            padding: 9px 14px;
-            border-radius: 20px;
-            border: 2px solid var(--border);
-            background: #fff;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: var(--transition);
+        .shelf-life-row label {
+            font-size: 16px;
+            color: #333;
+            font-weight: 400;
+            min-width: 150px;
+        }
+        .shelf-life-row input[type="date"] {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
             font-family: var(--font);
-            white-space: nowrap;
-            -webkit-tap-highlight-color: transparent;
+            background: #fff;
+            color: #333;
         }
-        .quick-btn.active {
-            background: var(--blue);
+        .shelf-life-row input[type="date"]:focus {
+            outline: none;
+            border-color: #f39c12;
+            box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.2);
+        }
+        .shelf-life-row input[type="number"] {
+            flex: 1;
+            min-width: 80px;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: var(--font);
+            background: #fff;
+            color: #333;
+        }
+        .shelf-life-row input[type="number"]:focus {
+            outline: none;
+            border-color: #f39c12;
+            box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.2);
+        }
+        .shelf-life-row select {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: var(--font);
+            background: #fff;
+            color: #333;
+            cursor: pointer;
+        }
+        .shelf-life-row select:focus {
+            outline: none;
+            border-color: #f39c12;
+            box-shadow: 0 0 0 2px rgba(243, 156, 18, 0.2);
+        }
+        .shelf-life-btn {
+            display: inline-block;
+            padding: 10px 40px;
+            background: #f39c12;
             color: #fff;
-            border-color: var(--blue);
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: var(--font);
+            margin-top: 10px;
+            letter-spacing: 0.5px;
         }
-        .quick-btn:active {
-            transform: scale(0.94);
+        .shelf-life-btn:active {
+            transform: scale(0.97);
+            background: #e67e22;
         }
-        .expiry-result {
+        .shelf-life-result {
+            margin-top: 20px;
             padding: 20px;
-            border-radius: var(--radius-lg);
+            border-radius: 10px;
             text-align: center;
             font-weight: 700;
             font-size: 16px;
             transition: var(--transition);
             border: 2px solid var(--border);
             line-height: 1.6;
+            background: #fafbfc;
+            color: #333;
         }
-        .expiry-result.green {
+        .shelf-life-result.green {
             background: #d4edda;
             border-color: #a8dbb5;
             color: #155724;
         }
-        .expiry-result.yellow {
+        .shelf-life-result.yellow {
             background: #fff3cd;
             border-color: #ffe082;
             color: #856404;
         }
-        .expiry-result.red {
+        .shelf-life-result.red {
             background: #f8d7da;
             border-color: #f5a3a8;
             color: #721c24;
-        }
-
-        /* ── Shift Calendar ──────────── */
-        .calendar-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .calendar-nav button {
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: none;
-            background: var(--blue);
-            color: #fff;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: var(--font);
-            font-size: 14px;
-            transition: var(--transition);
-            -webkit-tap-highlight-color: transparent;
-        }
-        .calendar-nav button:active {
-            transform: scale(0.94);
-            background: var(--blue-dark);
-        }
-        .calendar-nav .month-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--text);
-        }
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 3px;
-            text-align: center;
-            font-size: 11px;
-        }
-        .calendar-grid .weekday-header {
-            font-weight: 700;
-            color: var(--blue);
-            padding: 4px 0;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-        .calendar-grid .cal-day {
-            padding: 6px 2px;
-            border-radius: 6px;
-            background: #f8fafb;
-            min-height: 36px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-weight: 500;
-            border: 1px solid transparent;
-            transition: var(--transition);
-        }
-        .calendar-grid .cal-day.today {
-            border: 2px solid var(--blue);
-            background: var(--blue-light);
-            font-weight: 700;
-        }
-        .calendar-grid .cal-day .shift-v {
-            color: #e91e63;
-            font-weight: 700;
-            font-size: 9px;
-            letter-spacing: 0.3px;
-        }
-        .calendar-grid .cal-day .shift-z {
-            color: #4caf50;
-            font-weight: 700;
-            font-size: 9px;
-            letter-spacing: 0.3px;
-        }
-        .calendar-legend {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 8px;
-        }
-        .calendar-legend strong {
-            font-weight: 700;
         }
 
         /* ── Music Player ────────────── */
@@ -912,52 +896,105 @@
         }
 
         .cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  text-align: center;
-  margin: 8px 0;
-}
-.cal-grid .cal-day-header {
-  font-weight: 700;
-  font-size: 11px;
-  color: var(--blue);
-  padding: 6px 0;
-  text-transform: uppercase;
-}
-.cal-grid .cal-day {
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 13px;
-  background: #ffffff;
-  border: 2px solid #e0e0e0;
-  cursor: pointer;
-  transition: 0.15s;
-  user-select: none;
-}
-.cal-grid .cal-day.today {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 2px var(--blue-glow);
-}
-.cal-grid .cal-day.polina {
-  background: #d7bde2;
-  border-color: #9b59b6;
-  color: #4a235a;
-}
-.cal-grid .cal-day.denis {
-  background: #a9dfbf;
-  border-color: #2ecc71;
-  color: #1a4d2e;
-}
-.cal-grid .cal-day.both {
-  background: #f5b041;
-  border-color: #e67e22;
-  color: #5c3409;
-}
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+            margin: 8px 0;
+        }
+        .cal-grid .cal-day-header {
+            font-weight: 700;
+            font-size: 11px;
+            color: var(--blue);
+            padding: 6px 0;
+            text-transform: uppercase;
+        }
+        .cal-grid .cal-day {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: 0.15s;
+            user-select: none;
+        }
+        .cal-grid .cal-day.today {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 2px var(--blue-glow);
+        }
+        .cal-grid .cal-day.polina {
+            background: #d7bde2;
+            border-color: #9b59b6;
+            color: #4a235a;
+        }
+        .cal-grid .cal-day.denis {
+            background: #a9dfbf;
+            border-color: #2ecc71;
+            color: #1a4d2e;
+        }
+        .cal-grid .cal-day.both {
+            background: #f5b041;
+            border-color: #e67e22;
+            color: #5c3409;
+        }
+
+        /* ── Per-day time block ──────── */
+        .per-day-time-block {
+            margin-top: 10px;
+            padding: 12px 14px;
+            background: #f8fafb;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .per-day-time-block .per-day-date {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--blue);
+            min-width: 100%;
+            margin-bottom: 4px;
+        }
+        .per-day-time-block input[type="time"] {
+            flex: 1;
+            min-width: 90px;
+            padding: 8px 10px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: var(--font);
+            font-size: 14px;
+            background: #fff;
+        }
+        .per-day-time-block input[type="time"]:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px var(--blue-glow);
+        }
+        .per-day-time-block .per-day-sep {
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+        .per-day-time-block .per-day-del {
+            padding: 6px 12px;
+            background: #fff;
+            border: 2px solid #fcc;
+            border-radius: 10px;
+            color: #e04040;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+        .per-day-time-block .per-day-del:active {
+            background: #fff5f5;
+        }
     </style>
 </head>
 <body>
@@ -973,24 +1010,23 @@
 
         <!-- Tab 1: New Day -->
         <div class="tab-panel active" id="panelNewDay">
-          <!-- Рандомный день из прошлого -->
-<div class="card" id="randomDayCard" style="margin-top: 12px;">
-  <div class="card-header"><span class="card-icon">🎲</span> Случайный день из прошлого</div>
-  <div id="randomDayContent" style="text-align: center; color: var(--text-muted); padding: 10px;">
-    Загрузка...
-  </div>
-  <button class="btn-primary" id="refreshRandomDay" style="margin-top: 10px; font-size: 14px; padding: 10px;">
-    🔄 Показать другой
-  </button>
-</div>
+            <!-- Рандомный день из прошлого -->
+            <div class="card" id="randomDayCard" style="margin-top: 12px;">
+                <div class="card-header"><span class="card-icon">🎲</span> Случайный день из прошлого</div>
+                <div id="randomDayContent" style="text-align: center; color: var(--text-muted); padding: 10px;">
+                    Загрузка...
+                </div>
+                <button class="btn-primary" id="refreshRandomDay" style="margin-top: 10px; font-size: 14px; padding: 10px;">
+                    🔄 Показать другой
+                </button>
+            </div>
             <div class="card">
                 <div class="card-header"><span class="card-icon">📝</span> Новая запись</div>
                 <form id="dayForm">
                     <div class="user-toggle" id="userToggle">
-                        <button type="button" class="user-toggle-btn active" data-user="Денис">👑 Денис легенда</button>
-                        <button type="button" class="user-toggle-btn" data-user="Полина">💪 Полина пикми</button>
+                        <button type="button" class="user-toggle-btn active" data-user="Полина">💪 Полина</button>
                     </div>
-                    <input type="hidden" name="user" id="userHidden" value="Денис" />
+                    <input type="hidden" name="user" id="userHidden" value="Полина" />
 
                     <div class="form-group">
                         <label for="date">📅 Дата</label>
@@ -1035,50 +1071,42 @@
                 </div>
             </div>
 
-<!-- Причины уйти из Санты -->
-<div class="card" id="reasonsCard">
-  <div class="card-header">
-    <span class="card-icon">🚪</span> Причины уйти из Санты
-  </div>
-  
-  <!-- Форма добавления -->
-  <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-    <input type="text" id="reasonInput" placeholder="Почему стоит уйти?.." 
-           style="flex: 1; padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-family: var(--font); font-size: 14px;" />
-    <button class="btn-primary" id="addReasonBtn" style="width: auto; padding: 10px 16px; font-size: 14px; white-space: nowrap;">
-      ➕ Добавить
-    </button>
-  </div>
-  
-  <!-- Список причин -->
-  <div id="reasonsList" style="max-height: 400px; overflow-y: auto;">
-    <p style="text-align: center; color: var(--text-muted); padding: 12px;">Загрузка...</p>
-  </div>
-</div>
-
+            <!-- Причины уйти из Санты -->
+            <div class="card" id="reasonsCard">
+                <div class="card-header">
+                    <span class="card-icon">🚪</span> Причины уйти из Санты
+                </div>
+                <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                    <input type="text" id="reasonInput" placeholder="Почему стоит уйти?.."
+                           style="flex: 1; padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-family: var(--font); font-size: 14px;" />
+                    <button class="btn-primary" id="addReasonBtn" style="width: auto; padding: 10px 16px; font-size: 14px; white-space: nowrap;">
+                        ➕ Добавить
+                    </button>
+                </div>
+                <div id="reasonsList" style="max-height: 400px; overflow-y: auto;">
+                    <p style="text-align: center; color: var(--text-muted); padding: 12px;">Загрузка...</p>
+                </div>
+            </div>
         </div>
-        
 
         <!-- Tab 2: All Days -->
         <div class="tab-panel" id="panelAllDays">
-       
-             <!-- Общая статистика за всё время -->
-        <div class="card" id="totalStatsCard" style="margin-bottom: 12px;">
-          <div class="card-header"><span class="card-icon">🏆</span> За всё время</div>
-          <div class="filter-row" id="totalUserFilter" style="margin-bottom:8px;">
-            <button class="filter-chip active" data-total-user="all">👥 Все</button>
-            <button class="filter-chip" data-total-user="Денис">👑 Денис</button>
-            <button class="filter-chip" data-total-user="Полина">💪 Полина</button>
-          </div>
-          <div class="stats-grid">
-            <div class="stat-item"><div class="stat-value" id="totalDaysAll">0</div><div class="stat-label">Дней всего</div></div>
-            <div class="stat-item"><div class="stat-value" id="totalHoursAll">0</div><div class="stat-label">Часов всего</div></div>
-            <div class="stat-item full"><div class="stat-value" id="totalMoneyAll">0.00 руб.</div><div class="stat-label">Заработано всего</div></div>
-          </div>
-          <div style="font-size:11px; color:var(--text-muted); margin-top:6px; text-align:center;">
-    *для меня и тебя считает верно, общее неверно
-  </div>
-        </div>
+            <!-- Общая статистика за всё время -->
+            <div class="card" id="totalStatsCard" style="margin-bottom: 12px;">
+                <div class="card-header"><span class="card-icon">🏆</span> За всё время</div>
+                <div class="filter-row" id="totalUserFilter" style="margin-bottom:8px;">
+                    <button class="filter-chip active" data-total-user="all">👥 Все</button>
+                    <button class="filter-chip" data-total-user="Полина">💪 Полина</button>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item"><div class="stat-value" id="totalDaysAll">0</div><div class="stat-label">Дней всего</div></div>
+                    <div class="stat-item"><div class="stat-value" id="totalHoursAll">0</div><div class="stat-label">Часов всего</div></div>
+                    <div class="stat-item full"><div class="stat-value" id="totalMoneyAll">0.00 руб.</div><div class="stat-label">Заработано всего</div></div>
+                </div>
+                <div style="font-size:11px; color:var(--text-muted); margin-top:6px; text-align:center;">
+                    *для меня и тебя считает верно, общее неверно
+                </div>
+            </div>
             <div class="card">
                 <div class="card-header"><span class="card-icon">📊</span> Статистика</div>
                 <div class="form-group">
@@ -1092,58 +1120,43 @@
                 </div>
             </div>
 
-         
-
             <div class="filter-row" id="userFilterRow">
                 <button class="filter-chip active" data-user="all">👥 Все</button>
-                <button class="filter-chip" data-user="Денис">👑 Денис</button>
                 <button class="filter-chip" data-user="Полина">💪 Полина</button>
             </div>
             <div id="daysContainer"></div>
         </div>
 
-        <!-- Tab 3: Shelf Life -->
+        <!-- Tab 3: Shelf Life (NEW DESIGN) -->
         <div class="tab-panel" id="panelShelfLife">
             <div class="card">
-                <div class="card-header"><span class="card-icon">⏳</span> Калькулятор сроков годности</div>
-                <div class="form-group">
-                    <label for="manufactureYear">📅 Год производства</label>
-                    <select id="manufactureYear"></select>
-                </div>
-                <div class="form-group">
-                    <label>📆 Дата производства</label>
-                    <div class="time-row">
-                        <select id="manufactureDay"></select>
-                        <select id="manufactureMonth">
-                            <option value="0">Январь</option><option value="1">Февраль</option><option value="2">Март</option>
-                            <option value="3">Апрель</option><option value="4">Май</option><option value="5">Июнь</option>
-                            <option value="6">Июль</option><option value="7">Август</option><option value="8">Сентябрь</option>
-                            <option value="9">Октябрь</option><option value="10">Ноябрь</option><option value="11" selected>Декабрь</option>
+                <div class="shelf-life-container">
+                    <div class="shelf-life-title">Калькулятор срока годности</div>
+                    
+                    <div class="shelf-life-row">
+                        <label>Дата изготовления:</label>
+                        <input type="date" id="manufactureDateInput" />
+                    </div>
+                    
+                    <div class="shelf-life-row">
+                        <label>Срок годности:</label>
+                        <input type="number" id="shelfPeriodValue" value="10" min="1" />
+                        <select id="shelfPeriodType">
+                            <option value="days">Дней</option>
+                            <option value="months" selected>Месяцев</option>
+                            <option value="years">Лет</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>⏱ Срок годности</label>
-                    <div class="time-row">
-                        <select id="periodType">
-                            <option value="days" selected>Дни</option>
-                            <option value="months">Месяцы</option>
-                            <option value="years">Годы</option>
-                        </select>
-                        <input type="number" id="periodValue" min="1" value="30" placeholder="Кол-во" />
+                    
+                    <div style="text-align: center;">
+                        <button class="shelf-life-btn" id="checkExpiryBtn">Проверить</button>
                     </div>
+                    
+                    <div class="shelf-life-result" id="shelfExpiryResult">
+                        <!-- Результат расчета -->
+                    </div>
+                    <div style="margin-top:12px;font-size:12px;color:var(--text-muted);text-align:center;" id="shelfExpiryInfo"></div>
                 </div>
-                <div class="quick-btns" id="quickBtns">
-                    <button class="quick-btn" data-days="10">10 дн</button>
-                    <button class="quick-btn" data-days="15">15 дн</button>
-                    <button class="quick-btn active" data-days="30">30 дн</button>
-                    <button class="quick-btn" data-days="35">35 дн</button>
-                    <button class="quick-btn" data-days="40">40 дн</button>
-                    <button class="quick-btn" data-days="60">60 дн</button>
-                    <button class="quick-btn" data-days="90">90 дн</button>
-                </div>
-                <div class="expiry-result" id="expiryResult"></div>
-                <div style="margin-top:12px;font-size:12px;color:var(--text-muted);" id="expiryInfo"></div>
             </div>
         </div>
 
@@ -1174,74 +1187,60 @@
                 <div class="player-empty" id="playerEmpty">🎶 Выберите трек из плейлиста ниже</div>
             </div>
         </div>
-      <!-- Tab 5: Calendar Selection -->
-     <!-- Tab 5: Calendar Selection -->
-<div class="tab-panel" id="panelCalendar">
-  <div class="card">
-    <div class="card-header"><span class="card-icon">📆</span> Календарь доступных дней</div>
-    
-    <!-- Выбор месяца и года -->
-    <div style="display: flex; gap: 10px; margin-bottom: 16px;">
-      <select id="calMonth" style="flex:1;">
-        <option value="0">Январь</option><option value="1">Февраль</option><option value="2">Март</option>
-        <option value="3">Апрель</option><option value="4">Май</option><option value="5">Июнь</option>
-        <option value="6">Июль</option><option value="7">Август</option><option value="8">Сентябрь</option>
-        <option value="9">Октябрь</option><option value="10">Ноябрь</option><option value="11">Декабрь</option>
-      </select>
-      <input type="number" id="calYear" min="2020" max="2030" style="flex:1;" placeholder="Год" />
-    </div>
-    
-    <!-- Кто сейчас редактирует -->
-    <div class="user-toggle" id="calUserToggle" style="margin-bottom: 12px;">
-      <button type="button" class="user-toggle-btn active" data-cal-user="Денис">👑 Денис</button>
-      <button type="button" class="user-toggle-btn" data-cal-user="Полина">💪 Полина</button>
-    </div>
 
-    <!-- Время для Дениса -->
-    <div class="form-group">
-      <label>🕐 Денис работает</label>
-      <div class="time-row">
-        <input type="time" id="calDenisStart" value="08:00" />
-        <span style="align-self:center;">–</span>
-        <input type="time" id="calDenisEnd" value="20:00" />
-      </div>
-    </div>
+        <!-- Tab 5: Calendar Selection -->
+        <div class="tab-panel" id="panelCalendar">
+            <div class="card">
+                <div class="card-header"><span class="card-icon">📆</span> Календарь доступных дней</div>
 
-    <!-- Время для Полины -->
-    <div class="form-group">
-      <label>🕐 Полина работает</label>
-      <div class="time-row">
-        <input type="time" id="calPolinaStart" value="08:00" />
-        <span style="align-self:center;">–</span>
-        <input type="time" id="calPolinaEnd" value="20:00" />
-      </div>
-    </div>
-    
-    <!-- Легенда (цветные квадратики) -->
-    <div style="display: flex; gap: 14px; margin: 12px 0; font-size: 12px; align-items: center; flex-wrap: wrap;">
-      <span style="display:flex; align-items:center; gap:5px;">
-        <span style="width:14px;height:14px;border-radius:3px;background:#fff;border:1px solid #ccc;"></span> Никто
-      </span>
-      <span style="display:flex; align-items:center; gap:5px;">
-        <span style="width:14px;height:14px;border-radius:3px;background:#9b59b6;"></span> Полина
-      </span>
-      <span style="display:flex; align-items:center; gap:5px;">
-        <span style="width:14px;height:14px;border-radius:3px;background:#2ecc71;"></span> Денис
-      </span>
-      <span style="display:flex; align-items:center; gap:5px;">
-        <span style="width:14px;height:14px;border-radius:3px;background:#e67e22;"></span> Оба
-      </span>
-    </div>
-    
-    <!-- Сетка календаря -->
-    <div id="calGridContainer" style="margin-bottom: 16px;"></div>
-    
-    <!-- Кнопка скачать -->
-    <button class="btn-primary" id="downloadCalendarBtn">
-      📸 Скачать как изображение
-    </button>
-  </div>
-</div>
+                <!-- Выбор месяца и года -->
+                <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+                    <select id="calMonth" style="flex:1;">
+                        <option value="0">Январь</option><option value="1">Февраль</option><option value="2">Март</option>
+                        <option value="3">Апрель</option><option value="4">Май</option><option value="5">Июнь</option>
+                        <option value="6">Июль</option><option value="7">Август</option><option value="8">Сентябрь</option>
+                        <option value="9">Октябрь</option><option value="10">Ноябрь</option><option value="11">Декабрь</option>
+                    </select>
+                    <input type="number" id="calYear" min="2020" max="2030" style="flex:1;" placeholder="Год" />
+                </div>
+
+                <!-- Кто сейчас редактирует (только Полина) -->
+                <div class="user-toggle" id="calUserToggle" style="margin-bottom: 12px;">
+                    <button type="button" class="user-toggle-btn active" data-cal-user="Полина">💪 Полина</button>
+                </div>
+
+                <!-- Время для Полины (глобальное по умолчанию) -->
+                <div class="form-group">
+                    <label>🕐 Полина работает (по умолчанию)</label>
+                    <div class="time-row">
+                        <input type="time" id="calPolinaStart" value="08:00" />
+                        <span style="align-self:center;">–</span>
+                        <input type="time" id="calPolinaEnd" value="20:00" />
+                    </div>
+                </div>
+
+                <!-- Легенда (цветные квадратики) -->
+                <div style="display: flex; gap: 14px; margin: 12px 0; font-size: 12px; align-items: center; flex-wrap: wrap;">
+                    <span style="display:flex; align-items:center; gap:5px;">
+                        <span style="width:14px;height:14px;border-radius:3px;background:#fff;border:1px solid #ccc;"></span> Никто
+                    </span>
+                    <span style="display:flex; align-items:center; gap:5px;">
+                        <span style="width:14px;height:14px;border-radius:3px;background:#9b59b6;"></span> Полина
+                    </span>
+                </div>
+
+                <!-- Сетка календаря -->
+                <div id="calGridContainer" style="margin-bottom: 16px;"></div>
+
+                <!-- Контейнер для настройки времени по дням -->
+                <div id="perDayTimeContainer"></div>
+
+                <!-- Кнопка скачать -->
+                <button class="btn-primary" id="downloadCalendarBtn">
+                    📸 Скачать как изображение
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- ── Bottom Navigation ─────────────── -->
@@ -1263,9 +1262,9 @@
             <span class="nav-label">Треки</span>
         </div>
         <div class="nav-item" data-tab="panelCalendar">
-  <span class="nav-icon">📆</span>
-  <span class="nav-label">Календарь</span>
-</div>
+            <span class="nav-icon">📆</span>
+            <span class="nav-label">Календарь</span>
+        </div>
     </nav>
 
     <!-- ── Toast ─────────────────────────── -->
@@ -1322,15 +1321,13 @@
         const toast = document.getElementById('toast');
         const userFilterRow = document.getElementById('userFilterRow');
 
-        // Shelf life refs
-        const manufactureYear = document.getElementById('manufactureYear');
-        const manufactureDay = document.getElementById('manufactureDay');
-        const manufactureMonth = document.getElementById('manufactureMonth');
-        const periodType = document.getElementById('periodType');
-        const periodValue = document.getElementById('periodValue');
-        const quickBtns = document.getElementById('quickBtns');
-        const expiryResult = document.getElementById('expiryResult');
-        const expiryInfo = document.getElementById('expiryInfo');
+        // Shelf life refs (NEW)
+        const manufactureDateInput = document.getElementById('manufactureDateInput');
+        const shelfPeriodValue = document.getElementById('shelfPeriodValue');
+        const shelfPeriodType = document.getElementById('shelfPeriodType');
+        const checkExpiryBtn = document.getElementById('checkExpiryBtn');
+        const shelfExpiryResult = document.getElementById('shelfExpiryResult');
+        const shelfExpiryInfo = document.getElementById('shelfExpiryInfo');
 
         // Player refs
         const playerDisc = document.getElementById('playerDisc');
@@ -1373,16 +1370,16 @@
 
         // ── Tab Navigation ────────────────
         const tabPanels = {
-    panelNewDay: document.getElementById('panelNewDay'),
-    panelAllDays: document.getElementById('panelAllDays'),
-    panelShelfLife: document.getElementById('panelShelfLife'),
-    panelTracks: document.getElementById('panelTracks'),
-    panelCalendar: document.getElementById('panelCalendar'),
-};
+            panelNewDay: document.getElementById('panelNewDay'),
+            panelAllDays: document.getElementById('panelAllDays'),
+            panelShelfLife: document.getElementById('panelShelfLife'),
+            panelTracks: document.getElementById('panelTracks'),
+            panelCalendar: document.getElementById('panelCalendar'),
+        };
         const tabTitles = {
             panelNewDay: 'Добавить рабочий день',
             panelAllDays: 'Все рабочие дни',
-            panelShelfLife: 'Калькулятор сроков годности',
+            panelShelfLife: 'Калькулятор срока годности',
             panelTracks: 'Треки',
             panelCalendar: 'Календарь',
         };
@@ -1498,9 +1495,9 @@
                 startTimeInput.value = '08:00';
                 endTimeInput.value = '20:00';
                 userToggle.querySelectorAll('.user-toggle-btn').forEach(b => b.classList.remove('active'));
-                const denisBtn = userToggle.querySelector('[data-user="Денис"]');
-                if (denisBtn) denisBtn.classList.add('active');
-                userHidden.value = 'Денис';
+                const polinaBtn = userToggle.querySelector('[data-user="Полина"]');
+                if (polinaBtn) polinaBtn.classList.add('active');
+                userHidden.value = 'Полина';
                 calcSalary();
             } catch (err) {
                 showToast('❌ Ошибка: ' + err.message, 3500);
@@ -1634,25 +1631,11 @@
             loadDays();
         });
 
-        // ── Shelf Life Calculator ────────
+        // ── Shelf Life Calculator (NEW) ────────
         function initShelfLife() {
-            manufactureYear.innerHTML = '';
-            for (let y = 2020; y <= 2030; y++) {
-                const opt = document.createElement('option');
-                opt.value = y;
-                opt.textContent = y;
-                if (y === 2025) opt.selected = true;
-                manufactureYear.appendChild(opt);
-            }
-            manufactureDay.innerHTML = '';
-            for (let d = 1; d <= 31; d++) {
-                const opt = document.createElement('option');
-                opt.value = d;
-                opt.textContent = d;
-                if (d === 1) opt.selected = true;
-                manufactureDay.appendChild(opt);
-            }
-            manufactureMonth.value = 11;
+            // Устанавливаем сегодняшнюю дату по умолчанию
+            const today = new Date();
+            manufactureDateInput.value = fmtDateInput(today);
             calculateExpiryDate();
         }
 
@@ -1676,64 +1659,72 @@
 
         function calculateExpiryDate() {
             try {
-                const y = parseInt(manufactureYear.value);
-                const m = parseInt(manufactureMonth.value);
-                const d = parseInt(manufactureDay.value);
-                const mfgDate = new Date(y, m, d);
-                if (mfgDate.getFullYear() !== y || mfgDate.getMonth() !== m || mfgDate.getDate() !== d) {
-                    expiryResult.className = 'expiry-result red';
-                    expiryResult.innerHTML = '❌ Неверная дата производства';
-                    expiryInfo.innerHTML = '';
+                const dateStr = manufactureDateInput.value;
+                if (!dateStr) {
+                    shelfExpiryResult.className = 'shelf-life-result';
+                    shelfExpiryResult.innerHTML = 'Выберите дату изготовления';
+                    shelfExpiryInfo.innerHTML = '';
                     return;
                 }
-                const period = parseInt(periodValue.value) || 30;
-                const type = periodType.value;
+                
+                const [y, m, d] = dateStr.split('-').map(Number);
+                const mfgDate = new Date(y, m - 1, d);
+                
+                if (isNaN(mfgDate.getTime())) {
+                    shelfExpiryResult.className = 'shelf-life-result red';
+                    shelfExpiryResult.innerHTML = '❌ Неверная дата изготовления';
+                    shelfExpiryInfo.innerHTML = '';
+                    return;
+                }
+
+                const period = parseInt(shelfPeriodValue.value) || 10;
+                const type = shelfPeriodType.value;
+                
                 let expDate = new Date(mfgDate);
                 if (type === 'days') expDate.setDate(expDate.getDate() + period);
                 else if (type === 'months') expDate.setMonth(expDate.getMonth() + period);
                 else expDate.setFullYear(expDate.getFullYear() + period);
+
                 const today = new Date();
                 const diff = Math.ceil((expDate.getTime() - today.getTime()) / (1000 * 3600 * 24));
                 const opts = { day: 'numeric', month: 'long', year: 'numeric' };
                 const mfgF = mfgDate.toLocaleDateString('ru-RU', opts);
                 const expF = expDate.toLocaleDateString('ru-RU', opts);
+                
                 let cls, emoji, status;
-                if (diff > 30) { cls = 'green';
+                if (diff > 30) { 
+                    cls = 'green';
                     emoji = '✅';
-                    status = 'Срок годности в норме'; } else if (diff > 0) { cls = 'yellow';
+                    status = 'Срок годности в норме'; 
+                } else if (diff > 0) { 
+                    cls = 'yellow';
                     emoji = '⚠️';
-                    status = 'Срок годности заканчивается'; } else { cls = 'red';
+                    status = 'Срок годности заканчивается'; 
+                } else { 
+                    cls = 'red';
                     emoji = '❌';
-                    status = 'Срок годности истёк'; }
-                expiryResult.className = 'expiry-result ' + cls;
-                expiryResult.innerHTML = `
-              <div style="font-size:20px;margin-bottom:8px;">${emoji} ${status}</div>
-              <div>Произведено: <strong>${mfgF}</strong></div>
-              <div>Годен до: <strong>${expF}</strong></div>
-              <div style="margin-top:8px;">Осталось дней: <strong>${diff > 0 ? diff : 0}</strong></div>`;
-                expiryInfo.innerHTML = `
-              <div>Срок годности: <strong>${period} ${getPeriodText(period, type)}</strong></div>
-              <div>Прошло с производства: <strong>${Math.floor((today.getTime()-mfgDate.getTime())/(1000*3600*24))} дн.</strong></div>`;
+                    status = 'Срок годности истёк'; 
+                }
+                
+                shelfExpiryResult.className = 'shelf-life-result ' + cls;
+                shelfExpiryResult.innerHTML = `
+                    <div style="font-size:20px;margin-bottom:8px;">${emoji} ${status}</div>
+                    <div>Произведено: <strong>${mfgF}</strong></div>
+                    <div>Годен до: <strong>${expF}</strong></div>
+                    <div style="margin-top:8px;">Осталось дней: <strong>${diff > 0 ? diff : 0}</strong></div>`;
+                
+                shelfExpiryInfo.innerHTML = `
+                    <div>Срок годности: <strong>${period} ${getPeriodText(period, type)}</strong></div>
+                    <div>Прошло с производства: <strong>${Math.floor((today.getTime() - mfgDate.getTime()) / (1000 * 3600 * 24))} дн.</strong></div>`;
             } catch (err) {
-                expiryResult.className = 'expiry-result red';
-                expiryResult.innerHTML = '❌ Ошибка расчета';
-                expiryInfo.innerHTML = '';
+                shelfExpiryResult.className = 'shelf-life-result red';
+                shelfExpiryResult.innerHTML = '❌ Ошибка расчета';
+                shelfExpiryInfo.innerHTML = '';
+                console.error(err);
             }
         }
-        manufactureYear.addEventListener('change', calculateExpiryDate);
-        manufactureMonth.addEventListener('change', calculateExpiryDate);
-        manufactureDay.addEventListener('change', calculateExpiryDate);
-        periodType.addEventListener('change', calculateExpiryDate);
-        periodValue.addEventListener('input', calculateExpiryDate);
-        quickBtns.addEventListener('click', (e) => {
-            const btn = e.target.closest('.quick-btn');
-            if (!btn) return;
-            quickBtns.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            periodValue.value = btn.dataset.days;
-            periodType.value = 'days';
-            calculateExpiryDate();
-        });
+
+        checkExpiryBtn.addEventListener('click', calculateExpiryDate);
 
         // ── Shift Calendar ────────────────
         const REFERENCE_DATE = new Date(2026, 1, 18);
@@ -1822,7 +1813,6 @@
             { id: 31, name: "[Альбом] Skit", file: "skit.mp3" },
             { id: 32, name: "[Альбом] Докладная записка - SVETIK", file: "zapis.mp3" },
         ];
-        
 
         const audio = new Audio();
         let currentTrackIndex = -1;
@@ -1974,553 +1964,571 @@
         switchTab('panelNewDay');
 
         console.log('🎅 Санта | Рабочие дни — готово!');
-          // ⬇⬇⬇ ВСТАВИТЬ ВНУТРИ <script> ПЕРЕД ⬇⬇⬇
 
-// --- ОБЩАЯ СТАТИСТИКА ЗА ВСЁ ВРЕМЯ ---
-let totalCurrentUser = 'all'; // 'all', 'Денис', 'Полина'
+        // --- ОБЩАЯ СТАТИСТИКА ЗА ВСЁ ВРЕМЯ ---
+        let totalCurrentUser = 'all'; // 'all', 'Полина'
 
-async function loadTotalStats() {
-  // Загружаем все записи из Firestore (без фильтра по месяцу)
-  const snapshot = await getDocs(collection(db, 'workingDays'));
-  const allDays = [];
-  snapshot.forEach(doc => allDays.push({ id: doc.id, ...doc.data() }));
+        async function loadTotalStats() {
+            const snapshot = await getDocs(collection(db, 'workingDays'));
+            const allDays = [];
+            snapshot.forEach(doc => allDays.push({ id: doc.id, ...doc.data() }));
 
-  // Фильтруем по выбранному пользователю
-  const filtered = totalCurrentUser === 'all' 
-    ? allDays 
-    : allDays.filter(d => d.user === totalCurrentUser);
+            const filtered = totalCurrentUser === 'all'
+                ? allDays
+                : allDays.filter(d => d.user === totalCurrentUser);
 
-  // Считаем часы и деньги из учтённых дней
-  let totalHours = 0, totalMoney = 0;
-  filtered.forEach(day => {
-    const s = new Date(`1970-01-01T${day.startTime}:00`);
-    const e = new Date(`1970-01-01T${day.endTime}:00`);
-    let h = (e - s) / (1000 * 3600);
-    if (h < 0) h = 0;
-    totalHours += h;
-    totalMoney += parseFloat(day.salary || 0);
-  });
-  const countedDays = filtered.length;
+            let totalHours = 0, totalMoney = 0;
+            filtered.forEach(day => {
+                const s = new Date(`1970-01-01T${day.startTime}:00`);
+                const e = new Date(`1970-01-01T${day.endTime}:00`);
+                let h = (e - s) / (1000 * 3600);
+                if (h < 0) h = 0;
+                totalHours += h;
+                totalMoney += parseFloat(day.salary || 0);
+            });
+            const countedDays = filtered.length;
 
-  // Добавляем 40 дней по 12 часов (только для выбранного пользователя,
-  // если фильтр "all", то прибавляем 40 дней к итогу)
-  let bonusDays = 0, bonusHours = 0, bonusMoney = 0;
-  if (totalCurrentUser === 'all') {
-    // При "Все" прибавляем 40 дней (разделить между Денисом и Полиной нельзя,
-    // просто плюсуем к общему)
-    bonusDays = 40;
-    bonusHours = 40 * 12;
-    bonusMoney = (40 * 12 * 9 - 40 * 9); // формула: (часы*9 - дни*9) как у тебя
-    // Но у нас 12 часов: вычитаем 9 за смену? Логика: зарплата = часы*9 - 9.
-    // Значит для одного 12-часового дня: 12*9 - 9 = 99 руб.
-    // За 40 дней: 40 * 99 = 3960 руб.
-    bonusMoney = 40 * (12 * 9 - 9);
-  } else {
-    // Если выбран конкретный пользователь, считаем, что эти 40 дней – его.
-    bonusDays = 40;
-    bonusHours = 40 * 12;
-    bonusMoney = 40 * (12 * 9 - 9);
-  }
+            let bonusDays = 0, bonusHours = 0, bonusMoney = 0;
+            if (totalCurrentUser === 'all') {
+                bonusDays = 40;
+                bonusHours = 40 * 12;
+                bonusMoney = 40 * (12 * 9 - 9);
+            } else {
+                bonusDays = 40;
+                bonusHours = 40 * 12;
+                bonusMoney = 40 * (12 * 9 - 9);
+            }
 
-  // Обновляем DOM
-  document.getElementById('totalDaysAll').textContent = countedDays + bonusDays;
-  document.getElementById('totalHoursAll').textContent = (totalHours + bonusHours).toFixed(1);
-  document.getElementById('totalMoneyAll').textContent = (totalMoney + bonusMoney).toFixed(2) + ' руб.';
-}
-
-// Обработчики кнопок фильтра "за всё время"
-document.getElementById('totalUserFilter').addEventListener('click', (e) => {
-  const chip = e.target.closest('.filter-chip');
-  if (!chip) return;
-  document.querySelectorAll('#totalUserFilter .filter-chip').forEach(c => c.classList.remove('active'));
-  chip.classList.add('active');
-  totalCurrentUser = chip.dataset.totalUser;
-  loadTotalStats();
-});
-
-// Вызываем при открытии вкладки "Все дни", чтобы обновить сразу
-const originalLoadDays = loadDays;
-loadDays = async function() {
-  await originalLoadDays();
-  loadTotalStats();
-};
-// Также при первом старте (если вкладка открыта) вызываем
-loadTotalStats();
-
-// ⬆⬆⬆ КОНЕЦ ВСТАВКИ ⬆⬆⬆
-      // ⬇⬇⬇ ВСТАВИТЬ ПЕРЕД  ⬇⬇⬇
-
-
-
-// --- РАНДОМНЫЙ ДЕНЬ ---
-async function loadRandomDay() {
-  const randomContent = document.getElementById('randomDayContent');
-  if (!randomContent) return;
-  
-  randomContent.innerHTML = '<span style="color: var(--text-muted);">🎰 Крутим барабан...</span>';
-  
-  try {
-    const snapshot = await getDocs(collection(db, 'workingDays'));
-    if (snapshot.empty) {
-      randomContent.innerHTML = '😴 Нет ни одной записи. Добавь первый день!';
-      return;
-    }
-    
-    const allDays = [];
-    snapshot.forEach(doc => allDays.push({ id: doc.id, ...doc.data() }));
-    
-    // Выбираем случайный день
-    const randomDay = allDays[Math.floor(Math.random() * allDays.length)];
-    
-    // Форматируем дату
-    const dateFormatted = formatDisplayDate(randomDay.date);
-    
-    // Определяем эмодзи по настроению (шутка)
-    const vibes = ['', '', '', '', '', '', '', ''];
-    const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
-    
-    randomContent.innerHTML = `
-      <div style="font-size: 40px; margin-bottom: 10px;">${randomVibe}</div>
-      <div style="font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px;">
-        ${dateFormatted}
-      </div>
-      <div style="font-size: 14px; color: var(--blue); font-weight: 600; margin-bottom: 4px;">
-        👤 ${randomDay.user}
-      </div>
-      <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
-        🕐 ${randomDay.startTime} – ${randomDay.endTime}
-      </div>
-      <div style="font-size: 14px; color: var(--text); font-style: italic; margin-top: 8px; padding: 10px; background: #f8fafb; border-radius: 10px; line-height: 1.5;">
-        💬 ${randomDay.comment || 'Без комментария'}
-      </div>
-      <div style="font-size: 13px; color: #0d7d4a; font-weight: 600; margin-top: 6px;">
-        💰 ${randomDay.salary || '0.00'} руб.
-      </div>
-      ${randomDay.mediaFiles && randomDay.mediaFiles.length > 0 ? 
-        `<div style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">📎 ${randomDay.mediaFiles.length} файл(а)</div>` : ''}
-    `;
-    
-  } catch (err) {
-    console.error('Ошибка загрузки случайного дня:', err);
-    randomContent.innerHTML = '❌ Не удалось загрузить. Попробуй ещё раз.';
-  }
-}
-
-// Обработчик кнопки обновления
-document.getElementById('refreshRandomDay').addEventListener('click', loadRandomDay);
-
-// Загружаем при открытии вкладки
-const originalSwitchTab = switchTab;
-switchTab = function(tabId) {
-  originalSwitchTab(tabId);
-  if (tabId === 'panelNewDay') {
-    loadRandomDay();
-  }
-};
-
-// Первая загрузка (если вкладка активна)
-if (currentTab === 'panelNewDay') {
-  loadRandomDay();
-}
-
-// ⬇⬇⬇ ВСТАВИТЬ ПЕРЕД  ⬇⬇⬇
-
-// ⬇⬇⬇ ВСТАВИТЬ ПЕРЕД (замени старый код календаря) ⬇⬇⬇
-
-// ⬇⬇⬇ ПОЛНАЯ ЗАМЕНА КОДА КАЛЕНДАРЯ (вставь перед ) ⬇⬇⬇
-
-// --- КАЛЕНДАРЬ ВЫБОРА ДНЕЙ (ПОЛНОСТЬЮ ИСПРАВЛЕННЫЙ) ---
-const calMonthEl = document.getElementById('calMonth');
-const calYearEl = document.getElementById('calYear');
-const calGridContainer = document.getElementById('calGridContainer');
-const calUserToggle = document.getElementById('calUserToggle');
-const calDenisStart = document.getElementById('calDenisStart');
-const calDenisEnd = document.getElementById('calDenisEnd');
-const calPolinaStart = document.getElementById('calPolinaStart');
-const calPolinaEnd = document.getElementById('calPolinaEnd');
-const downloadCalendarBtn = document.getElementById('downloadCalendarBtn');
-
-let calendarSelections = {};
-let calEditUser = 'Денис';
-
-// Установка текущего года и месяца
-calYearEl.value = new Date().getFullYear();
-calMonthEl.value = new Date().getMonth();
-
-// Переключение пользователя
-calUserToggle.addEventListener('click', (e) => {
-  const btn = e.target.closest('.user-toggle-btn');
-  if (!btn) return;
-  calUserToggle.querySelectorAll('.user-toggle-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  calEditUser = btn.dataset.calUser;
-  renderCalendar();
-});
-
-// Обработчики изменения месяца/года
-calMonthEl.addEventListener('change', renderCalendar);
-calYearEl.addEventListener('input', renderCalendar);
-calYearEl.addEventListener('change', renderCalendar);
-
-// Функция получения ключа даты YYYY-MM-DD
-function getDateKey(year, month, day) {
-  return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-}
-
-// Отрисовка календаря
-function renderCalendar() {
-  const month = parseInt(calMonthEl.value);
-  const year = parseInt(calYearEl.value);
-  
-  if (isNaN(year) || year < 2020 || year > 2030) {
-    calGridContainer.innerHTML = '<p style="text-align:center;color:var(--text-muted);">Введите корректный год (2020-2030)</p>';
-    return;
-  }
-
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  
-  // Получаем день недели первого числа (0 = воскресенье, 1 = понедельник, ..., 6 = суббота)
-  const firstDayOfWeek = new Date(year, month, 1).getDay();
-  
-  // Вычисляем отступ для понедельника (если понедельник — первый день)
-  // Если воскресенье (0), то отступ 6, иначе отступ = день - 1
-  const offset = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
-
-  const today = new Date();
-  const todayKey = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
-
-  // Строим HTML-сетку
-  let html = '<div class="cal-grid">';
-  
-  // Заголовки дней недели
-  const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-  weekdays.forEach(w => {
-    html += `<div class="cal-day-header">${w}</div>`;
-  });
-  
-  // Пустые ячейки до первого дня
-  for (let i = 0; i < offset; i++) {
-    html += '<div></div>';
-  }
-  
-  // Дни месяца
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dateKey = getDateKey(year, month, day);
-    const isPolina = calendarSelections[dateKey]?.polina || false;
-    const isDenis = calendarSelections[dateKey]?.denis || false;
-    
-    let cls = 'cal-day';
-    if (isPolina && isDenis) {
-      cls += ' both';
-    } else if (isPolina) {
-      cls += ' polina';
-    } else if (isDenis) {
-      cls += ' denis';
-    }
-    
-    if (dateKey === todayKey) {
-      cls += ' today';
-    }
-    
-    html += `<div class="${cls}" data-date="${dateKey}">${day}</div>`;
-  }
-  
-  html += '</div>';
-  
-  calGridContainer.innerHTML = html;
-  
-  // Навешиваем обработчики клика
-  const dayElements = calGridContainer.querySelectorAll('.cal-day');
-  dayElements.forEach(dayEl => {
-    dayEl.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const dateKey = this.dataset.date;
-      
-      if (!dateKey) return;
-      
-      // Инициализируем запись, если её нет
-      if (!calendarSelections[dateKey]) {
-        calendarSelections[dateKey] = { polina: false, denis: false };
-      }
-      
-      // Переключаем флаг для выбранного пользователя
-      if (calEditUser === 'Денис') {
-        calendarSelections[dateKey].denis = !calendarSelections[dateKey].denis;
-      } else if (calEditUser === 'Полина') {
-        calendarSelections[dateKey].polina = !calendarSelections[dateKey].polina;
-      }
-      
-      renderCalendar();
-    });
-  });
-}
-
-// СКАЧИВАНИЕ (исправленная версия с таблицей)
-downloadCalendarBtn.addEventListener('click', async () => {
-  const month = parseInt(calMonthEl.value);
-  const year = parseInt(calYearEl.value);
-  const months = ['Январь','Февраль','Март','Апрель','Май','Июнь',
-                  'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
-  const monthName = months[month];
-  
-  // Создаём временный div для рендеринга
-  const captureDiv = document.createElement('div');
-  captureDiv.style.position = 'absolute';
-  captureDiv.style.left = '-9999px';
-  captureDiv.style.top = '0';
-  captureDiv.style.width = '640px';
-  captureDiv.style.padding = '30px';
-  captureDiv.style.background = '#ffffff';
-  captureDiv.style.fontFamily = 'Roboto, Tahoma, sans-serif';
-  captureDiv.style.color = '#1a1d23';
-  captureDiv.style.boxSizing = 'border-box';
-  
-  // Заголовок
-  let calHTML = `<h2 style="text-align:center;margin:0 0 20px;font-size:26px;font-weight:700;">${monthName} ${year}</h2>`;
-  
-  // Легенда (цветные квадратики)
-  calHTML += `
-    <div style="display:flex;gap:24px;margin-bottom:20px;font-size:16px;align-items:center;justify-content:center;">
-      <span style="display:flex;align-items:center;gap:8px;">
-        <span style="width:20px;height:20px;border-radius:4px;background:#9b59b6;display:inline-block;"></span> Полина
-      </span>
-      <span style="display:flex;align-items:center;gap:8px;">
-        <span style="width:20px;height:20px;border-radius:4px;background:#2ecc71;display:inline-block;"></span> Денис
-      </span>
-      <span style="display:flex;align-items:center;gap:8px;">
-        <span style="width:20px;height:20px;border-radius:4px;background:#e67e22;display:inline-block;"></span> Оба
-      </span>
-    </div>
-  `;
-  
-  // ТАБЛИЦА КАЛЕНДАРЯ
-  calHTML += '<table style="width:100%;border-collapse:collapse;text-align:center;font-size:16px;table-layout:fixed;">';
-  
-  // Заголовки дней недели
-  calHTML += '<tr>';
-  ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(w => {
-    calHTML += `<th style="padding:10px 0;color:#00a7e0;font-weight:700;width:14.28%;">${w}</th>`;
-  });
-  calHTML += '</tr>';
-  
-  // Дни месяца
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayOfWeek = new Date(year, month, 1).getDay();
-  const offset = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
-  
-  let dayCounter = 0;
-  const totalCells = offset + daysInMonth;
-  const rows = Math.ceil(totalCells / 7);
-  
-  for (let r = 0; r < rows; r++) {
-    calHTML += '<tr>';
-    for (let c = 0; c < 7; c++) {
-      const cellIndex = r * 7 + c;
-      
-      if (cellIndex < offset || cellIndex >= totalCells) {
-        // Пустая ячейка
-        calHTML += '<td style="padding:4px;"></td>';
-      } else {
-        const day = cellIndex - offset + 1;
-        const dateKey = getDateKey(year, month, day);
-        const p = calendarSelections[dateKey]?.polina || false;
-        const den = calendarSelections[dateKey]?.denis || false;
-        
-        let bg = '#ffffff';
-        let textColor = '#1a1d23';
-        
-        if (p && den) {
-          bg = '#e67e22';
-          textColor = '#5c3409';
-        } else if (p) {
-          bg = '#9b59b6';
-          textColor = '#ffffff';
-        } else if (den) {
-          bg = '#2ecc71';
-          textColor = '#1a4d2e';
+            document.getElementById('totalDaysAll').textContent = countedDays + bonusDays;
+            document.getElementById('totalHoursAll').textContent = (totalHours + bonusHours).toFixed(1);
+            document.getElementById('totalMoneyAll').textContent = (totalMoney + bonusMoney).toFixed(2) + ' руб.';
         }
-        
-        calHTML += `
-          <td style="padding:4px;">
-            <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;background:${bg};font-weight:600;font-size:17px;border:2px solid #e0e0e0;color:${textColor};">
-              ${day}
-            </div>
-          </td>`;
-      }
-    }
-    calHTML += '</tr>';
-  }
-  
-  calHTML += '</table>';
-  
-  // Время работы
-  const denisStart = calDenisStart.value || '08:00';
-  const denisEnd = calDenisEnd.value || '20:00';
-  const polinaStart = calPolinaStart.value || '08:00';
-  const polinaEnd = calPolinaEnd.value || '20:00';
-  
-  calHTML += `
-    <div style="margin-top:24px;font-size:16px;line-height:2;">
-      <p style="margin:4px 0;"><strong>Денис:</strong> ${denisStart} – ${denisEnd}</p>
-      <p style="margin:4px 0;"><strong>Полина:</strong> ${polinaStart} – ${polinaEnd}</p>
-    </div>
-  `;
-  
-  captureDiv.innerHTML = calHTML;
-  document.body.appendChild(captureDiv);
-  
-  try {
-    const canvas = await html2canvas(captureDiv, { 
-      scale: 2,
-      backgroundColor: '#ffffff',
-      logging: false
-    });
-    document.body.removeChild(captureDiv);
-    
-    const link = document.createElement('a');
-    link.download = `calendar_${monthName}_${year}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    showToast('📸 Календарь сохранён!');
-  } catch (err) {
-    document.body.removeChild(captureDiv);
-    showToast('❌ Ошибка создания изображения');
-    console.error(err);
-  }
-});
 
-// Инициализация календаря
-renderCalendar();
+        document.getElementById('totalUserFilter').addEventListener('click', (e) => {
+            const chip = e.target.closest('.filter-chip');
+            if (!chip) return;
+            document.querySelectorAll('#totalUserFilter .filter-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            totalCurrentUser = chip.dataset.totalUser;
+            loadTotalStats();
+        });
 
-// Обновление switchTab
-if (!window._calendarPatched) {
-  const originalSwitchTab = switchTab;
-  switchTab = function(tabId) {
-    originalSwitchTab(tabId);
-    if (tabId === 'panelCalendar') {
-      pageTitle.textContent = 'Календарь доступных дней';
-      renderCalendar();
-    }
-  };
-  window._calendarPatched = true;
-}
-// ⬇⬇⬇ ВСТАВИТЬ ПЕРЕД  ⬇⬇⬇
+        const originalLoadDays = loadDays;
+        loadDays = async function() {
+            await originalLoadDays();
+            loadTotalStats();
+        };
+        loadTotalStats();
 
-// --- ПРИЧИНЫ УЙТИ ИЗ САНТЫ ---
-const reasonInput = document.getElementById('reasonInput');
-const addReasonBtn = document.getElementById('addReasonBtn');
-const reasonsList = document.getElementById('reasonsList');
+        // --- РАНДОМНЫЙ ДЕНЬ ---
+        async function loadRandomDay() {
+            const randomContent = document.getElementById('randomDayContent');
+            if (!randomContent) return;
 
-// Загрузка причин из Firestore
-async function loadReasons() {
-  reasonsList.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:12px;">Загрузка...</p>';
-  
-  try {
-    const q = query(collection(db, 'reasons'), where('active', '==', true));
-    const snapshot = await getDocs(q);
-    const reasons = [];
-    snapshot.forEach(doc => reasons.push({ id: doc.id, ...doc.data() }));
-    
-    if (reasons.length === 0) {
-      reasonsList.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Пока нет причин. Добавь первую! 😏</p>';
-      return;
-    }
-    
-    // Сортируем по дате (новые сверху)
-    reasons.sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds || 0);
-    
-    reasonsList.innerHTML = reasons.map((reason, index) => `
-      <div style="padding: 12px; margin-bottom: 8px; background: #fef5f5; border-left: 4px solid #e74c3c; border-radius: 8px; transition: 0.2s;">
-        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 4px;">
-          <span style="font-weight: 700; color: #c0392b; font-size: 15px;">#${reasons.length - index}</span>
-          <span style="font-size: 11px; color: var(--text-muted);">
-            ${reason.user} · ${reason.timestamp ? new Date(reason.timestamp.seconds * 1000).toLocaleDateString('ru-RU', {day:'numeric', month:'short', year:'numeric'}) : 'только что'}
-          </span>
-        </div>
-        <p style="margin: 0; font-size: 14px; color: var(--text); line-height: 1.5;">${reason.text}</p>
-        <button class="btn-delete-reason" data-id="${reason.id}" style="margin-top: 8px; padding: 4px 12px; background: #fff; border: 1px solid #fcc; border-radius: 6px; font-size: 11px; color: #e74c3c; cursor: pointer; font-family: var(--font);">
-          🗑 Удалить
-        </button>
-      </div>
-    `).join('');
-    
-    // Обработчики удаления
-    document.querySelectorAll('.btn-delete-reason').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        if (!confirm('Точно удалить эту причину?')) return;
-        try {
-          await deleteDoc(doc(db, 'reasons', btn.dataset.id));
-          showToast('🗑 Причина удалена');
-          loadReasons();
-        } catch (err) {
-          showToast('❌ Ошибка удаления: ' + err.message);
+            randomContent.innerHTML = '<span style="color: var(--text-muted);">🎰 Крутим барабан...</span>';
+
+            try {
+                const snapshot = await getDocs(collection(db, 'workingDays'));
+                if (snapshot.empty) {
+                    randomContent.innerHTML = '😴 Нет ни одной записи. Добавь первый день!';
+                    return;
+                }
+
+                const allDays = [];
+                snapshot.forEach(doc => allDays.push({ id: doc.id, ...doc.data() }));
+
+                const randomDay = allDays[Math.floor(Math.random() * allDays.length)];
+                const dateFormatted = formatDisplayDate(randomDay.date);
+
+                const vibes = ['', '', '', '', '', '', '', ''];
+                const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
+
+                randomContent.innerHTML = `
+          <div style="font-size: 40px; margin-bottom: 10px;">${randomVibe}</div>
+          <div style="font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px;">
+            ${dateFormatted}
+          </div>
+          <div style="font-size: 14px; color: var(--blue); font-weight: 600; margin-bottom: 4px;">
+            👤 ${randomDay.user}
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
+            🕐 ${randomDay.startTime} – ${randomDay.endTime}
+          </div>
+          <div style="font-size: 14px; color: var(--text); font-style: italic; margin-top: 8px; padding: 10px; background: #f8fafb; border-radius: 10px; line-height: 1.5;">
+            💬 ${randomDay.comment || 'Без комментария'}
+          </div>
+          <div style="font-size: 13px; color: #0d7d4a; font-weight: 600; margin-top: 6px;">
+            💰 ${randomDay.salary || '0.00'} руб.
+          </div>
+          ${randomDay.mediaFiles && randomDay.mediaFiles.length > 0 ?
+            `<div style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">📎 ${randomDay.mediaFiles.length} файл(а)</div>` : ''}
+        `;
+
+            } catch (err) {
+                console.error('Ошибка загрузки случайного дня:', err);
+                randomContent.innerHTML = '❌ Не удалось загрузить. Попробуй ещё раз.';
+            }
         }
-      });
-    });
-    
-  } catch (err) {
-    console.error('Ошибка загрузки причин:', err);
-    reasonsList.innerHTML = '<p style="text-align:center;color:#e74c3c;">Не удалось загрузить причины</p>';
-  }
-}
 
-// Добавление причины
-async function addReason() {
-  const text = reasonInput.value.trim();
-  if (!text) {
-    showToast('⚠️ Напиши причину!');
-    reasonInput.focus();
-    return;
-  }
-  
-  if (text.length < 5) {
-    showToast('⚠️ Минимум 5 символов, напиши серьёзно');
-    return;
-  }
-  
-  // Определяем текущего пользователя из формы
-  const user = document.querySelector('input[name="user"]:checked')?.value || 'Неизвестный';
-  
-  try {
-    await addDoc(collection(db, 'reasons'), {
-      text: text,
-      user: user,
-      timestamp: serverTimestamp(),
-      active: true
-    });
-    
-    reasonInput.value = '';
-    showToast('✅ Причина добавлена! (теперь точно уйдёшь?)');
-    loadReasons();
-  } catch (err) {
-    showToast('❌ Ошибка: ' + err.message);
-    console.error('Ошибка добавления причины:', err);
-  }
-}
+        document.getElementById('refreshRandomDay').addEventListener('click', loadRandomDay);
 
-// Обработчики
-addReasonBtn.addEventListener('click', addReason);
-reasonInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    addReason();
-  }
-});
+        const originalSwitchTab = switchTab;
+        switchTab = function(tabId) {
+            originalSwitchTab(tabId);
+            if (tabId === 'panelNewDay') {
+                loadRandomDay();
+            }
+        };
 
-// Загрузка при открытии
-loadReasons();
+        if (currentTab === 'panelNewDay') {
+            loadRandomDay();
+        }
 
-// Обновляем при переключении вкладки
-const originalSwitchTab3 = switchTab;
-switchTab = function(tabId) {
-  originalSwitchTab3(tabId);
-  if (tabId === 'panelNewDay') {
-    loadReasons();
-  }
-};
+        // --- КАЛЕНДАРЬ ВЫБОРА ДНЕЙ (С ИНДИВИДУАЛЬНЫМ ВРЕМЕНЕМ) ---
+        const calMonthEl = document.getElementById('calMonth');
+        const calYearEl = document.getElementById('calYear');
+        const calGridContainer = document.getElementById('calGridContainer');
+        const calUserToggle = document.getElementById('calUserToggle');
+        const calPolinaStart = document.getElementById('calPolinaStart');
+        const calPolinaEnd = document.getElementById('calPolinaEnd');
+        const downloadCalendarBtn = document.getElementById('downloadCalendarBtn');
+        const perDayTimeContainer = document.getElementById('perDayTimeContainer');
 
-// ⬆⬆⬆ КОНЕЦ ВСТАВКИ ⬆⬆⬆
-// ⬆⬆⬆ КОНЕЦ ВСТАВКИ ⬆⬆⬆
+        // Хранилище: { '2026-10-03': { polina: true, start: '09:00', end: '18:00' }, ... }
+        let calendarSelections = {};
+        let calEditUser = 'Полина';
+
+        calYearEl.value = new Date().getFullYear();
+        calMonthEl.value = new Date().getMonth();
+
+        calUserToggle.addEventListener('click', (e) => {
+            const btn = e.target.closest('.user-toggle-btn');
+            if (!btn) return;
+            calUserToggle.querySelectorAll('.user-toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            calEditUser = btn.dataset.calUser;
+            renderCalendar();
+        });
+
+        calMonthEl.addEventListener('change', renderCalendar);
+        calYearEl.addEventListener('input', renderCalendar);
+        calYearEl.addEventListener('change', renderCalendar);
+
+        function getDateKey(year, month, day) {
+            return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        }
+
+        // Рендер блока времени для выбранных дней
+        function renderPerDayTimeBlocks() {
+            const month = parseInt(calMonthEl.value);
+            const year = parseInt(calYearEl.value);
+            if (isNaN(year)) { perDayTimeContainer.innerHTML = ''; return; }
+
+            // Собираем выбранные дни текущего месяца
+            const selectedDates = [];
+            for (let day = 1; day <= new Date(year, month + 1, 0).getDate(); day++) {
+                const key = getDateKey(year, month, day);
+                if (calendarSelections[key]?.polina) {
+                    selectedDates.push({ key, day });
+                }
+            }
+
+            if (selectedDates.length === 0) {
+                perDayTimeContainer.innerHTML = '';
+                return;
+            }
+
+            let html = '<div style="margin-top: 10px;">';
+            html += '<div style="font-weight: 700; font-size: 14px; margin-bottom: 10px; color: var(--text);">⏰ Индивидуальное время для выбранных дней:</div>';
+
+            selectedDates.forEach(({ key, day }) => {
+                const sel = calendarSelections[key];
+                const start = sel.start || calPolinaStart.value || '08:00';
+                const end = sel.end || calPolinaEnd.value || '20:00';
+                const dateObj = new Date(year, month, day);
+                const dateStr = dateObj.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+
+                html += `
+                    <div class="per-day-time-block" data-key="${key}">
+                        <div class="per-day-date">📅 ${dateStr}</div>
+                        <input type="time" class="per-day-start" value="${start}" data-key="${key}" />
+                        <span class="per-day-sep">–</span>
+                        <input type="time" class="per-day-end" value="${end}" data-key="${key}" />
+                        <button class="per-day-del" data-key="${key}" title="Удалить день">✕</button>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            perDayTimeContainer.innerHTML = html;
+
+            // Обработчики для полей времени
+            perDayTimeContainer.querySelectorAll('.per-day-start').forEach(inp => {
+                inp.addEventListener('change', (e) => {
+                    const k = e.target.dataset.key;
+                    if (!calendarSelections[k]) calendarSelections[k] = { polina: false, denis: false };
+                    calendarSelections[k].start = e.target.value;
+                });
+            });
+            perDayTimeContainer.querySelectorAll('.per-day-end').forEach(inp => {
+                inp.addEventListener('change', (e) => {
+                    const k = e.target.dataset.key;
+                    if (!calendarSelections[k]) calendarSelections[k] = { polina: false, denis: false };
+                    calendarSelections[k].end = e.target.value;
+                });
+            });
+            perDayTimeContainer.querySelectorAll('.per-day-del').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const k = e.target.dataset.key;
+                    if (calendarSelections[k]) {
+                        calendarSelections[k].polina = false;
+                        // Если день больше никому не принадлежит — можно удалить запись
+                        if (!calendarSelections[k].denis) {
+                            delete calendarSelections[k];
+                        }
+                    }
+                    renderCalendar();
+                });
+            });
+        }
+
+        function renderCalendar() {
+            const month = parseInt(calMonthEl.value);
+            const year = parseInt(calYearEl.value);
+
+            if (isNaN(year) || year < 2020 || year > 2030) {
+                calGridContainer.innerHTML = '<p style="text-align:center;color:var(--text-muted);">Введите корректный год (2020-2030)</p>';
+                perDayTimeContainer.innerHTML = '';
+                return;
+            }
+
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDayOfWeek = new Date(year, month, 1).getDay();
+            const offset = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+
+            const today = new Date();
+            const todayKey = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+
+            let html = '<div class="cal-grid">';
+
+            const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+            weekdays.forEach(w => {
+                html += `<div class="cal-day-header">${w}</div>`;
+            });
+
+            for (let i = 0; i < offset; i++) {
+                html += '<div></div>';
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateKey = getDateKey(year, month, day);
+                const isPolina = calendarSelections[dateKey]?.polina || false;
+                const isDenis = calendarSelections[dateKey]?.denis || false;
+
+                let cls = 'cal-day';
+                if (isPolina && isDenis) {
+                    cls += ' both';
+                } else if (isPolina) {
+                    cls += ' polina';
+                } else if (isDenis) {
+                    cls += ' denis';
+                }
+
+                if (dateKey === todayKey) {
+                    cls += ' today';
+                }
+
+                html += `<div class="${cls}" data-date="${dateKey}">${day}</div>`;
+            }
+
+            html += '</div>';
+            calGridContainer.innerHTML = html;
+
+            // Обработчики клика
+            calGridContainer.querySelectorAll('.cal-day').forEach(dayEl => {
+                dayEl.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const dateKey = this.dataset.date;
+                    if (!dateKey) return;
+
+                    if (!calendarSelections[dateKey]) {
+                        calendarSelections[dateKey] = { polina: false, denis: false };
+                    }
+
+                    if (calEditUser === 'Полина') {
+                        calendarSelections[dateKey].polina = !calendarSelections[dateKey].polina;
+                        // Если день только что стал выбранным — установим дефолтное время
+                        if (calendarSelections[dateKey].polina) {
+                            if (!calendarSelections[dateKey].start) {
+                                calendarSelections[dateKey].start = calPolinaStart.value || '08:00';
+                            }
+                            if (!calendarSelections[dateKey].end) {
+                                calendarSelections[dateKey].end = calPolinaEnd.value || '20:00';
+                            }
+                        }
+                    }
+
+                    renderCalendar();
+                });
+            });
+
+            // Рендерим блоки с временем для выбранных дней
+            renderPerDayTimeBlocks();
+        }
+
+        // СКАЧИВАНИЕ
+        downloadCalendarBtn.addEventListener('click', async () => {
+            const month = parseInt(calMonthEl.value);
+            const year = parseInt(calYearEl.value);
+            const months = ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                            'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+            const monthName = months[month];
+
+            const captureDiv = document.createElement('div');
+            captureDiv.style.position = 'absolute';
+            captureDiv.style.left = '-9999px';
+            captureDiv.style.top = '0';
+            captureDiv.style.width = '640px';
+            captureDiv.style.padding = '30px';
+            captureDiv.style.background = '#ffffff';
+            captureDiv.style.fontFamily = 'Roboto, Tahoma, sans-serif';
+            captureDiv.style.color = '#1a1d23';
+            captureDiv.style.boxSizing = 'border-box';
+
+            let calHTML = `<h2 style="text-align:center;margin:0 0 20px;font-size:26px;font-weight:700;">${monthName} ${year}</h2>`;
+
+            calHTML += `
+                <div style="display:flex;gap:24px;margin-bottom:20px;font-size:16px;align-items:center;justify-content:center;">
+                    <span style="display:flex;align-items:center;gap:8px;">
+                        <span style="width:20px;height:20px;border-radius:4px;background:#9b59b6;display:inline-block;"></span> Полина
+                    </span>
+                </div>
+            `;
+
+            calHTML += '<table style="width:100%;border-collapse:collapse;text-align:center;font-size:16px;table-layout:fixed;">';
+
+            calHTML += '<tr>';
+            ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(w => {
+                calHTML += `<th style="padding:10px 0;color:#00a7e0;font-weight:700;width:14.28%;">${w}</th>`;
+            });
+            calHTML += '</tr>';
+
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDayOfWeek = new Date(year, month, 1).getDay();
+            const offset = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+
+            const totalCells = offset + daysInMonth;
+            const rows = Math.ceil(totalCells / 7);
+
+            for (let r = 0; r < rows; r++) {
+                calHTML += '<tr>';
+                for (let c = 0; c < 7; c++) {
+                    const cellIndex = r * 7 + c;
+
+                    if (cellIndex < offset || cellIndex >= totalCells) {
+                        calHTML += '<td style="padding:4px;"></td>';
+                    } else {
+                        const day = cellIndex - offset + 1;
+                        const dateKey = getDateKey(year, month, day);
+                        const p = calendarSelections[dateKey]?.polina || false;
+
+                        let bg = '#ffffff';
+                        let textColor = '#1a1d23';
+
+                        if (p) {
+                            bg = '#9b59b6';
+                            textColor = '#ffffff';
+                        }
+
+                        calHTML += `
+                            <td style="padding:4px;">
+                                <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;background:${bg};font-weight:600;font-size:17px;border:2px solid #e0e0e0;color:${textColor};">
+                                    ${day}
+                                </div>
+                            </td>`;
+                    }
+                }
+                calHTML += '</tr>';
+            }
+
+            calHTML += '</table>';
+
+            // Блок с индивидуальным временем для выбранных дней
+            const selectedEntries = [];
+            for (let day = 1; day <= daysInMonth; day++) {
+                const key = getDateKey(year, month, day);
+                const sel = calendarSelections[key];
+                if (sel?.polina) {
+                    selectedEntries.push({
+                        day,
+                        start: sel.start || calPolinaStart.value || '08:00',
+                        end: sel.end || calPolinaEnd.value || '20:00'
+                    });
+                }
+            }
+
+            if (selectedEntries.length > 0) {
+                calHTML += `<div style="margin-top:20px;font-size:15px;line-height:1.8;">`;
+                calHTML += `<div style="font-weight:700;margin-bottom:8px;">Время работы по дням:</div>`;
+                selectedEntries.forEach(e => {
+                    const d = new Date(year, month, e.day);
+                    const ds = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+                    calHTML += `<div><strong>${ds}:</strong> ${e.start} – ${e.end}</div>`;
+                });
+                calHTML += `</div>`;
+            } else {
+                // Если не выбрано ни одного дня — показываем глобальное время
+                const polinaStart = calPolinaStart.value || '08:00';
+                const polinaEnd = calPolinaEnd.value || '20:00';
+                calHTML += `
+                    <div style="margin-top:24px;font-size:16px;line-height:2;">
+                        <p style="margin:4px 0;"><strong>Полина:</strong> ${polinaStart} – ${polinaEnd}</p>
+                    </div>
+                `;
+            }
+
+            captureDiv.innerHTML = calHTML;
+            document.body.appendChild(captureDiv);
+
+            try {
+                const canvas = await html2canvas(captureDiv, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                });
+                document.body.removeChild(captureDiv);
+
+                const link = document.createElement('a');
+                link.download = `calendar_${monthName}_${year}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showToast('📸 Календарь сохранён!');
+            } catch (err) {
+                document.body.removeChild(captureDiv);
+                showToast('❌ Ошибка создания изображения');
+                console.error(err);
+            }
+        });
+
+        // Инициализация календаря
+        renderCalendar();
+
+        // Обновление switchTab
+        if (!window._calendarPatched) {
+            const originalSwitchTab = switchTab;
+            switchTab = function(tabId) {
+                originalSwitchTab(tabId);
+                if (tabId === 'panelCalendar') {
+                    pageTitle.textContent = 'Календарь доступных дней';
+                    renderCalendar();
+                }
+            };
+            window._calendarPatched = true;
+        }
+
+        // --- ПРИЧИНЫ УЙТИ ИЗ САНТЫ ---
+        const reasonInput = document.getElementById('reasonInput');
+        const addReasonBtn = document.getElementById('addReasonBtn');
+        const reasonsList = document.getElementById('reasonsList');
+
+        async function loadReasons() {
+            reasonsList.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:12px;">Загрузка...</p>';
+
+            try {
+                const q = query(collection(db, 'reasons'), where('active', '==', true));
+                const snapshot = await getDocs(q);
+                const reasons = [];
+                snapshot.forEach(doc => reasons.push({ id: doc.id, ...doc.data() }));
+
+                if (reasons.length === 0) {
+                    reasonsList.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Пока нет причин. Добавь первую! 😏</p>';
+                    return;
+                }
+
+                reasons.sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds || 0);
+
+                reasonsList.innerHTML = reasons.map((reason, index) => `
+                    <div style="padding: 12px; margin-bottom: 8px; background: #fef5f5; border-left: 4px solid #e74c3c; border-radius: 8px; transition: 0.2s;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 4px;">
+                            <span style="font-weight: 700; color: #c0392b; font-size: 15px;">#${reasons.length - index}</span>
+                            <span style="font-size: 11px; color: var(--text-muted);">
+                                ${reason.user} · ${reason.timestamp ? new Date(reason.timestamp.seconds * 1000).toLocaleDateString('ru-RU', {day:'numeric', month:'short', year:'numeric'}) : 'только что'}
+                            </span>
+                        </div>
+                        <p style="margin: 0; font-size: 14px; color: var(--text); line-height: 1.5;">${reason.text}</p>
+                        <button class="btn-delete-reason" data-id="${reason.id}" style="margin-top: 8px; padding: 4px 12px; background: #fff; border: 1px solid #fcc; border-radius: 6px; font-size: 11px; color: #e74c3c; cursor: pointer; font-family: var(--font);">
+                            🗑 Удалить
+                        </button>
+                    </div>
+                `).join('');
+
+                document.querySelectorAll('.btn-delete-reason').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        if (!confirm('Точно удалить эту причину?')) return;
+                        try {
+                            await deleteDoc(doc(db, 'reasons', btn.dataset.id));
+                            showToast('🗑 Причина удалена');
+                            loadReasons();
+                        } catch (err) {
+                            showToast('❌ Ошибка удаления: ' + err.message);
+                        }
+                    });
+                });
+
+            } catch (err) {
+                console.error('Ошибка загрузки причин:', err);
+                reasonsList.innerHTML = '<p style="text-align:center;color:#e74c3c;">Не удалось загрузить причины</p>';
+            }
+        }
+
+        async function addReason() {
+            const text = reasonInput.value.trim();
+            if (!text) {
+                showToast('⚠️ Напиши причину!');
+                reasonInput.focus();
+                return;
+            }
+
+            if (text.length < 5) {
+                showToast('⚠️ Минимум 5 символов, напиши серьёзно');
+                return;
+            }
+
+            const user = document.querySelector('input[name="user"]:checked')?.value || 'Полина';
+
+            try {
+                await addDoc(collection(db, 'reasons'), {
+                    text: text,
+                    user: user,
+                    timestamp: serverTimestamp(),
+                    active: true
+                });
+
+                reasonInput.value = '';
+                showToast('✅ Причина добавлена! (теперь точно уйдёшь?)');
+                loadReasons();
+            } catch (err) {
+                showToast('❌ Ошибка: ' + err.message);
+                console.error('Ошибка добавления причины:', err);
+            }
+        }
+
+        addReasonBtn.addEventListener('click', addReason);
+        reasonInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addReason();
+            }
+        });
+
+        loadReasons();
+
+        const originalSwitchTab3 = switchTab;
+        switchTab = function(tabId) {
+            originalSwitchTab3(tabId);
+            if (tabId === 'panelNewDay') {
+                loadReasons();
+            }
+        };
     </script>
 </body>
 </html>
